@@ -1,0 +1,2016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#0d9488">
+    <meta name="description" content="Track your expenses with live exchange rates - works offline!">
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiRXhwZW5zZSBUcmFja2VyIiwic2hvcnRfbmFtZSI6IkV4cGVuc2VzIiwiZGVzY3JpcHRpb24iOiJUcmFjayB5b3VyIGV4cGVuc2VzIHdpdGggbGl2ZSBleGNoYW5nZSByYXRlcyAtIHdvcmtzIG9mZmxpbmUhIiwic3RhcnRfdXJsIjoiLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiNmZmZmZmYiLCJ0aGVtZV9jb2xvciI6IiMwZDk0ODgiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCM2FXUjBhRDBpTVRreUlpQm9aV2xuYUhROUlqRTVNaUlnZG1sbGQwSnZlRDBpTUNBd0lERTVNaUF4T1RJaUlHWnBiR3c5SW01dmJtVWlJSGh0Ykc1elBTSm9kSFJ3T2k4dmQzZDNMbmN6TG05eVp5OHlNREF3TDNOMlp5SStQR1JsWm5NK1BHeHBibVZoY2tkeVlXUnBaVzUwSUdsa1BTSmlaeUlnZURFOUlqQWlJSGt4UFNJd0lpQjRNajBpTVNJZ2VUSTlJakVpUGp4emRHOXdJRzltWm5ObGREMGlNQ1VpSUhOMGIzQXRZMjlzYjNJOUlpTXdaRGswT0RnaUx6NDhjM1J2Y0NCdlptWnpaWFE5SWpFd01DVWlJSE4wYjNBdFkyOXNiM0k5SWlNd05qY3hObUVpTHo0OEwyeHBibVZoY2tkeVlXUnBaVzUwUGp3dlpHVm1jejQ4Y21WamRDQjNhV1IwYUQwaU1Ua3lJaUJvWldsbmFIUTlJakU1TWlJZ2NuZzlJakkwSWlCbWFXeHNQU0oxY213b0kySm5LU0l2UGp4d1lYUm9JR1E5SWswME9DQTJORk16Tnk0eUlEWTBJREk0SURjekxqSWdNamdnT0RSV01UUTBRekk0SURFMU5DNDRJRE0zTGpJZ01UWTBJRFE0SURFMU5FZ3hORFJETVRVMExqZ2dNVFkwSURFMk5DQXhOVFF1T0NBRTVOREF4TkRSV09EUkRNVFkwSURjekxqSWdNVFUwTGpnZ05qUWdNVFEwSURZMFNEUTRXaUlnWm1sc2JEMGlJMlptWm1abVppSXZQangwWVhSb0lHUTlJazAxTmlBNE1FZ3hNelpXTVRRNFNEVTJWamd3V2lJZ1ptbHNiRDBpSTJZNVptRm1ZaUl2UGp4d1lYUm9JR1E5SWswM01pQTVOa2d4TWpCV01UQTBTRGN5VmprMldpSWdabWxzYkQwaUkyUXhaRFZrWWlJdlBqeHdZWFJvSUdROUlrMDNNaUF4TVRKSU1UQTBWakV5TUVnM01sWXhNVEphSWlCbWFXeHNQU0lqWkRGa05XUmlJaTgrUEhCaGRHZ2daRDBpVFRjeUlERXlPRWd4TVRKV01UTTJTRGN5VmpFeU9Gb2lJR1pwYkd3OUlpTmtNV1ExWkdJaUx6NDhZMmx5WTJ4bElHTjRQU0l4TXpZaUlHTjVQU0kxTmlJZ2NqMGlNalFpSUdacGJHdzlJaU5sWmpRME5EUWlMejQ4ZEdWNGRDQjRQU0l4TXpZaUlIazlJalkwSWlCbWIyNTBMV1poYldsc2VUMGljMkZ1Y3kxelpYSnBaaUlnWm05dWRDMXphWHBsUFNJeU5DSWdabTl1ZEMxM1pXbG5hSFE5SW1KdmJHUWlJR1pwYkd3OUluZG9hWFJsSWlCMFpYaDBMV0Z1WTJodmNqMGliV2xrWkd4bElqNGtQQzkwWlhoMFBqd3ZjM1puUGc9PSIsInNpemVzIjoiMTkyeDE5MiIsInR5cGUiOiJpbWFnZS9zdmcreG1sIn0seyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUIzYVdSMGFEMGlOVEV5SWlCb1pXbG5hSFE5SWpVeE1pSWdkbWxsZDBKdmVEMGlNQ0F3SURVETVNZ0ExTVRJaUlHWnBiR3c5SW01dmJtVWlJSGh0Ykc1elBTSm9kSFJ3T2k4dmQzZDNMbmN6TG05eVp5OHlNREF3TDNOMlp5SStQR1JsWm5NK1BHeHBibVZoY2tkeVlXUnBaVzUwSUdsa1BTSmlaeUlnZURFOUlqQWlJSGt4UFNJd0lpQjRNajBpTVNJZ2VUSTlJakVpUGp4emRHOXdJRzltWm5ObGREMGlNQ1VpSUhOMGIzQXRZMjlzYjNJOUlpTXdaRGswT0RnaUx6NDhjM1J2Y0NCdlptWnpaWFE5SWpFd01DVWlJSE4wYjNBdFkyOXNiM0k5SWlNd05qY3hObUVpTHo0OEwyeHBibVZoY2tkeVlXUnBaVzUwUGp3dlpHVm1jejQ4Y21WamRDQjNhV1IwYUQwaU5URXlJaUJvWldsbmFIUTlJalV4TWlJZ2NuZzlJalkwSWlCbWFXeHNQU0oxY213b0kySm5LU0l2UGp4d1lYUm9JR1E5SWsweE1qZ2dNVGN5UXpreUxqZ2dNVGN5SURjMElEazJMamdnTnpRZ09EUldNelk0UXpjMElEUXdNUzQ0SURreUxqZ2dOREF3SURFeU9DQTBNREJJTXpnMFF6UXdNUzQ0SURRd01DQTBNVFlnTkRBeExqZ2dORE0ySURRd01GWXpOamhETkRNMklEa3lMamdnTkRBeExqZ2dNVGN5SURNNE5DQXhOekpJTVRJNFdpSWdabWxzYkQwaUkyWm1abVptWmlJdlBqeHdZWFJvSUdROUlrMHhOVEFnTWpFMlNETTJNRll6T1RaSU1UVXdWakl4TmxvaUlHWnBiR3c5SWlObU9XWmhabUlpTHo0OGNHRjBhQ0JrUFNKTk1UazBJREkxTmtnelRqUldNalEwU0RFNU5GWXlOVFphSWlCbWFXeHNQU0lqWkRGa05XUmlJaTgrUEhCaGRHZ2daRDBpVFRFNU5DQXlOekpJTWpnNFZqSTRNRWd4T1RSV01qY3lXaUlnWm1sc2JEMGlJMlF4WkRWa1lpSXZQangwWVhSb0lHUTlJazB5TnpZZ01qZzRTRE0yTUZZeU9UWklNamMyVmpJNE9Gb2lJR1pwYkd3OUlpTmtNV1ExWkdJaUx6NDhZMmx5WTJ4bElHTjRQU0l6TmpZaUlHTjVQU0l4TkRRaUlISTlJalkwSWlCbWFXeHNQU0lqWldZME5EUTBJaTgrUEhSbGVIUWdlRDBpTXpZMklpQjVQU0l4TlRJaUlHWnZiblF0Wm1GdGFXeDVQU0p6WVc1ekxYTmxjbWxtSWlCbWIyNTBMWE5wZW1VOUlqWTBJaUJtYjI1MExYZGxhV2RvZEQwaVltOXNaQ0lnWm1sc2JEMGlkMmhwZEdVaUlIUmxlSFF0WVc1amFHOXlQU0p0YVdSa2JHVWlQaVE4TDNSbGVIUStQQzl6ZG1jKyIsInNpemVzIjoiNTEyeDUxMiIsInR5cGUiOiJpbWFnZS9zdmcreG1sIn1dfQ==">
+
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJiZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMwZDk0ODgiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwNjcxNmEiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgcng9IjI0IiBmaWxsPSJ1cmwoI2JnKSIvPjxwYXRoIGQ9Ik00OCA2NEMzNy4yIDY0IDI4IDczLjIgMjggODRWMTQ0QzI4IDE1NC44IDM3LjIgMTY0IDQ4IDE2NEgxNDRDMTU0LjggMTY0IDE2NCAxNTQuOCAxNjQgMTQ0Vjg0QzE2NCA3My4yIDE1NC44IDY0IDE0NCA2NEg0OFoiIGZpbGw9IiNmZmZmZmYiLz48cGF0aCBkPSJNNTYgODBIMTM2VjE0OEg1NlY4MFoiIGZpbGw9IiNmOWZhZmIiLz48cGF0aCBkPSJNNzIgOTZIMTIwVjEwNEg3MlY5NloiIGZpbGw9IiNkMWQ1ZGIiLz48cGF0aCBkPSJNNzIgMTEySDEwNFYxMjBINzJWMTEyWiIgZmlsbD0iI2QxZDVkYiIvPjxwYXRoIGQ9Ik03MiAxMjhIMTEyVjEzNkg3MlYxMjhaIiBmaWxsPSIjZDFkNWRiIi8+PGNpcmNsZSBjeD0iMTM2IiBjeT0iNTYiIHI9IjI0IiBmaWxsPSIjZWY0NDQ0Ii8+PHRleHQgeD0iMTM2IiB5PSI2NCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+JDwvdGV4dD48L3N2Zz4=">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        .expense-item {
+            transition: all 0.2s ease;
+        }
+        .expense-item:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .category-food { background-color: #fef3c7; border-left: 4px solid #f59e0b; }
+        .category-groceries { background-color: #ecfdf5; border-left: 4px solid #059669; }
+        .category-rent { background-color: #fef2f2; border-left: 4px solid #dc2626; }
+        .category-transport { background-color: #dbeafe; border-left: 4px solid #3b82f6; }
+        .category-entertainment { background-color: #fce7f3; border-left: 4px solid #ec4899; }
+        .category-shopping { background-color: #dcfce7; border-left: 4px solid #10b981; }
+        .category-bills { background-color: #fee2e2; border-left: 4px solid #ef4444; }
+        .category-exchange { background-color: #f0f9ff; border-left: 4px solid #0ea5e9; }
+        .category-other { background-color: #f3f4f6; border-left: 4px solid #6b7280; }
+        .conversion-hint {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+        .rainbow-hover {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .rainbow-hover:hover {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #54a0ff);
+            background-size: 400% 400%;
+            animation: rainbow 2s ease infinite;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+        /* Fix dropdown z-index issues */
+        select {
+            position: relative;
+            z-index: 10;
+        }
+        .form-section {
+            position: relative;
+            z-index: 5;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-teal-50 to-cyan-50 min-h-screen font-sans">
+    <div class="container mx-auto px-3 md:px-4 py-4 md:py-8 max-w-4xl">
+        <!-- Header -->
+        <div class="text-center mb-6 md:mb-8">
+            <h1 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2">💰 Expense Tracker</h1>
+            <p class="text-sm md:text-base text-gray-600 px-4">Keep track of your spending with live exchange rates</p>
+        </div>
+
+        <!-- Exchange Rate Setting -->
+        <div class="bg-white rounded-xl shadow-lg p-4 mb-6">
+            <div class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4">
+                <div class="text-sm text-gray-600">Exchange Rate:</div>
+                <div class="flex items-center space-x-2">
+                    <span class="text-sm">1 USD =</span>
+                    <input type="number" id="exchangeRateInput" value="282" step="0.01" min="1"
+                           class="w-20 px-2 py-1 border border-gray-300 rounded text-center focus:ring-2 focus:ring-purple-500">
+                    <span class="text-sm">PKR</span>
+                    <button id="updateRateBtn" class="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 whitespace-nowrap">
+                        Update
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
+            <div class="bg-white rounded-xl shadow-lg p-4 md:p-6 text-center">
+                <div class="text-2xl md:text-3xl mb-2">📊</div>
+                <h3 class="text-base md:text-lg font-semibold text-gray-700 mb-1">Total Expenses</h3>
+                <p id="totalAmount" class="text-lg md:text-2xl font-bold text-red-500">$0.00</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg p-4 md:p-6 text-center">
+                <div class="text-2xl md:text-3xl mb-2">📝</div>
+                <h3 class="text-base md:text-lg font-semibold text-gray-700 mb-1">Monthly Entries</h3>
+                <div id="monthlyEntries" class="space-y-1">
+                    <p class="text-lg md:text-2xl font-bold text-blue-500">0</p>
+                    <p class="text-xs text-gray-500">This month</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg p-4 md:p-6 text-center sm:col-span-2 lg:col-span-1">
+                <div class="text-2xl md:text-3xl mb-2">📅</div>
+                <h3 class="text-base md:text-lg font-semibold text-gray-700 mb-1">This Month</h3>
+                <p id="monthlyAmount" class="text-lg md:text-2xl font-bold text-teal-500">$0.00</p>
+            </div>
+        </div>
+
+        <!-- Add Expense Form -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8 form-section">
+            <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-6">Add New Expense</h2>
+            <form id="expenseForm" class="space-y-6">
+                <!-- First Row: Description and Amount -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                        <input type="text" id="description" placeholder="e.g., Lunch at cafe"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-base" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Amount</label>
+                        <div class="flex">
+                            <input type="number" id="amount" placeholder="0.00" step="0.01" min="0"
+                                   class="flex-1 px-4 py-3 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-base" required>
+                            <select id="currency" class="w-24 px-3 py-3 border border-l-0 border-gray-300 rounded-r-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-gray-50 text-base">
+                                <option value="USD">USD</option>
+                                <option value="PKR">PKR</option>
+                            </select>
+                        </div>
+                        <div id="conversionSection" class="mt-3 hidden">
+                            <div class="flex flex-wrap items-center gap-2 p-3 bg-blue-50 rounded-lg">
+                                <span class="text-sm text-gray-600">Converts to:</span>
+                                <input type="number" id="convertedAmount" placeholder="0.00" step="0.01" min="0"
+                                       class="w-24 px-2 py-1 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-teal-500">
+                                <span id="convertedCurrency" class="text-sm text-gray-600">PKR</span>
+                                <button type="button" id="useConvertedBtn" class="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 whitespace-nowrap">
+                                    Use This
+                                </button>
+                            </div>
+                        </div>
+                        <div id="conversionHint" class="conversion-hint mt-1"></div>
+                    </div>
+                </div>
+
+                <!-- Second Row: Date and Category -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
+                        <input type="date" id="expenseDate"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-base" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                        <select id="category" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-base" required>
+                            <option value="">Select category</option>
+                            <option value="food">🍔 Food & Dining</option>
+                            <option value="groceries">🛒 Groceries</option>
+                            <option value="rent">🏠 Rent</option>
+                            <option value="transport">🚗 Transportation</option>
+                            <option value="entertainment">🎬 Entertainment</option>
+                            <option value="shopping">🛍️ Shopping</option>
+                            <option value="bills">💡 Bills & Utilities</option>
+                            <option value="exchange">💱 Exchange Money</option>
+                            <option value="other">📦 Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="flex justify-center pt-2">
+                    <button type="submit" class="bg-teal-600 text-white font-semibold py-3 px-8 rounded-lg hover:bg-teal-700 transition duration-200 rainbow-hover text-base min-w-[200px]">
+                        Add Expense
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- View Toggle and Controls -->
+        <div class="bg-white rounded-xl shadow-lg p-4 md:p-6 mb-6 md:mb-8">
+            <div class="flex flex-col space-y-4">
+                <!-- View Toggle -->
+                <div class="flex flex-col sm:flex-row justify-center gap-2 sm:gap-4">
+                    <button id="listViewBtn" class="px-4 md:px-6 py-2 bg-teal-600 text-white rounded-lg font-medium rainbow-hover text-sm md:text-base">
+                        📋 <span class="hidden sm:inline">List View</span><span class="sm:hidden">List</span>
+                    </button>
+                    <button id="spreadsheetViewBtn" class="px-4 md:px-6 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium rainbow-hover text-sm md:text-base">
+                        📊 <span class="hidden sm:inline">Monthly Spreadsheet</span><span class="sm:hidden">Spreadsheet</span>
+                    </button>
+                    <button id="analyticsViewBtn" class="px-4 md:px-6 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium rainbow-hover text-sm md:text-base">
+                        📈 <span class="hidden sm:inline">Analytics</span><span class="sm:hidden">Analytics</span>
+                    </button>
+                </div>
+
+                <!-- Search and Filter Controls -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+                    <div class="sm:col-span-2 lg:col-span-1">
+                        <input type="text" id="searchInput" placeholder="Search expenses..."
+                               class="w-full px-3 md:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 text-sm md:text-base">
+                    </div>
+                    <div>
+                        <select id="categoryFilter" class="w-full px-3 md:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 text-sm md:text-base">
+                            <option value="">All Categories</option>
+                            <option value="food">🍔 Food & Dining</option>
+                            <option value="groceries">🛒 Groceries</option>
+                            <option value="rent">🏠 Rent</option>
+                            <option value="transport">🚗 Transportation</option>
+                            <option value="entertainment">🎬 Entertainment</option>
+                            <option value="shopping">🛍️ Shopping</option>
+                            <option value="bills">💡 Bills & Utilities</option>
+                            <option value="exchange">💱 Exchange Money</option>
+                            <option value="other">📦 Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <select id="currencyFilter" class="w-full px-3 md:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 text-sm md:text-base">
+                            <option value="">All Currencies</option>
+                            <option value="USD">USD ($)</option>
+                            <option value="PKR">PKR (₨)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button id="exportBtn" class="w-full px-3 md:px-4 py-2 bg-green-600 text-white rounded-lg font-medium rainbow-hover text-sm md:text-base">
+                            📥 <span class="hidden sm:inline">Export CSV</span><span class="sm:hidden">Export</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- List View -->
+        <div id="listView" class="bg-white rounded-xl shadow-lg p-4 md:p-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 md:mb-6 gap-2">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800">Recent Expenses</h2>
+                <button id="clearAll" class="text-red-500 hover:text-red-700 font-medium transition duration-200 text-sm md:text-base">
+                    Clear All
+                </button>
+            </div>
+            <div id="expenseList" class="space-y-3">
+                <div class="text-center py-6 md:py-8 text-gray-500">
+                    <div class="text-3xl md:text-4xl mb-2">📋</div>
+                    <p class="text-sm md:text-base px-4">No expenses yet. Add your first expense above!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Spreadsheet View -->
+        <div id="spreadsheetView" class="bg-white rounded-xl shadow-lg p-4 md:p-6 hidden">
+            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-4 md:mb-6 gap-4">
+                <h2 id="spreadsheetTitle" class="text-xl md:text-2xl font-bold text-gray-800">Monthly Expense Report</h2>
+                <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full lg:w-auto">
+                    <select id="monthFilter" class="px-3 md:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 text-sm md:text-base">
+                        <option value="">Select Month</option>
+                    </select>
+                    <select id="yearFilter" class="px-3 md:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 text-sm md:text-base">
+                        <option value="">Select Year</option>
+                    </select>
+                    <select id="dayFilter" class="px-3 md:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 text-sm md:text-base">
+                        <option value="">All Days (Monthly View)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="overflow-x-auto -mx-4 md:mx-0">
+                <div class="min-w-full inline-block align-middle">
+                    <table id="expenseTable" class="w-full border-collapse min-w-[600px]">
+                        <thead>
+                            <tr class="bg-gray-50">
+                                <th class="border border-gray-300 px-2 md:px-4 py-2 text-left font-semibold text-xs md:text-sm">Date</th>
+                                <th class="border border-gray-300 px-2 md:px-4 py-2 text-left font-semibold text-xs md:text-sm">Description</th>
+                                <th class="border border-gray-300 px-2 md:px-4 py-2 text-left font-semibold text-xs md:text-sm">Category</th>
+                                <th class="border border-gray-300 px-2 md:px-4 py-2 text-right font-semibold text-xs md:text-sm">Amount (USD)</th>
+                                <th class="border border-gray-300 px-2 md:px-4 py-2 text-right font-semibold text-xs md:text-sm">Amount (PKR)</th>
+                                <th class="border border-gray-300 px-2 md:px-4 py-2 text-center font-semibold text-xs md:text-sm">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="expenseTableBody">
+                            <tr>
+                                <td colspan="6" class="border border-gray-300 px-2 md:px-4 py-6 md:py-8 text-center text-gray-500 text-sm md:text-base">
+                                    No expenses to display
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot id="expenseTableFooter" class="bg-teal-50 font-bold">
+                            <tr>
+                                <td colspan="3" class="border border-gray-300 px-2 md:px-4 py-2 text-right text-teal-800 text-xs md:text-sm">Total:</td>
+                                <td id="totalUSD" class="border border-gray-300 px-2 md:px-4 py-2 text-right text-teal-800 text-xs md:text-sm">$0.00</td>
+                                <td id="totalPKR" class="border border-gray-300 px-2 md:px-4 py-2 text-right text-teal-800 text-xs md:text-sm">₨0.00</td>
+                                <td class="border border-gray-300 px-2 md:px-4 py-2"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics View -->
+        <div id="analyticsView" class="bg-white rounded-xl shadow-lg p-4 md:p-6 hidden">
+            <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 md:mb-6">Expense Analytics</h2>
+
+            <!-- Analytics Summary Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-8">
+                <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg p-3 md:p-4">
+                    <div class="text-xs md:text-sm opacity-90">Average Daily</div>
+                    <div id="avgDaily" class="text-lg md:text-xl font-bold">$0.00</div>
+                </div>
+                <div class="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg p-3 md:p-4">
+                    <div class="text-xs md:text-sm opacity-90">Highest Category</div>
+                    <div id="highestCategory" class="text-lg md:text-xl font-bold">-</div>
+                </div>
+                <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg p-3 md:p-4">
+                    <div class="text-xs md:text-sm opacity-90">Most Frequent</div>
+                    <div id="mostFrequent" class="text-lg md:text-xl font-bold">-</div>
+                </div>
+                <div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg p-3 md:p-4">
+                    <div class="text-xs md:text-sm opacity-90">Days Active</div>
+                    <div id="daysActive" class="text-lg md:text-xl font-bold">0</div>
+                </div>
+            </div>
+
+            <!-- Category Breakdown -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+                <div>
+                    <h3 class="text-base md:text-lg font-semibold text-gray-800 mb-3 md:mb-4">Spending by Category</h3>
+                    <div id="categoryChart" class="space-y-2 md:space-y-3">
+                        <!-- Category bars will be generated here -->
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-base md:text-lg font-semibold text-gray-800 mb-3 md:mb-4">Monthly Trend</h3>
+                    <div id="monthlyTrend" class="space-y-2">
+                        <!-- Monthly trend will be generated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+        let currentView = 'list';
+        let exchangeRate = parseFloat(localStorage.getItem('exchangeRate')) || 282;
+        let lastConvertedAmount = null;
+        let lastConvertedCurrency = null;
+        let filteredExpenses = [];
+        let isLoadingRate = false;
+
+        const expenseForm = document.getElementById('expenseForm');
+        const expenseList = document.getElementById('expenseList');
+        const totalAmount = document.getElementById('totalAmount');
+        const totalEntries = document.getElementById('totalEntries');
+        const monthlyAmount = document.getElementById('monthlyAmount');
+        const clearAllBtn = document.getElementById('clearAll');
+        const amountInput = document.getElementById('amount');
+        const currencySelect = document.getElementById('currency');
+        const conversionHint = document.getElementById('conversionHint');
+        const exchangeRateInput = document.getElementById('exchangeRateInput');
+        const updateRateBtn = document.getElementById('updateRateBtn');
+        const conversionSection = document.getElementById('conversionSection');
+        const convertedAmount = document.getElementById('convertedAmount');
+        const convertedCurrency = document.getElementById('convertedCurrency');
+        const useConvertedBtn = document.getElementById('useConvertedBtn');
+
+        // View toggle elements
+        const listViewBtn = document.getElementById('listViewBtn');
+        const spreadsheetViewBtn = document.getElementById('spreadsheetViewBtn');
+        const analyticsViewBtn = document.getElementById('analyticsViewBtn');
+        const listView = document.getElementById('listView');
+        const spreadsheetView = document.getElementById('spreadsheetView');
+        const analyticsView = document.getElementById('analyticsView');
+
+        // Search and filter elements
+        const searchInput = document.getElementById('searchInput');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const currencyFilter = document.getElementById('currencyFilter');
+        const exportBtn = document.getElementById('exportBtn');
+
+        // Spreadsheet elements
+        const monthFilter = document.getElementById('monthFilter');
+        const yearFilter = document.getElementById('yearFilter');
+        const dayFilter = document.getElementById('dayFilter');
+        const expenseTableBody = document.getElementById('expenseTableBody');
+        const totalUSD = document.getElementById('totalUSD');
+        const totalPKR = document.getElementById('totalPKR');
+
+        const categoryEmojis = {
+            food: '🍔',
+            groceries: '🛒',
+            rent: '🏠',
+            transport: '🚗',
+            entertainment: '🎬',
+            shopping: '🛍️',
+            bills: '💡',
+            exchange: '💱',
+            other: '📦'
+        };
+
+        const categoryNames = {
+            food: 'Food & Dining',
+            groceries: 'Groceries',
+            rent: 'Rent',
+            transport: 'Transportation',
+            entertainment: 'Entertainment',
+            shopping: 'Shopping',
+            bills: 'Bills & Utilities',
+            exchange: 'Exchange Money',
+            other: 'Other'
+        };
+
+
+
+        function updateExchangeRate() {
+            const newRate = parseFloat(exchangeRateInput.value);
+            if (newRate && newRate > 0) {
+                exchangeRate = newRate;
+                localStorage.setItem('exchangeRate', exchangeRate.toString());
+
+                // Update any existing conversion hints
+                if (amountInput.value && currencySelect.value) {
+                    handleAmountChange();
+                }
+
+                // Show success feedback
+                updateRateBtn.textContent = 'Updated!';
+                updateRateBtn.classList.add('bg-green-600');
+                updateRateBtn.classList.remove('bg-blue-500');
+
+                rateStatus.textContent = 'Manual rate updated';
+                rateStatus.style.color = '#059669';
+
+                setTimeout(() => {
+                    updateRateBtn.textContent = 'Update';
+                    updateRateBtn.classList.remove('bg-green-600');
+                    updateRateBtn.classList.add('bg-blue-500');
+                }, 1500);
+            }
+        }
+
+        function convertCurrency(amount, fromCurrency, toCurrency) {
+            if (fromCurrency === toCurrency) return amount;
+
+            if (fromCurrency === 'USD' && toCurrency === 'PKR') {
+                return Math.round(amount * exchangeRate * 100) / 100;
+            } else if (fromCurrency === 'PKR' && toCurrency === 'USD') {
+                return Math.round((amount / exchangeRate) * 100) / 100;
+            }
+
+            return amount;
+        }
+
+        function handleCurrencyChange() {
+            const currentAmount = parseFloat(amountInput.value);
+            const currentCurrency = currencySelect.value;
+
+            if (currentAmount && currentAmount > 0 && currentCurrency) {
+                const otherCurrency = currentCurrency === 'USD' ? 'PKR' : 'USD';
+                const equivalent = convertCurrency(currentAmount, currentCurrency, otherCurrency);
+
+                // Show conversion section
+                conversionSection.classList.remove('hidden');
+                convertedCurrency.textContent = otherCurrency;
+                convertedAmount.value = equivalent.toFixed(2);
+
+                const equivalentSymbol = otherCurrency === 'USD' ? '$' : '₨';
+                conversionHint.textContent = `Auto-calculated: ${equivalentSymbol}${equivalent.toFixed(2)} (you can edit this)`;
+                conversionHint.style.color = '#6b7280';
+            } else {
+                conversionSection.classList.add('hidden');
+                conversionHint.textContent = '';
+            }
+        }
+
+        function handleAmountChange() {
+            const currentAmount = parseFloat(amountInput.value);
+            const currentCurrency = currencySelect.value;
+
+            if (currentAmount && currentAmount > 0 && currentCurrency) {
+                const otherCurrency = currentCurrency === 'USD' ? 'PKR' : 'USD';
+                const equivalent = convertCurrency(currentAmount, currentCurrency, otherCurrency);
+
+                // Show conversion section
+                conversionSection.classList.remove('hidden');
+                convertedCurrency.textContent = otherCurrency;
+                convertedAmount.value = equivalent.toFixed(2);
+
+                const equivalentSymbol = otherCurrency === 'USD' ? '$' : '₨';
+                conversionHint.textContent = `Auto-calculated: ${equivalentSymbol}${equivalent.toFixed(2)} (you can edit this)`;
+                conversionHint.style.color = '#6b7280';
+            } else {
+                conversionSection.classList.add('hidden');
+                conversionHint.textContent = '';
+            }
+        }
+
+        function useConvertedAmount() {
+            const convertedValue = parseFloat(convertedAmount.value);
+            const targetCurrency = convertedCurrency.textContent;
+
+            if (convertedValue && convertedValue > 0) {
+                amountInput.value = convertedValue.toFixed(2);
+                currencySelect.value = targetCurrency;
+                conversionSection.classList.add('hidden');
+                conversionHint.textContent = '';
+
+                // Show success feedback
+                useConvertedBtn.textContent = 'Used!';
+                useConvertedBtn.classList.add('bg-green-600');
+                useConvertedBtn.classList.remove('bg-blue-500');
+
+                setTimeout(() => {
+                    useConvertedBtn.textContent = 'Use This';
+                    useConvertedBtn.classList.remove('bg-green-600');
+                    useConvertedBtn.classList.add('bg-blue-500');
+                }, 1000);
+            }
+        }
+
+        function filterExpenses() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const categoryFilterValue = categoryFilter.value;
+            const currencyFilterValue = currencyFilter.value;
+
+            // Only apply search/category/currency filters in list view
+            if (currentView === 'list') {
+                filteredExpenses = expenses.filter(expense => {
+                    const matchesSearch = expense.description.toLowerCase().includes(searchTerm) ||
+                                        categoryNames[expense.category].toLowerCase().includes(searchTerm);
+                    const matchesCategory = !categoryFilterValue || expense.category === categoryFilterValue;
+                    const matchesCurrency = !currencyFilterValue || expense.currency === currencyFilterValue;
+
+                    return matchesSearch && matchesCategory && matchesCurrency;
+                });
+                renderExpenses();
+            } else {
+                // For spreadsheet and analytics, don't use filtered expenses
+                filteredExpenses = [];
+                if (currentView === 'spreadsheet') {
+                    renderSpreadsheet();
+                } else if (currentView === 'analytics') {
+                    renderAnalytics();
+                }
+            }
+        }
+
+        function exportToCSV() {
+            let expensesToExport = [];
+            let exportDescription = '';
+            let periodDescription = '';
+
+            // Determine what to export based on current view and filters
+            if (currentView === 'list') {
+                // In list view, export filtered expenses or all if no filters
+                expensesToExport = filteredExpenses.length > 0 ? filteredExpenses : expenses;
+                exportDescription = filteredExpenses.length > 0 ? 'filtered' : 'all';
+                periodDescription = filteredExpenses.length > 0 ? 'Filtered Expenses' : 'All Expenses';
+            } else if (currentView === 'spreadsheet') {
+                // In spreadsheet view, export based on month/year/day filters
+                const selectedMonth = monthFilter.value;
+                const selectedYear = yearFilter.value;
+                const selectedDay = dayFilter.value;
+
+                if (selectedMonth !== '' && selectedYear !== '') {
+                    // Filter by selected month/year/day
+                    expensesToExport = expenses.filter(expense => {
+                        let date;
+                        if (expense.date.includes('T')) {
+                            date = new Date(expense.date);
+                        } else {
+                            const [year, month, day] = expense.date.split('-');
+                            date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+                        }
+
+                        const monthMatch = date.getMonth() == selectedMonth;
+                        const yearMatch = date.getFullYear() == selectedYear;
+                        const dayMatch = selectedDay === '' || date.getDate() == selectedDay;
+                        return monthMatch && yearMatch && dayMatch;
+                    });
+
+                    // Create description for filename and period
+                    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                                      'July', 'August', 'September', 'October', 'November', 'December'];
+                    if (selectedDay !== '') {
+                        exportDescription = `${selectedYear}-${String(parseInt(selectedMonth) + 1).padStart(2, '0')}-${String(selectedDay).padStart(2, '0')}`;
+                        const dayName = new Date(selectedYear, selectedMonth, selectedDay).toLocaleDateString('en-US', { weekday: 'long' });
+                        periodDescription = `${dayName}, ${monthNames[selectedMonth]} ${selectedDay}, ${selectedYear}`;
+                    } else {
+                        exportDescription = `${monthNames[selectedMonth]}_${selectedYear}`;
+                        periodDescription = `${monthNames[selectedMonth]} ${selectedYear}`;
+                    }
+                } else {
+                    // No filters selected, export all
+                    expensesToExport = expenses;
+                    exportDescription = 'all';
+                    periodDescription = 'All Expenses';
+                }
+            } else {
+                // Analytics view - export all expenses
+                expensesToExport = expenses;
+                exportDescription = 'all';
+                periodDescription = 'All Expenses (Analytics Export)';
+            }
+
+            if (expensesToExport.length === 0) {
+                alert('No expenses to export for the selected period!');
+                return;
+            }
+
+            try {
+                // Calculate totals for the exported expenses
+                let totalUSD = 0;
+                let totalPKR = 0;
+                let totalExpenses = expensesToExport.length;
+
+                expensesToExport.forEach(expense => {
+                    if (expense.currency === 'USD') {
+                        totalUSD += expense.amount;
+                        // Add converted PKR amount if available
+                        if (expense.convertedAmount && expense.convertedCurrency === 'PKR') {
+                            totalPKR += expense.convertedAmount;
+                        }
+                    } else if (expense.currency === 'PKR') {
+                        totalPKR += expense.amount;
+                        // Add converted USD amount if available
+                        if (expense.convertedAmount && expense.convertedCurrency === 'USD') {
+                            totalUSD += expense.convertedAmount;
+                        }
+                    }
+                });
+
+                // Create CSV content with headers
+                const headers = ['Date', 'Description', 'Category', 'Amount', 'Currency', 'Converted Amount', 'Converted Currency'];
+
+                // Add title and summary at the top
+                const csvLines = [
+                    `"Expense Tracker Export"`,
+                    `"Period: ${periodDescription}"`,
+                    `"Export Date: ${new Date().toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    })}"`,
+                    `"Exchange Rate Used: 1 USD = ${exchangeRate} PKR"`,
+                    `""`, // Empty line
+                    `"SUMMARY"`,
+                    `"Total Expenses: ${totalExpenses}"`,
+                    `"Total USD: $${totalUSD.toFixed(2)}"`,
+                    `"Total PKR: ₨${totalPKR.toFixed(2)}"`,
+                    `""`, // Empty line
+                    `"EXPENSE DETAILS"`,
+                    headers.join(','), // Column headers
+
+                    // Add all expense rows
+                    ...expensesToExport.map(expense => [
+                        formatDateForTable(new Date(expense.date)),
+                        `"${expense.description.replace(/"/g, '""')}"`, // Escape quotes properly
+                        `"${categoryNames[expense.category]}"`,
+                        expense.amount,
+                        expense.currency,
+                        expense.convertedAmount || '',
+                        expense.convertedCurrency || ''
+                    ].join(',')),
+
+                    `""`, // Empty line
+                    `"TOTALS"`,
+                    `"","","Total USD:","${totalUSD.toFixed(2)}","USD","",""`,
+                    `"","","Total PKR:","${totalPKR.toFixed(2)}","PKR","",""`,
+                    `"","","Total Expenses:","${totalExpenses}","entries","",""`
+                ];
+
+                const csvContent = csvLines.join('\n');
+
+                // Create blob with BOM for better Excel compatibility
+                const BOM = '\uFEFF';
+                const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
+
+                // Create filename based on what's being exported
+                const filename = `expenses_${exportDescription}_${new Date().toISOString().split('T')[0]}.csv`;
+
+                // Try multiple download methods for better browser compatibility
+                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                    // For IE/Edge
+                    window.navigator.msSaveOrOpenBlob(blob, filename);
+                } else {
+                    // For modern browsers
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = filename;
+                    a.style.display = 'none';
+
+                    // Add to DOM, click, then remove
+                    document.body.appendChild(a);
+
+                    // Force click with timeout to ensure it works
+                    setTimeout(() => {
+                        a.click();
+
+                        // Clean up after a delay
+                        setTimeout(() => {
+                            document.body.removeChild(a);
+                            window.URL.revokeObjectURL(url);
+                        }, 100);
+                    }, 10);
+                }
+
+                // Show success feedback with summary
+                exportBtn.textContent = `Downloaded! (${totalExpenses} expenses) ✓`;
+                exportBtn.classList.add('bg-green-700');
+                exportBtn.classList.remove('bg-green-600');
+
+                setTimeout(() => {
+                    exportBtn.textContent = '📥 Export CSV';
+                    exportBtn.classList.remove('bg-green-700');
+                    exportBtn.classList.add('bg-green-600');
+                }, 3000);
+
+                console.log('CSV export completed successfully:', {
+                    period: periodDescription,
+                    totalExpenses,
+                    totalUSD: totalUSD.toFixed(2),
+                    totalPKR: totalPKR.toFixed(2)
+                });
+
+            } catch (error) {
+                console.error('CSV export failed:', error);
+                alert('Export failed. Please try again.');
+
+                // Reset button on error
+                exportBtn.textContent = '📥 Export CSV';
+                exportBtn.classList.remove('bg-green-700');
+                exportBtn.classList.add('bg-green-600');
+            }
+        }
+
+        function formatCurrency(amount, currency = 'USD') {
+            if (currency === 'PKR') {
+                return new Intl.NumberFormat('en-PK', {
+                    style: 'currency',
+                    currency: 'PKR'
+                }).format(amount);
+            } else {
+                return new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD'
+                }).format(amount);
+            }
+        }
+
+        function formatMixedCurrencies(expenses) {
+            const usdTotal = expenses.filter(e => e.currency === 'USD').reduce((sum, e) => sum + e.amount, 0);
+            const pkrTotal = expenses.filter(e => e.currency === 'PKR').reduce((sum, e) => sum + e.amount, 0);
+
+            if (usdTotal > 0 && pkrTotal > 0) {
+                return `${formatCurrency(usdTotal, 'USD')} + ${formatCurrency(pkrTotal, 'PKR')}`;
+            } else if (pkrTotal > 0) {
+                return formatCurrency(pkrTotal, 'PKR');
+            } else {
+                return formatCurrency(usdTotal, 'USD');
+            }
+        }
+
+        function formatDate(date) {
+            return new Intl.DateTimeFormat('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+            }).format(date);
+        }
+
+        function formatDateForTable(date) {
+            return new Intl.DateTimeFormat('en-US', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            }).format(date);
+        }
+
+        function switchToListView() {
+            currentView = 'list';
+            listView.classList.remove('hidden');
+            spreadsheetView.classList.add('hidden');
+            analyticsView.classList.add('hidden');
+
+            // Update button styles
+            listViewBtn.classList.add('bg-teal-600', 'text-white');
+            listViewBtn.classList.remove('bg-gray-200', 'text-gray-700');
+            spreadsheetViewBtn.classList.add('bg-gray-200', 'text-gray-700');
+            spreadsheetViewBtn.classList.remove('bg-teal-600', 'text-white');
+            analyticsViewBtn.classList.add('bg-gray-200', 'text-gray-700');
+            analyticsViewBtn.classList.remove('bg-teal-600', 'text-white');
+
+            // Clear spreadsheet filters when switching to list view
+            monthFilter.value = '';
+            yearFilter.value = '';
+            dayFilter.value = '';
+
+            filterExpenses();
+        }
+
+        function switchToSpreadsheetView() {
+            currentView = 'spreadsheet';
+            listView.classList.add('hidden');
+            spreadsheetView.classList.remove('hidden');
+            analyticsView.classList.add('hidden');
+
+            // Update button styles
+            spreadsheetViewBtn.classList.add('bg-teal-600', 'text-white');
+            spreadsheetViewBtn.classList.remove('bg-gray-200', 'text-gray-700');
+            listViewBtn.classList.add('bg-gray-200', 'text-gray-700');
+            listViewBtn.classList.remove('bg-teal-600', 'text-white');
+            analyticsViewBtn.classList.add('bg-gray-200', 'text-gray-700');
+            analyticsViewBtn.classList.remove('bg-teal-600', 'text-white');
+
+            // Clear search filters when switching to spreadsheet view
+            searchInput.value = '';
+            categoryFilter.value = '';
+            currencyFilter.value = '';
+
+            renderSpreadsheet();
+        }
+
+        function switchToAnalyticsView() {
+            currentView = 'analytics';
+            listView.classList.add('hidden');
+            spreadsheetView.classList.add('hidden');
+            analyticsView.classList.remove('hidden');
+
+            // Update button styles
+            analyticsViewBtn.classList.add('bg-teal-600', 'text-white');
+            analyticsViewBtn.classList.remove('bg-gray-200', 'text-gray-700');
+            listViewBtn.classList.add('bg-gray-200', 'text-gray-700');
+            listViewBtn.classList.remove('bg-teal-600', 'text-white');
+            spreadsheetViewBtn.classList.add('bg-gray-200', 'text-gray-700');
+            spreadsheetViewBtn.classList.remove('bg-teal-600', 'text-white');
+
+            // Clear search filters when switching to analytics view
+            searchInput.value = '';
+            categoryFilter.value = '';
+            currencyFilter.value = '';
+
+            renderAnalytics();
+        }
+
+        function populateFilters() {
+            const months = ['January', 'February', 'March', 'April', 'May', 'June',
+                          'July', 'August', 'September', 'October', 'November', 'December'];
+
+            const uniqueMonths = new Set();
+            const uniqueYears = new Set();
+
+            console.log('Populating filters with expenses:', expenses.length);
+
+            // Only populate if we have expenses
+            if (expenses.length > 0) {
+                expenses.forEach(expense => {
+                    // Handle both date string formats (YYYY-MM-DD and ISO)
+                    let date;
+                    if (expense.date.includes('T')) {
+                        date = new Date(expense.date);
+                    } else {
+                        // For YYYY-MM-DD format, create date without timezone issues
+                        const [year, month, day] = expense.date.split('-');
+                        date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+                    }
+
+                    const month = date.getMonth();
+                    const year = date.getFullYear();
+                    uniqueMonths.add(month);
+                    uniqueYears.add(year);
+                    console.log('Expense date:', expense.date, 'Month:', month, 'Year:', year);
+                });
+            }
+
+            console.log('Unique months:', Array.from(uniqueMonths));
+            console.log('Unique years:', Array.from(uniqueYears));
+
+            // Store current selections
+            const currentMonth = monthFilter.value;
+            const currentYear = yearFilter.value;
+            const currentDay = dayFilter.value;
+
+            // Clear and populate month filter
+            monthFilter.innerHTML = '<option value="">Select Month</option>';
+            if (uniqueMonths.size > 0) {
+                Array.from(uniqueMonths).sort((a, b) => a - b).forEach(month => {
+                    const selected = currentMonth == month ? 'selected' : '';
+                    monthFilter.innerHTML += `<option value="${month}" ${selected}>${months[month]}</option>`;
+                });
+            }
+
+            // Clear and populate year filter
+            yearFilter.innerHTML = '<option value="">Select Year</option>';
+            if (uniqueYears.size > 0) {
+                Array.from(uniqueYears).sort((a, b) => b - a).forEach(year => {
+                    const selected = currentYear == year ? 'selected' : '';
+                    yearFilter.innerHTML += `<option value="${year}" ${selected}>${year}</option>`;
+                });
+            }
+
+            // Populate day filter based on selected month and year
+            populateDayFilter();
+        }
+
+        function populateDayFilter() {
+            const selectedMonth = monthFilter.value;
+            const selectedYear = yearFilter.value;
+            const currentDay = dayFilter.value;
+
+            // Clear day filter
+            dayFilter.innerHTML = '<option value="">All Days (Monthly View)</option>';
+
+            if (selectedMonth !== '' && selectedYear !== '') {
+                const uniqueDaysForMonth = new Set();
+
+                expenses.forEach(expense => {
+                    const date = new Date(expense.date);
+                    if (date.getMonth() == selectedMonth && date.getFullYear() == selectedYear) {
+                        const day = date.getDate();
+                        uniqueDaysForMonth.add(day);
+                    }
+                });
+
+                if (uniqueDaysForMonth.size > 0) {
+                    Array.from(uniqueDaysForMonth).sort((a, b) => a - b).forEach(day => {
+                        const selected = currentDay == day ? 'selected' : '';
+                        const dayName = new Date(selectedYear, selectedMonth, day).toLocaleDateString('en-US', { weekday: 'short' });
+                        dayFilter.innerHTML += `<option value="${day}" ${selected}>${day} (${dayName})</option>`;
+                    });
+                }
+            }
+        }
+
+        function renderSpreadsheet() {
+            console.log('Rendering spreadsheet, expenses count:', expenses.length);
+            populateFilters();
+
+            const selectedMonth = monthFilter.value;
+            const selectedYear = yearFilter.value;
+            const selectedDay = dayFilter.value;
+            console.log('Selected month:', selectedMonth, 'Selected year:', selectedYear, 'Selected day:', selectedDay);
+
+            // Show message if no expenses exist
+            if (expenses.length === 0) {
+                expenseTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="border border-gray-300 px-4 py-8 text-center text-gray-500">
+                            No expenses found. Add some expenses first!
+                        </td>
+                    </tr>
+                `;
+                totalUSD.textContent = '$0.00';
+                totalPKR.textContent = '₨0.00';
+                return;
+            }
+
+            // If no month/year selected, show all expenses
+            if (selectedMonth === '' && selectedYear === '') {
+                // Show all expenses grouped by month
+                const sortedExpenses = [...expenses].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                expenseTableBody.innerHTML = sortedExpenses.map(expense => {
+                    let usdAmount = '-';
+                    let pkrAmount = '-';
+
+                    if (expense.currency === 'USD') {
+                        usdAmount = formatCurrency(expense.amount, 'USD');
+                        if (expense.convertedAmount && expense.convertedCurrency === 'PKR') {
+                            pkrAmount = formatCurrency(expense.convertedAmount, 'PKR');
+                        }
+                    } else if (expense.currency === 'PKR') {
+                        pkrAmount = formatCurrency(expense.amount, 'PKR');
+                        if (expense.convertedAmount && expense.convertedCurrency === 'USD') {
+                            usdAmount = formatCurrency(expense.convertedAmount, 'USD');
+                        }
+                    }
+
+                    return `
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 px-2 md:px-4 py-2 text-xs md:text-sm">${(() => {
+                                let date;
+                                if (expense.date.includes('T')) {
+                                    date = new Date(expense.date);
+                                } else {
+                                    const [year, month, day] = expense.date.split('-');
+                                    date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+                                }
+                                return formatDateForTable(date);
+                            })()}</td>
+                            <td class="border border-gray-300 px-2 md:px-4 py-2 text-xs md:text-sm">
+                                <div class="truncate max-w-[120px] md:max-w-none" title="${expense.description}">${expense.description}</div>
+                            </td>
+                            <td class="border border-gray-300 px-2 md:px-4 py-2 text-xs md:text-sm">
+                                <span class="inline-flex items-center">
+                                    <span class="mr-1">${categoryEmojis[expense.category]}</span>
+                                    <span class="hidden sm:inline">${categoryNames[expense.category]}</span>
+                                </span>
+                            </td>
+                            <td class="border border-gray-300 px-2 md:px-4 py-2 text-right text-xs md:text-sm">${usdAmount}</td>
+                            <td class="border border-gray-300 px-2 md:px-4 py-2 text-right text-xs md:text-sm">${pkrAmount}</td>
+                            <td class="border border-gray-300 px-2 md:px-4 py-2 text-center">
+                                <button onclick="deleteExpenseFromTable(${expense.id})" class="text-red-500 hover:text-red-700 transition duration-200 p-1 rounded hover:bg-red-50" title="Delete expense">
+                                    <svg class="w-3 md:w-4 h-3 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+
+                // Calculate totals for all expenses
+                let usdTotal = 0;
+                let pkrTotal = 0;
+
+                expenses.forEach(expense => {
+                    if (expense.currency === 'USD') {
+                        usdTotal += expense.amount;
+                        if (expense.convertedAmount && expense.convertedCurrency === 'PKR') {
+                            pkrTotal += expense.convertedAmount;
+                        }
+                    } else if (expense.currency === 'PKR') {
+                        pkrTotal += expense.amount;
+                        if (expense.convertedAmount && expense.convertedCurrency === 'USD') {
+                            usdTotal += expense.convertedAmount;
+                        }
+                    }
+                });
+
+                totalUSD.textContent = formatCurrency(usdTotal, 'USD');
+                totalPKR.textContent = formatCurrency(pkrTotal, 'PKR');
+                document.getElementById('spreadsheetTitle').textContent = 'All Expenses';
+                return;
+            }
+
+            // Require both month and year to be selected for filtered view
+            if (selectedMonth === '' || selectedYear === '') {
+                expenseTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="border border-gray-300 px-4 py-8 text-center text-gray-500">
+                            Please select both month and year to view filtered expenses, or leave both empty to see all
+                        </td>
+                    </tr>
+                `;
+                totalUSD.textContent = '$0.00';
+                totalPKR.textContent = '₨0.00';
+                return;
+            }
+
+            let displayExpenses = expenses.filter(expense => {
+                // Handle both date string formats (YYYY-MM-DD and ISO)
+                let date;
+                if (expense.date.includes('T')) {
+                    date = new Date(expense.date);
+                } else {
+                    // For YYYY-MM-DD format, create date without timezone issues
+                    const [year, month, day] = expense.date.split('-');
+                    date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+                }
+
+                const monthMatch = date.getMonth() == selectedMonth;
+                const yearMatch = date.getFullYear() == selectedYear;
+                const dayMatch = selectedDay === '' || date.getDate() == selectedDay;
+                return monthMatch && yearMatch && dayMatch;
+            });
+
+            // Create appropriate message based on selection
+            let periodDescription = '';
+            let titleText = '';
+            if (selectedDay !== '') {
+                const dayName = new Date(selectedYear, selectedMonth, selectedDay).toLocaleDateString('en-US', { weekday: 'long' });
+                periodDescription = `${dayName}, ${new Date(selectedYear, selectedMonth, selectedDay).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
+                titleText = 'Daily Expense Report';
+            } else {
+                periodDescription = new Date(selectedYear, selectedMonth).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+                titleText = 'Monthly Expense Report';
+            }
+
+            // Update the spreadsheet title
+            document.getElementById('spreadsheetTitle').textContent = titleText;
+
+            if (displayExpenses.length === 0) {
+                expenseTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="border border-gray-300 px-4 py-8 text-center text-gray-500">
+                            No expenses found for ${periodDescription}
+                        </td>
+                    </tr>
+                `;
+                totalUSD.textContent = '$0.00';
+                totalPKR.textContent = '₨0.00';
+                return;
+            }
+
+            const sortedExpenses = [...displayExpenses].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            expenseTableBody.innerHTML = sortedExpenses.map(expense => {
+                let usdAmount = '-';
+                let pkrAmount = '-';
+
+                if (expense.currency === 'USD') {
+                    usdAmount = formatCurrency(expense.amount, 'USD');
+                    // If there's a converted PKR amount, use it
+                    if (expense.convertedAmount && expense.convertedCurrency === 'PKR') {
+                        pkrAmount = formatCurrency(expense.convertedAmount, 'PKR');
+                    }
+                } else if (expense.currency === 'PKR') {
+                    pkrAmount = formatCurrency(expense.amount, 'PKR');
+                    // If there's a converted USD amount, use it
+                    if (expense.convertedAmount && expense.convertedCurrency === 'USD') {
+                        usdAmount = formatCurrency(expense.convertedAmount, 'USD');
+                    }
+                }
+
+                return `
+                    <tr class="hover:bg-gray-50">
+                        <td class="border border-gray-300 px-2 md:px-4 py-2 text-xs md:text-sm">${(() => {
+                            // Handle both date string formats (YYYY-MM-DD and ISO)
+                            let date;
+                            if (expense.date.includes('T')) {
+                                date = new Date(expense.date);
+                            } else {
+                                const [year, month, day] = expense.date.split('-');
+                                date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+                            }
+                            return formatDateForTable(date);
+                        })()}</td>
+                        <td class="border border-gray-300 px-2 md:px-4 py-2 text-xs md:text-sm">
+                            <div class="truncate max-w-[120px] md:max-w-none" title="${expense.description}">${expense.description}</div>
+                        </td>
+                        <td class="border border-gray-300 px-2 md:px-4 py-2 text-xs md:text-sm">
+                            <span class="inline-flex items-center">
+                                <span class="mr-1">${categoryEmojis[expense.category]}</span>
+                                <span class="hidden sm:inline">${categoryNames[expense.category]}</span>
+                            </span>
+                        </td>
+                        <td class="border border-gray-300 px-2 md:px-4 py-2 text-right text-xs md:text-sm">${usdAmount}</td>
+                        <td class="border border-gray-300 px-2 md:px-4 py-2 text-right text-xs md:text-sm">${pkrAmount}</td>
+                        <td class="border border-gray-300 px-2 md:px-4 py-2 text-center">
+                            <button onclick="deleteExpenseFromTable(${expense.id})" class="text-red-500 hover:text-red-700 transition duration-200 p-1 rounded hover:bg-red-50" title="Delete expense">
+                                <svg class="w-3 md:w-4 h-3 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            let usdTotal = 0;
+            let pkrTotal = 0;
+
+            displayExpenses.forEach(expense => {
+                if (expense.currency === 'USD') {
+                    usdTotal += expense.amount;
+                    // Add converted PKR amount if available
+                    if (expense.convertedAmount && expense.convertedCurrency === 'PKR') {
+                        pkrTotal += expense.convertedAmount;
+                    }
+                } else if (expense.currency === 'PKR') {
+                    pkrTotal += expense.amount;
+                    // Add converted USD amount if available
+                    if (expense.convertedAmount && expense.convertedCurrency === 'USD') {
+                        usdTotal += expense.convertedAmount;
+                    }
+                }
+            });
+
+            totalUSD.textContent = formatCurrency(usdTotal, 'USD');
+            totalPKR.textContent = formatCurrency(pkrTotal, 'PKR');
+        }
+
+        function renderAnalytics() {
+            if (expenses.length === 0) {
+                document.getElementById('avgDaily').textContent = '$0.00';
+                document.getElementById('highestCategory').textContent = '-';
+                document.getElementById('mostFrequent').textContent = '-';
+                document.getElementById('daysActive').textContent = '0';
+                document.getElementById('categoryChart').innerHTML = '<p class="text-gray-500">No data to display</p>';
+                document.getElementById('monthlyTrend').innerHTML = '<p class="text-gray-500">No data to display</p>';
+                return;
+            }
+
+            // Calculate analytics - separate by currency
+            const totalDays = Math.ceil((new Date() - new Date(Math.min(...expenses.map(e => new Date(e.date))))) / (1000 * 60 * 60 * 24)) || 1;
+
+            // Calculate totals by currency
+            const usdTotal = expenses.filter(e => e.currency === 'USD').reduce((sum, e) => sum + e.amount, 0);
+            const pkrTotal = expenses.filter(e => e.currency === 'PKR').reduce((sum, e) => sum + e.amount, 0);
+
+            // Show average daily in mixed format if both currencies exist
+            let avgDailyText;
+            if (usdTotal > 0 && pkrTotal > 0) {
+                const avgUSD = usdTotal / totalDays;
+                const avgPKR = pkrTotal / totalDays;
+                avgDailyText = `${formatCurrency(avgUSD, 'USD')} + ${formatCurrency(avgPKR, 'PKR')}`;
+            } else if (pkrTotal > 0) {
+                avgDailyText = formatCurrency(pkrTotal / totalDays, 'PKR');
+            } else {
+                avgDailyText = formatCurrency(usdTotal / totalDays, 'USD');
+            }
+
+            // Category analysis - separate by currency
+            const categoryTotalsUSD = {};
+            const categoryTotalsPKR = {};
+            const categoryCounts = {};
+
+            expenses.forEach(expense => {
+                if (expense.currency === 'USD') {
+                    categoryTotalsUSD[expense.category] = (categoryTotalsUSD[expense.category] || 0) + expense.amount;
+                } else if (expense.currency === 'PKR') {
+                    categoryTotalsPKR[expense.category] = (categoryTotalsPKR[expense.category] || 0) + expense.amount;
+                }
+                categoryCounts[expense.category] = (categoryCounts[expense.category] || 0) + 1;
+            });
+
+            // Find highest category by converting to USD for comparison only
+            const categoryTotalsForComparison = {};
+            Object.keys(categoryTotalsUSD).forEach(cat => {
+                categoryTotalsForComparison[cat] = (categoryTotalsForComparison[cat] || 0) + categoryTotalsUSD[cat];
+            });
+            Object.keys(categoryTotalsPKR).forEach(cat => {
+                categoryTotalsForComparison[cat] = (categoryTotalsForComparison[cat] || 0) + (categoryTotalsPKR[cat] / exchangeRate);
+            });
+
+            const highestCategory = Object.keys(categoryTotalsForComparison).reduce((a, b) =>
+                categoryTotalsForComparison[a] > categoryTotalsForComparison[b] ? a : b, Object.keys(categoryTotalsForComparison)[0]);
+            const mostFrequent = Object.keys(categoryCounts).reduce((a, b) =>
+                categoryCounts[a] > categoryCounts[b] ? a : b, Object.keys(categoryCounts)[0]);
+
+            const uniqueDays = new Set(expenses.map(e => new Date(e.date).toDateString())).size;
+
+            // Update analytics cards
+            document.getElementById('avgDaily').innerHTML = `<div class="text-xl font-bold">${avgDailyText}</div>`;
+            document.getElementById('highestCategory').textContent = categoryEmojis[highestCategory] + ' ' + categoryNames[highestCategory];
+            document.getElementById('mostFrequent').textContent = categoryEmojis[mostFrequent] + ' ' + categoryNames[mostFrequent];
+            document.getElementById('daysActive').textContent = uniqueDays;
+
+            // Render category chart with mixed currencies
+            const allCategories = new Set([...Object.keys(categoryTotalsUSD), ...Object.keys(categoryTotalsPKR)]);
+            const maxAmountUSD = Math.max(...Object.values(categoryTotalsForComparison), 1);
+
+            const categoryChart = document.getElementById('categoryChart');
+            categoryChart.innerHTML = Array.from(allCategories)
+                .map(category => {
+                    const usdAmount = categoryTotalsUSD[category] || 0;
+                    const pkrAmount = categoryTotalsPKR[category] || 0;
+                    const comparisonAmount = categoryTotalsForComparison[category] || 0;
+                    const percentage = (comparisonAmount / maxAmountUSD) * 100;
+
+                    let amountDisplay = '';
+                    if (usdAmount > 0 && pkrAmount > 0) {
+                        amountDisplay = `${formatCurrency(usdAmount, 'USD')} + ${formatCurrency(pkrAmount, 'PKR')}`;
+                    } else if (pkrAmount > 0) {
+                        amountDisplay = formatCurrency(pkrAmount, 'PKR');
+                    } else {
+                        amountDisplay = formatCurrency(usdAmount, 'USD');
+                    }
+
+                    return {
+                        category,
+                        amount: comparisonAmount,
+                        display: amountDisplay,
+                        percentage
+                    };
+                })
+                .sort((a, b) => b.amount - a.amount)
+                .map(({category, display, percentage}) => `
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center space-x-2 flex-1">
+                            <span>${categoryEmojis[category]}</span>
+                            <span class="text-sm">${categoryNames[category]}</span>
+                        </div>
+                        <div class="flex items-center space-x-2 flex-1">
+                            <div class="bg-gray-200 rounded-full h-2 flex-1">
+                                <div class="bg-teal-600 h-2 rounded-full" style="width: ${percentage}%"></div>
+                            </div>
+                            <span class="text-sm font-medium text-right" style="min-width: 120px;">${display}</span>
+                        </div>
+                    </div>
+                `).join('');
+
+            // Render monthly trend with mixed currencies
+            const monthlyTotalsUSD = {};
+            const monthlyTotalsPKR = {};
+            const monthlyTotalsForComparison = {};
+
+            expenses.forEach(expense => {
+                // Handle both date string formats (YYYY-MM-DD and ISO)
+                let date;
+                if (expense.date.includes('T')) {
+                    date = new Date(expense.date);
+                } else {
+                    // For YYYY-MM-DD format, create date without timezone issues
+                    const [year, month, day] = expense.date.split('-');
+                    date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+                }
+
+                const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+
+                if (expense.currency === 'USD') {
+                    monthlyTotalsUSD[monthKey] = (monthlyTotalsUSD[monthKey] || 0) + expense.amount;
+                    monthlyTotalsForComparison[monthKey] = (monthlyTotalsForComparison[monthKey] || 0) + expense.amount;
+                } else if (expense.currency === 'PKR') {
+                    monthlyTotalsPKR[monthKey] = (monthlyTotalsPKR[monthKey] || 0) + expense.amount;
+                    monthlyTotalsForComparison[monthKey] = (monthlyTotalsForComparison[monthKey] || 0) + (expense.amount / exchangeRate);
+                }
+            });
+
+            const monthlyTrend = document.getElementById('monthlyTrend');
+            const maxMonthly = Math.max(...Object.values(monthlyTotalsForComparison), 1);
+
+            const allMonths = new Set([...Object.keys(monthlyTotalsUSD), ...Object.keys(monthlyTotalsPKR)]);
+
+            monthlyTrend.innerHTML = Array.from(allMonths)
+                .sort((a, b) => a.localeCompare(b))
+                .slice(-6) // Show last 6 months
+                .map(month => {
+                    const usdAmount = monthlyTotalsUSD[month] || 0;
+                    const pkrAmount = monthlyTotalsPKR[month] || 0;
+                    const comparisonAmount = monthlyTotalsForComparison[month] || 0;
+                    const percentage = (comparisonAmount / maxMonthly) * 100;
+
+                    let amountDisplay = '';
+                    if (usdAmount > 0 && pkrAmount > 0) {
+                        amountDisplay = `${formatCurrency(usdAmount, 'USD')} + ${formatCurrency(pkrAmount, 'PKR')}`;
+                    } else if (pkrAmount > 0) {
+                        amountDisplay = formatCurrency(pkrAmount, 'PKR');
+                    } else {
+                        amountDisplay = formatCurrency(usdAmount, 'USD');
+                    }
+
+                    const [year, monthNum] = month.split('-');
+                    const monthName = new Date(year, monthNum - 1).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+
+                    return `
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm w-20">${monthName}</span>
+                            <div class="flex items-center space-x-2 flex-1">
+                                <div class="bg-gray-200 rounded-full h-2 flex-1">
+                                    <div class="bg-teal-600 h-2 rounded-full" style="width: ${percentage}%"></div>
+                                </div>
+                                <span class="text-sm font-medium text-right" style="min-width: 120px;">${amountDisplay}</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+        }
+
+        function updateSummary() {
+            const currentMonth = new Date().getMonth();
+            const currentYear = new Date().getFullYear();
+            const monthlyExpenses = expenses.filter(expense => {
+                // Handle both date string formats (YYYY-MM-DD and ISO)
+                let date;
+                if (expense.date.includes('T')) {
+                    date = new Date(expense.date);
+                } else {
+                    // For YYYY-MM-DD format, create date without timezone issues
+                    const [year, month, day] = expense.date.split('-');
+                    date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+                }
+                return date.getMonth() === currentMonth && date.getFullYear() === currentYear;
+            });
+
+            totalAmount.textContent = formatMixedCurrencies(expenses);
+            monthlyAmount.textContent = formatMixedCurrencies(monthlyExpenses);
+
+            // Update monthly entries display - show current month count
+            const monthlyEntriesDiv = document.getElementById('monthlyEntries');
+            const currentMonthCount = monthlyExpenses.length;
+            const currentMonthName = new Date().toLocaleDateString('en-US', { month: 'long' });
+
+            monthlyEntriesDiv.innerHTML = `
+                <p class="text-2xl font-bold text-blue-500">${currentMonthCount}</p>
+                <p class="text-xs text-gray-500">${currentMonthName}</p>
+            `;
+        }
+
+        function renderExpenses() {
+            const displayExpenses = filteredExpenses.length > 0 ? filteredExpenses : expenses;
+
+            if (displayExpenses.length === 0) {
+                const message = filteredExpenses.length === 0 && expenses.length > 0
+                    ? 'No expenses match your search criteria.'
+                    : 'No expenses yet. Add your first expense above!';
+
+                expenseList.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        <div class="text-4xl mb-2">📋</div>
+                        <p>${message}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const sortedExpenses = [...displayExpenses].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            // Group expenses by month and year
+            const groupedExpenses = {};
+            sortedExpenses.forEach(expense => {
+                // Handle both date string formats (YYYY-MM-DD and ISO)
+                let date;
+                if (expense.date.includes('T')) {
+                    date = new Date(expense.date);
+                } else {
+                    // For YYYY-MM-DD format, create date without timezone issues
+                    const [year, month, day] = expense.date.split('-');
+                    date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+                }
+
+                const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+                const monthLabel = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+                if (!groupedExpenses[monthKey]) {
+                    groupedExpenses[monthKey] = {
+                        label: monthLabel,
+                        expenses: [],
+                        totalUSD: 0,
+                        totalPKR: 0
+                    };
+                }
+
+                groupedExpenses[monthKey].expenses.push(expense);
+
+                // Calculate monthly totals
+                if (expense.currency === 'USD') {
+                    groupedExpenses[monthKey].totalUSD += expense.amount;
+                } else if (expense.currency === 'PKR') {
+                    groupedExpenses[monthKey].totalPKR += expense.amount;
+                }
+            });
+
+            // Sort months in descending order (newest first)
+            const sortedMonths = Object.keys(groupedExpenses).sort((a, b) => b.localeCompare(a));
+
+            expenseList.innerHTML = sortedMonths.map(monthKey => {
+                const monthData = groupedExpenses[monthKey];
+
+                // Format monthly total
+                let monthlyTotal = '';
+                if (monthData.totalUSD > 0 && monthData.totalPKR > 0) {
+                    monthlyTotal = `${formatCurrency(monthData.totalUSD, 'USD')} + ${formatCurrency(monthData.totalPKR, 'PKR')}`;
+                } else if (monthData.totalPKR > 0) {
+                    monthlyTotal = formatCurrency(monthData.totalPKR, 'PKR');
+                } else {
+                    monthlyTotal = formatCurrency(monthData.totalUSD, 'USD');
+                }
+
+                const expensesHtml = monthData.expenses.map(expense => {
+                    let amountDisplay = formatCurrency(expense.amount, expense.currency || 'USD');
+
+                    // If there's a converted amount, show both currencies
+                    if (expense.convertedAmount && expense.convertedCurrency) {
+                        const convertedDisplay = formatCurrency(expense.convertedAmount, expense.convertedCurrency);
+                        amountDisplay = `
+                            <div class="text-right">
+                                <div class="text-lg font-bold text-gray-800">${formatCurrency(expense.amount, expense.currency)}</div>
+                                <div class="text-sm text-gray-600">(${convertedDisplay})</div>
+                            </div>
+                        `;
+                    } else {
+                        amountDisplay = `<span class="text-lg font-bold text-gray-800">${amountDisplay}</span>`;
+                    }
+
+                    return `
+                        <div class="expense-item category-${expense.category} rounded-lg p-3 md:p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 gap-2 sm:gap-0">
+                            <div class="flex items-center space-x-3 flex-1 min-w-0">
+                                <div class="text-xl md:text-2xl flex-shrink-0">${categoryEmojis[expense.category]}</div>
+                                <div class="min-w-0 flex-1">
+                                    <h3 class="font-semibold text-gray-800 text-sm md:text-base truncate">${expense.description}</h3>
+                                    <p class="text-xs md:text-sm text-gray-600">${categoryNames[expense.category]} • ${(() => {
+                                        // Handle both date string formats (YYYY-MM-DD and ISO)
+                                        let date;
+                                        if (expense.date.includes('T')) {
+                                            date = new Date(expense.date);
+                                        } else {
+                                            const [year, month, day] = expense.date.split('-');
+                                            date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+                                        }
+                                        return formatDate(date);
+                                    })()}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between sm:justify-end space-x-3 w-full sm:w-auto">
+                                <div class="flex-1 sm:flex-none">
+                                    ${amountDisplay}
+                                </div>
+                                <button onclick="deleteExpense(${expense.id})" class="text-red-500 hover:text-red-700 transition duration-200 flex-shrink-0 p-1">
+                                    <svg class="w-4 md:w-5 h-4 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                return `
+                    <div class="mb-6 md:mb-8">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 md:mb-4 pb-2 border-b-2 border-teal-200 gap-2">
+                            <h3 class="text-lg md:text-xl font-bold text-gray-800 flex items-center">
+                                <span class="mr-2">📅</span>
+                                ${monthData.label}
+                            </h3>
+                            <div class="text-left sm:text-right">
+                                <div class="text-xs md:text-sm text-gray-600">Monthly Total</div>
+                                <div class="text-base md:text-lg font-bold text-teal-600">${monthlyTotal}</div>
+                                <div class="text-xs text-gray-500">${monthData.expenses.length} expense${monthData.expenses.length !== 1 ? 's' : ''}</div>
+                            </div>
+                        </div>
+                        <div class="space-y-0">
+                            ${expensesHtml}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function addExpense(description, amount, category, currency, date, convertedAmount = null, convertedCurrency = null) {
+            const expense = {
+                id: Date.now(),
+                description,
+                amount: parseFloat(amount),
+                category,
+                currency,
+                date: date || new Date().toISOString().split('T')[0],
+                convertedAmount: convertedAmount ? parseFloat(convertedAmount) : null,
+                convertedCurrency: convertedCurrency || null
+            };
+
+            expenses.push(expense);
+            localStorage.setItem('expenses', JSON.stringify(expenses));
+            console.log('Added expense:', expense);
+            console.log('Total expenses now:', expenses.length);
+
+            // Update all views
+            renderExpenses();
+            updateSummary();
+            populateFilters();
+
+            // Refresh current view
+            if (currentView === 'spreadsheet') {
+                renderSpreadsheet();
+            } else if (currentView === 'analytics') {
+                renderAnalytics();
+            }
+        }
+
+        function deleteExpense(id) {
+            expenses = expenses.filter(expense => expense.id !== id);
+            localStorage.setItem('expenses', JSON.stringify(expenses));
+            renderExpenses();
+            updateSummary();
+        }
+
+        function deleteExpenseFromTable(id) {
+            if (confirm('Are you sure you want to delete this expense?')) {
+                expenses = expenses.filter(expense => expense.id !== id);
+                localStorage.setItem('expenses', JSON.stringify(expenses));
+                renderSpreadsheet();
+                updateSummary();
+
+                // Also update list view if user switches back
+                renderExpenses();
+            }
+        }
+
+        function clearAllExpenses() {
+            if (expenses.length === 0) return;
+
+            if (confirm('Are you sure you want to delete all expenses? This action cannot be undone.')) {
+                expenses = [];
+                localStorage.setItem('expenses', JSON.stringify(expenses));
+                renderExpenses();
+                updateSummary();
+            }
+        }
+
+        expenseForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const description = document.getElementById('description').value.trim();
+            const amount = document.getElementById('amount').value;
+            const category = document.getElementById('category').value;
+            const currency = document.getElementById('currency').value;
+            const expenseDate = document.getElementById('expenseDate').value;
+
+            // Check if conversion section is visible and has values
+            let convertedAmountValue = null;
+            let convertedCurrencyValue = null;
+
+            if (!conversionSection.classList.contains('hidden') && convertedAmount.value) {
+                convertedAmountValue = convertedAmount.value;
+                convertedCurrencyValue = convertedCurrency.textContent;
+            }
+
+            if (description && amount && category && currency && expenseDate) {
+                // Use the date string directly to avoid timezone issues
+                console.log('Creating expense with date:', expenseDate);
+                addExpense(description, amount, category, currency, expenseDate, convertedAmountValue, convertedCurrencyValue);
+                expenseForm.reset();
+
+                // Reset conversion tracking
+                lastConvertedAmount = null;
+                lastConvertedCurrency = null;
+                conversionHint.textContent = '';
+                conversionSection.classList.add('hidden');
+
+                // Set today's date as default
+                document.getElementById('expenseDate').value = new Date().toISOString().split('T')[0];
+
+                // Show success feedback
+                const submitBtn = expenseForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Added! ✓';
+                submitBtn.classList.add('bg-green-600');
+                submitBtn.classList.remove('bg-teal-600');
+
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.classList.remove('bg-green-600');
+                    submitBtn.classList.add('bg-teal-600');
+                }, 1500);
+            }
+        });
+
+        // Event listeners
+        clearAllBtn.addEventListener('click', clearAllExpenses);
+        listViewBtn.addEventListener('click', switchToListView);
+        spreadsheetViewBtn.addEventListener('click', switchToSpreadsheetView);
+        analyticsViewBtn.addEventListener('click', switchToAnalyticsView);
+        monthFilter.addEventListener('change', () => {
+            populateDayFilter();
+            renderSpreadsheet();
+        });
+        yearFilter.addEventListener('change', () => {
+            populateDayFilter();
+            renderSpreadsheet();
+        });
+        dayFilter.addEventListener('change', renderSpreadsheet);
+        currencySelect.addEventListener('change', handleCurrencyChange);
+        amountInput.addEventListener('input', handleAmountChange);
+        updateRateBtn.addEventListener('click', updateExchangeRate);
+        exchangeRateInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                updateExchangeRate();
+            }
+        });
+
+        // Search and filter event listeners
+        searchInput.addEventListener('input', filterExpenses);
+        categoryFilter.addEventListener('change', filterExpenses);
+        currencyFilter.addEventListener('change', filterExpenses);
+        exportBtn.addEventListener('click', exportToCSV);
+        useConvertedBtn.addEventListener('click', useConvertedAmount);
+
+        // PWA Install Prompt - Enhanced Version
+        let deferredPrompt;
+        let installBannerShown = false;
+
+        // Capture the beforeinstallprompt event
+        window.addEventListener('beforeinstallprompt', (e) => {
+            console.log('beforeinstallprompt event fired');
+            e.preventDefault();
+            deferredPrompt = e;
+
+            // Show install banner immediately when prompt is available
+            setTimeout(() => {
+                showInstallPrompt();
+            }, 2000);
+        });
+
+        // Service Worker Registration for Offline Support
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // Create service worker inline
+                const swCode = `
+                    const CACHE_NAME = 'expense-tracker-v2';
+                    const urlsToCache = [
+                        './',
+                        'https://cdn.tailwindcss.com'
+                    ];
+
+                    self.addEventListener('install', event => {
+                        console.log('Service Worker installing');
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then(cache => {
+                                    console.log('Caching files');
+                                    return cache.addAll(urlsToCache);
+                                })
+                                .catch(err => console.log('Cache failed:', err))
+                        );
+                        self.skipWaiting();
+                    });
+
+                    self.addEventListener('activate', event => {
+                        console.log('Service Worker activated');
+                        event.waitUntil(self.clients.claim());
+                    });
+
+                    self.addEventListener('fetch', event => {
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then(response => {
+                                    if (response) {
+                                        return response;
+                                    }
+                                    return fetch(event.request).catch(() => {
+                                        // Return a basic offline page for navigation requests
+                                        if (event.request.mode === 'navigate') {
+                                            return new Response('App is offline but your data is saved locally!', {
+                                                headers: { 'Content-Type': 'text/html' }
+                                            });
+                                        }
+                                    });
+                                })
+                        );
+                    });
+                `;
+
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+
+                navigator.serviceWorker.register(swUrl)
+                    .then(registration => {
+                        console.log('SW registered successfully:', registration);
+
+                        // Force show install banner after service worker is ready
+                        setTimeout(() => {
+                            if (!installBannerShown) {
+                                showInstallPrompt(true); // Force show
+                            }
+                        }, 3000);
+                    })
+                    .catch(registrationError => {
+                        console.log('SW registration failed:', registrationError);
+
+                        // Still show install banner even if SW fails
+                        setTimeout(() => {
+                            showInstallPrompt(true);
+                        }, 2000);
+                    });
+            });
+        } else {
+            // Show install banner even without service worker support
+            setTimeout(() => {
+                showInstallPrompt(true);
+            }, 2000);
+        }
+
+        function showInstallPrompt(forceShow = false) {
+            // Don't show if already shown or dismissed
+            if (installBannerShown || localStorage.getItem('installPromptDismissed') === 'true') {
+                return;
+            }
+
+            // Check if already installed
+            if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) {
+                console.log('App is already installed');
+                return;
+            }
+
+            // Show banner if we have the prompt OR if forced (for browsers that don't support beforeinstallprompt)
+            if (deferredPrompt || forceShow) {
+                installBannerShown = true;
+
+                const installBanner = document.createElement('div');
+                installBanner.id = 'installBanner';
+                installBanner.className = 'fixed top-0 left-0 right-0 bg-gradient-to-r from-teal-600 to-cyan-600 text-white p-3 z-50 shadow-lg animate-pulse';
+                installBanner.innerHTML = `
+                    <div class="container mx-auto flex items-center justify-between max-w-4xl">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl">💰</span>
+                            <div>
+                                <div class="font-bold text-sm">📱 Install Expense Tracker</div>
+                                <div class="text-xs opacity-90">Works offline • Faster access • Desktop app experience!</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button id="installBtn" class="bg-white text-teal-600 px-4 py-2 rounded-lg text-sm font-bold hover:bg-gray-100 transition-all duration-200 shadow-md">
+                                ${deferredPrompt ? '⬇️ Install Now' : '📌 Add to Home'}
+                            </button>
+                            <button id="dismissBtn" class="text-white hover:text-gray-200 p-2 rounded-full hover:bg-white hover:bg-opacity-20 transition-all duration-200">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                document.body.insertBefore(installBanner, document.body.firstChild);
+
+                // Add top padding to main content
+                document.querySelector('.container').style.paddingTop = '80px';
+
+                // Remove pulse animation after 3 seconds
+                setTimeout(() => {
+                    installBanner.classList.remove('animate-pulse');
+                }, 3000);
+
+                document.getElementById('installBtn').addEventListener('click', async () => {
+                    if (deferredPrompt) {
+                        try {
+                            deferredPrompt.prompt();
+                            const { outcome } = await deferredPrompt.userChoice;
+                            console.log(`User response to the install prompt: ${outcome}`);
+                            deferredPrompt = null;
+                            hideInstallBanner();
+
+                            if (outcome === 'accepted') {
+                                // Show success message
+                                showInstallSuccess();
+                            }
+                        } catch (error) {
+                            console.log('Install prompt error:', error);
+                            showManualInstallInstructions();
+                        }
+                    } else {
+                        // Show manual installation instructions
+                        showManualInstallInstructions();
+                    }
+                });
+
+                document.getElementById('dismissBtn').addEventListener('click', () => {
+                    hideInstallBanner();
+                    localStorage.setItem('installPromptDismissed', 'true');
+                });
+
+                // Auto-hide after 15 seconds
+                setTimeout(() => {
+                    if (document.getElementById('installBanner')) {
+                        hideInstallBanner();
+                    }
+                }, 15000);
+
+                console.log('Install banner shown');
+            }
+        }
+
+        function showManualInstallInstructions() {
+            hideInstallBanner();
+
+            const instructions = document.createElement('div');
+            instructions.id = 'installInstructions';
+            instructions.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+
+            const userAgent = navigator.userAgent.toLowerCase();
+            let instructionText = '';
+
+            if (userAgent.includes('chrome') && !userAgent.includes('edg')) {
+                instructionText = `
+                    <h3 class="text-lg font-bold mb-3">📱 Install on Chrome</h3>
+                    <ol class="text-sm space-y-2 list-decimal list-inside">
+                        <li>Click the <strong>⋮</strong> menu (top right)</li>
+                        <li>Select <strong>"Install Expense Tracker"</strong></li>
+                        <li>Or select <strong>"Add to Home screen"</strong></li>
+                        <li>Click <strong>"Install"</strong> or <strong>"Add"</strong></li>
+                    </ol>
+                `;
+            } else if (userAgent.includes('firefox')) {
+                instructionText = `
+                    <h3 class="text-lg font-bold mb-3">🦊 Install on Firefox</h3>
+                    <ol class="text-sm space-y-2 list-decimal list-inside">
+                        <li>Click the <strong>☰</strong> menu</li>
+                        <li>Select <strong>"Install this site as an app"</strong></li>
+                        <li>Or bookmark this page for quick access</li>
+                    </ol>
+                `;
+            } else if (userAgent.includes('safari')) {
+                instructionText = `
+                    <h3 class="text-lg font-bold mb-3">🧭 Install on Safari</h3>
+                    <ol class="text-sm space-y-2 list-decimal list-inside">
+                        <li>Tap the <strong>Share</strong> button (📤)</li>
+                        <li>Scroll down and tap <strong>"Add to Home Screen"</strong></li>
+                        <li>Tap <strong>"Add"</strong> in the top right</li>
+                    </ol>
+                `;
+            } else if (userAgent.includes('edg')) {
+                instructionText = `
+                    <h3 class="text-lg font-bold mb-3">🌐 Install on Edge</h3>
+                    <ol class="text-sm space-y-2 list-decimal list-inside">
+                        <li>Click the <strong>⋯</strong> menu (top right)</li>
+                        <li>Select <strong>"Apps"</strong> → <strong>"Install this site as an app"</strong></li>
+                        <li>Click <strong>"Install"</strong></li>
+                    </ol>
+                `;
+            } else {
+                instructionText = `
+                    <h3 class="text-lg font-bold mb-3">📱 Install as App</h3>
+                    <p class="text-sm mb-3">Look for these options in your browser menu:</p>
+                    <ul class="text-sm space-y-1 list-disc list-inside">
+                        <li><strong>"Install app"</strong></li>
+                        <li><strong>"Add to Home screen"</strong></li>
+                        <li><strong>"Install this site as an app"</strong></li>
+                    </ul>
+                `;
+            }
+
+            instructions.innerHTML = `
+                <div class="bg-white rounded-xl p-6 max-w-md mx-auto shadow-2xl">
+                    <div class="text-center mb-4">
+                        <div class="text-3xl mb-2">💰</div>
+                        ${instructionText}
+                        <p class="text-xs text-gray-600 mt-3">Once installed, you can use the app offline and access it like any other app on your device!</p>
+                    </div>
+                    <button id="closeInstructions" class="w-full bg-teal-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-teal-700 transition-colors">
+                        Got it!
+                    </button>
+                </div>
+            `;
+
+            document.body.appendChild(instructions);
+
+            document.getElementById('closeInstructions').addEventListener('click', () => {
+                document.body.removeChild(instructions);
+            });
+
+            // Close on backdrop click
+            instructions.addEventListener('click', (e) => {
+                if (e.target === instructions) {
+                    document.body.removeChild(instructions);
+                }
+            });
+        }
+
+        function showInstallSuccess() {
+            const success = document.createElement('div');
+            success.className = 'fixed top-4 right-4 bg-green-600 text-white p-4 rounded-lg shadow-lg z-50 max-w-sm';
+            success.innerHTML = `
+                <div class="flex items-center space-x-3">
+                    <div class="text-2xl">✅</div>
+                    <div>
+                        <div class="font-bold">App Installed!</div>
+                        <div class="text-sm opacity-90">You can now access Expense Tracker from your apps menu or home screen.</div>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(success);
+
+            setTimeout(() => {
+                if (document.body.contains(success)) {
+                    document.body.removeChild(success);
+                }
+            }, 5000);
+        }
+
+        function hideInstallBanner() {
+            const banner = document.getElementById('installBanner');
+            if (banner) {
+                banner.remove();
+                document.querySelector('.container').style.paddingTop = '';
+            }
+        }
+
+        // Check if already installed
+        window.addEventListener('appinstalled', () => {
+            console.log('PWA was installed successfully');
+            hideInstallBanner();
+            showInstallSuccess();
+        });
+
+        // Auto-update date when day changes
+        function updateDateIfNeeded() {
+            const today = new Date().toISOString().split('T')[0];
+            const currentDateInput = document.getElementById('expenseDate').value;
+
+            // Only update if the form is empty or showing an old date
+            if (!currentDateInput || currentDateInput !== today) {
+                document.getElementById('expenseDate').value = today;
+                console.log('Date automatically updated to:', today);
+            }
+        }
+
+        // Check for date changes every minute
+        setInterval(updateDateIfNeeded, 60000);
+
+        // Also check when page becomes visible again (user switches back to tab)
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                updateDateIfNeeded();
+                updateSummary(); // Refresh monthly totals too
+            }
+        });
+
+        // Check when window regains focus
+        window.addEventListener('focus', function() {
+            updateDateIfNeeded();
+            updateSummary();
+        });
+
+        // Initialize the app
+        document.getElementById('expenseDate').value = new Date().toISOString().split('T')[0];
+        exchangeRateInput.value = exchangeRate;
+        filterExpenses();
+        updateSummary();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9883486115700890',t:'MTc1OTM5ODQ5Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
