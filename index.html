@@ -1,2295 +1,1426 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expense Tracker</title>
-    
-    <!-- PWA Meta Tags -->
-    <meta name="theme-color" content="#0d9488">
-    <meta name="description" content="Track your expenses with live exchange rates - works offline!">
-    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiRXhwZW5zZSBUcmFja2VyIiwic2hvcnRfbmFtZSI6IkV4cGVuc2VzIiwiZGVzY3JpcHRpb24iOiJUcmFjayB5b3VyIGV4cGVuc2VzIHdpdGggbGl2ZSBleGNoYW5nZSByYXRlcyAtIHdvcmtzIG9mZmxpbmUhIiwic3RhcnRfdXJsIjoiLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiNmZmZmZmYiLCJ0aGVtZV9jb2xvciI6IiMwZDk0ODgiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCM2FXUjBhRDBpTVRreUlpQm9aV2xuYUhROUlqRTVNaUlnZG1sbGQwSnZlRDBpTUNBd0lERTVNaUF4T1RJaUlHWnBiR3c5SW01dmJtVWlJSGh0Ykc1elBTSm9kSFJ3T2k4dmQzZDNMbmN6TG05eVp5OHlNREF3TDNOMlp5SStQR1JsWm5NK1BHeHBibVZoY2tkeVlXUnBaVzUwSUdsa1BTSmlaeUlnZURFOUlqQWlJSGt4UFNJd0lpQjRNajBpTVNJZ2VUSTlJakVpUGp4emRHOXdJRzltWm5ObGREMGlNQ1VpSUhOMGIzQXRZMjlzYjNJOUlpTXdaRGswT0RnaUx6NDhjM1J2Y0NCdlptWnpaWFE5SWpFd01DVWlJSE4wYjNBdFkyOXNiM0k5SWlNd05qY3hObUVpTHo0OEwyeHBibVZoY2tkeVlXUnBaVzUwUGp3dlpHVm1jejQ4Y21WamRDQjNhV1IwYUQwaU1Ua3lJaUJvWldsbmFIUTlJakU1TWlJZ2NuZzlJakkwSWlCbWFXeHNQU0oxY213b0kySm5LU0l2UGp4d1lYUm9JR1E5SWswME9DQTJORk16Tnk0eUlEWTBJREk0SURjekxqSWdNamdnT0RSV01UUTBRekk0SURFMU5DNDRJRE0zTGpJZ01UWTBJRFE0SURFMU5FZ3hORFJETVRVMExqZ2dNVFkwSURFMk5DQXhOVFF1T0NBRTVOREF4TkRSV09EUkRNVFkwSURjekxqSWdNVFUwTGpnZ05qUWdNVFEwSURZMFNEUTRXaUlnWm1sc2JEMGlJMlptWm1abVppSXZQangwWVhSb0lHUTlJazAxTmlBNE1FZ3hNelpXTVRRNFNEVTJWamd3V2lJZ1ptbHNiRDBpSTJZNVptRm1ZaUl2UGp4d1lYUm9JR1E5SWswM01pQTVOa2d4TWpCV01UQTBTRGN5VmprMldpSWdabWxzYkQwaUkyUXhaRFZrWWlJdlBqeHdZWFJvSUdROUlrMDNNaUF4TVRKSU1UQTBWakV5TUVnM01sWXhNVEphSWlCbWFXeHNQU0lqWkRGa05XUmlJaTgrUEhCaGRHZ2daRDBpVFRjeUlERXlPRWd4TVRKV01UTTJTRGN5VmpFeU9Gb2lJR1pwYkd3OUlpTmtNV1ExWkdJaUx6NDhZMmx5WTJ4bElHTjRQU0l4TXpZaUlHTjVQU0kxTmlJZ2NqMGlNalFpSUdacGJHdzlJaU5sWmpRME5EUWlMejQ4ZEdWNGRDQjRQU0l4TXpZaUlIazlJalkwSWlCbWIyNTBMV1poYldsc2VUMGljMkZ1Y3kxelpYSnBaaUlnWm05dWRDMXphWHBsUFNJeU5DSWdabTl1ZEMxM1pXbG5hSFE5SW1KdmJHUWlJR1pwYkd3OUluZG9hWFJsSWlCMFpYaDBMV0Z1WTJodmNqMGliV2xrWkd4bElqNGtQQzkwWlhoMFBqd3ZjM1puUGc9PSIsInNpemVzIjoiMTkyeDE5MiIsInR5cGUiOiJpbWFnZS9zdmcreG1sIn0seyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUIzYVdSMGFEMGlOVEV5SWlCb1pXbG5hSFE5SWpVeE1pSWdkbWxsZDBKdmVEMGlNQ0F3SURFMU1TZ0ExVEV5SWlCbWFXeHNQU0p1YjI1bElpQjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaVBqeGtaV1p6UGp4c2FXNWxZWEpIY21Ga2FXVnVkQ0JwWkQwaVltY2lJSGd4UFNJd0lpQjVNVDBpTUNJZ2VESTlJakVpSUhreFBTSXhJajQ4YzNSdmNDQnZabVp6WlhROUlqQWxJaUJ6ZEc5d0xXTnZiRzl5UFNJak1HUTVOREE0T0NJdlBqeHpkRzl3SUc5bVpuTmxkRDBpTVRBd0pTSWdjM1J2Y0MxamIyeHZjajBpSXpBMk56RTJZU0l2UGp3dmJHbHVaV0Z5UjNKaFpHbGxiblErUEM5a1pXWnpQangwWlhoMElIZzlJak0yTmlJZ2VUMGlNVFUwSWlCbWIyNTBMV1poYldsc2VUMGljMkZ1Y3kxelpYSnBaaUlnWm05dWRDMXphWHBsUFNJMk5DSWdabTl1ZEMxM1pXbG5hSFE5SW1KdmJHUWlJR1pwYkd3OUluZG9hWFJsSWlCMFpYaDBMV0Z1WTJodmNqMGliV2xrWkd4bElqNGtQQzkwWlhoMFBqd3ZjM1puUGc9PSIsInNpemVzIjoiNTEyeDUxMiIsInR5cGUiOiJpbWFnZS9zdmcreG1sIn1dfQ==">
-    
-    <!-- Apple Touch Icon -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJiZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMwZDk0ODgiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwNjcxNmEiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgcng9IjI0IiBmaWxsPSJ1cmwoI2JnKSIvPjxwYXRoIGQ9Ik00OCA2NEMzNy4yIDY0IDI4IDczLjIgMjggODRWMTQ0QzI4IDE1NC44IDM3LjIgMTY0IDQ4IDE2NEgxNDRDMTU0LjggMTY0IDE2NCAxNTQuOCAxNjQgMTQ0Vjg0QzE2NCA3My4yIDE1NC44IDY0IDE0NCA2NEg0OFoiIGZpbGw9IiNmZmZmZmYiLz48cGF0aCBkPSJNNTYgODBIMTM2VjE0OEg1NlY4MFoiIGZpbGw9IiNmOWZhZmIiLz48cGF0aCBkPSJNNzIgOTZIMTIwVjEwNEg3MlY5NloiIGZpbGw9IiNkMWQ1ZGIiLz48cGF0aCBkPSJNNzIgMTEySDEwNFYxMjBINzJWMTEyWiIgZmlsbD0iI2QxZDVkYiIvPjxwYXRoIGQ9Ik03MiAxMjhIMTEyVjEzNkg3MlYxMjhaIiBmaWxsPSIjZDFkNWRiIi8+PGNpcmNsZSBjeD0iMTM2IiBjeT0iNTYiIHI9IjI0IiBmaWxsPSIjZWY0NDQ0Ii8+PHRleHQgeD0iMTM2IiB5PSI2NCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+JDwvdGV4dD48L3N2Zz4=">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <style>
-        body {
-            box-sizing: border-box;
-        }
-        .expense-item {
-            transition: all 0.2s ease;
-        }
-        .expense-item:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        .category-food { background-color: #fef3c7; border-left: 4px solid #f59e0b; }
-        .category-groceries { background-color: #ecfdf5; border-left: 4px solid #059669; }
-        .category-rent { background-color: #fef2f2; border-left: 4px solid #dc2626; }
-        .category-transport { background-color: #dbeafe; border-left: 4px solid #3b82f6; }
-        .category-entertainment { background-color: #fce7f3; border-left: 4px solid #ec4899; }
-        .category-shopping { background-color: #dcfce7; border-left: 4px solid #10b981; }
-        .category-bills { background-color: #fee2e2; border-left: 4px solid #ef4444; }
-        .category-exchange { background-color: #f0f9ff; border-left: 4px solid #0ea5e9; }
-        .category-other { background-color: #f3f4f6; border-left: 4px solid #6b7280; }
-        .conversion-hint {
-            font-size: 0.75rem;
-            color: #6b7280;
-            margin-top: 0.25rem;
-        }
-        .rainbow-hover {
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .rainbow-hover:hover {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #54a0ff);
-            background-size: 400% 400%;
-            animation: rainbow 2s ease infinite;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-        @keyframes rainbow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        .pulse {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: .5; }
-        }
-        /* Fix dropdown z-index issues */
-        select {
-            position: relative;
-            z-index: 10;
-        }
-        .form-section {
-            position: relative;
-            z-index: 5;
-        }
-        /* Sync status animations */
-        .sync-online { background-color: #10b981; }
-        .sync-offline { background-color: #f59e0b; }
-        .sync-error { background-color: #ef4444; }
-        .sync-syncing { background-color: #3b82f6; animation: pulse 1s infinite; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0f1320">
+<meta name="description" content="Personal expense tracker with live world currency conversion — no bank linking, works offline.">
+<title>Ledger — Expense Tracker</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💱</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js" defer></script>
+<style>
+/* ============ TOKENS ============ */
+:root[data-theme="dark"]{
+  --bg:#0f1320; --bg-elev:#171c2d; --bg-elev-2:#1f2538; --bg-elev-3:#262d44;
+  --ink:#eef0f6; --ink-dim:#9aa2ba; --ink-faint:#6b7392;
+  --line:#2a3149; --line-soft:#1d2338;
+  --accent:#e8b04b; --accent-ink:#1a1305;
+  --teal:#4fb0a5; --rose:#e2685f; --blue:#6f9ceb;
+  --shadow:0 10px 30px -12px rgba(0,0,0,.55);
+  --stamp:#e8b04b;
+}
+:root[data-theme="light"]{
+  --bg:#f4f1e8; --bg-elev:#ffffff; --bg-elev-2:#efe9d8; --bg-elev-3:#e6dfc9;
+  --ink:#20232c; --ink-dim:#5c6178; --ink-faint:#8a8f9e;
+  --line:#e2dcc6; --line-soft:#ece5d1;
+  --accent:#a9720f; --accent-ink:#fff8ea;
+  --teal:#1f7d72; --rose:#b8443b; --blue:#3c66b0;
+  --shadow:0 10px 26px -16px rgba(30,25,10,.35);
+  --stamp:#a9720f;
+}
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:'Inter',system-ui,sans-serif; font-size:15px; line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:78px;
+}
+h1,h2,h3,.display{ font-family:'Fraunces',serif; letter-spacing:-.01em; }
+.mono{ font-family:'IBM Plex Mono',monospace; font-variant-numeric:tabular-nums; }
+button{ font-family:inherit; }
+a{ color:inherit; }
+::selection{ background:var(--accent); color:var(--accent-ink); }
+@media (prefers-reduced-motion: reduce){ *{ animation-duration:.001ms !important; transition-duration:.001ms !important; } }
+
+/* ============ LAYOUT SHELL ============ */
+.wrap{ max-width:1080px; margin:0 auto; padding:0 16px; }
+
+/* ---- header / ticker ---- */
+header.top{
+  background:var(--bg-elev); border-bottom:1px solid var(--line);
+  position:sticky; top:0; z-index:30;
+}
+.brand-row{ display:flex; align-items:center; justify-content:space-between; padding:14px 16px 10px; max-width:1080px; margin:0 auto; }
+.brand{ display:flex; align-items:baseline; gap:9px; }
+.brand .mark{ font-size:22px; }
+.brand h1{ font-size:20px; margin:0; font-weight:600; }
+.brand .tag{ color:var(--ink-faint); font-size:12px; display:none; }
+@media(min-width:560px){ .brand .tag{ display:inline; } }
+.head-actions{ display:flex; gap:8px; align-items:center; }
+.icon-btn{
+  width:36px; height:36px; border-radius:10px; border:1px solid var(--line);
+  background:var(--bg-elev-2); color:var(--ink); display:flex; align-items:center; justify-content:center;
+  cursor:pointer; font-size:16px; transition:transform .15s ease, background .15s ease;
+}
+.icon-btn:hover{ background:var(--bg-elev-3); }
+.icon-btn:active{ transform:scale(.94); }
+
+/* ticker strip — signature element: split-flap departures board of exchange rates */
+.ticker{
+  border-top:1px dashed var(--line);
+  overflow-x:auto; white-space:nowrap; padding:8px 16px;
+  scrollbar-width:none;
+}
+.ticker::-webkit-scrollbar{ display:none; }
+.ticker-inner{ display:inline-flex; gap:0; align-items:center; }
+.tflap{
+  display:inline-flex; flex-direction:column; align-items:flex-start; gap:1px;
+  padding:4px 14px; border-right:1px solid var(--line-soft);
+}
+.tflap:last-child{ border-right:none; }
+.tflap .code{ font-size:10px; letter-spacing:.12em; color:var(--ink-faint); text-transform:uppercase; }
+.tflap .rate{ font-size:13px; font-weight:600; color:var(--accent); }
+.ticker-meta{ display:inline-flex; align-items:center; gap:6px; padding:4px 10px 4px 4px; color:var(--ink-faint); font-size:11px; }
+.ticker-meta button{ background:none; border:none; color:var(--teal); cursor:pointer; font-size:11px; text-decoration:underline; padding:0; }
+
+/* ---- nav ---- */
+nav.tabs{
+  display:flex; gap:4px; max-width:1080px; margin:0 auto; padding:4px 12px 0;
+}
+nav.tabs button{
+  flex:1; background:none; border:none; color:var(--ink-dim); padding:10px 6px 12px;
+  font-size:13px; font-weight:600; cursor:pointer; border-bottom:2px solid transparent;
+  display:flex; flex-direction:column; align-items:center; gap:2px;
+}
+nav.tabs button .ic{ font-size:17px; }
+nav.tabs button.active{ color:var(--accent); border-bottom-color:var(--accent); }
+
+@media(max-width:719px){
+  nav.tabs{
+    position:fixed; bottom:0; left:0; right:0; z-index:40;
+    background:var(--bg-elev); border-top:1px solid var(--line);
+    padding:6px 4px calc(6px + env(safe-area-inset-bottom)); justify-content:space-around;
+  }
+  nav.tabs button{ border-bottom:none; padding:6px 2px; font-size:11px; }
+  nav.tabs button.active{ color:var(--accent); }
+}
+@media(min-width:720px){
+  body{ padding-bottom:24px; }
+  nav.tabs button{ flex:none; padding:12px 18px; }
+}
+
+main{ max-width:1080px; margin:0 auto; padding:18px 16px 40px; }
+section.view{ display:none; }
+section.view.active{ display:block; animation:fadeIn .25s ease; }
+@keyframes fadeIn{ from{ opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;} }
+
+/* ============ CARDS / PRIMITIVES ============ */
+.card{
+  background:var(--bg-elev); border:1px solid var(--line); border-radius:16px;
+  padding:16px; box-shadow:var(--shadow);
+}
+.section-title{ display:flex; align-items:center; justify-content:space-between; margin:26px 0 12px; }
+.section-title h2{ font-size:17px; margin:0; }
+.section-title .hint{ color:var(--ink-faint); font-size:12px; }
+.section-title:first-child{ margin-top:0; }
+
+.stat-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+@media(min-width:640px){ .stat-grid{ grid-template-columns:repeat(4,1fr); } }
+.stat{
+  background:var(--bg-elev); border:1px solid var(--line); border-radius:14px; padding:14px;
+}
+.stat .lbl{ font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-faint); }
+.stat .val{ font-size:20px; font-weight:600; margin-top:4px; }
+.stat .val.mono{ font-size:19px; }
+.stat.accentline{ border-left:3px solid var(--accent); }
+
+/* buttons */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:6px;
+  border-radius:11px; border:1px solid var(--line); background:var(--bg-elev-2); color:var(--ink);
+  padding:10px 16px; font-size:14px; font-weight:600; cursor:pointer; transition:transform .12s, background .15s;
+}
+.btn:hover{ background:var(--bg-elev-3); }
+.btn:active{ transform:scale(.97); }
+.btn.primary{ background:var(--accent); color:var(--accent-ink); border-color:var(--accent); }
+.btn.primary:hover{ filter:brightness(1.05); }
+.btn.danger{ background:transparent; color:var(--rose); border-color:var(--rose); }
+.btn.ghost{ background:transparent; }
+.btn.sm{ padding:6px 11px; font-size:12.5px; border-radius:9px; }
+.btn.block{ width:100%; }
+.btn[disabled]{ opacity:.5; cursor:not-allowed; }
+
+/* forms */
+label{ display:block; font-size:12px; font-weight:600; color:var(--ink-dim); margin:0 0 6px; }
+input,select,textarea{
+  width:100%; background:var(--bg-elev-2); border:1px solid var(--line); color:var(--ink);
+  border-radius:10px; padding:10px 12px; font-size:15px; font-family:inherit;
+}
+input:focus,select:focus,textarea:focus{ outline:2px solid var(--accent); outline-offset:1px; }
+.field{ margin-bottom:14px; }
+.field-row{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.field-row3{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+@media(max-width:480px){ .field-row3{ grid-template-columns:1fr 1fr; } }
+.check-row{ display:flex; align-items:center; gap:8px; }
+.check-row input{ width:auto; }
+
+/* passport-stamp category badge */
+.stamp{
+  display:inline-flex; align-items:center; gap:5px; padding:3px 10px 3px 7px;
+  border:1.5px dashed var(--stamp); border-radius:999px; color:var(--stamp);
+  font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em;
+  transform:rotate(-1.5deg); white-space:nowrap;
+}
+
+/* modal */
+.modal-overlay{
+  position:fixed; inset:0; background:rgba(5,7,14,.6); backdrop-filter:blur(2px);
+  display:none; align-items:flex-end; justify-content:center; z-index:60; padding:0;
+}
+.modal-overlay.open{ display:flex; }
+.modal{
+  background:var(--bg-elev); border:1px solid var(--line); width:100%; max-width:560px;
+  border-radius:20px 20px 0 0; padding:20px; max-height:92vh; overflow-y:auto;
+  box-shadow:0 -12px 40px rgba(0,0,0,.4);
+}
+@media(min-width:640px){
+  .modal-overlay{ align-items:center; }
+  .modal{ border-radius:18px; margin-bottom:0; }
+}
+.modal-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+.modal-head h3{ margin:0; font-size:18px; }
+
+/* list rows */
+.exp-row{
+  display:flex; align-items:center; gap:12px; padding:12px 4px; border-bottom:1px solid var(--line-soft);
+}
+.exp-row:last-child{ border-bottom:none; }
+.exp-ic{
+  width:38px; height:38px; border-radius:11px; background:var(--bg-elev-2); display:flex;
+  align-items:center; justify-content:center; font-size:17px; flex:none;
+}
+.exp-mid{ flex:1; min-width:0; }
+.exp-desc{ font-weight:600; font-size:14px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.exp-meta{ font-size:12px; color:var(--ink-faint); margin-top:2px; }
+.exp-amt{ text-align:right; flex:none; }
+.exp-amt .orig{ font-weight:700; font-size:14.5px; }
+.exp-amt .conv{ font-size:11.5px; color:var(--ink-faint); }
+.exp-actions{ display:flex; gap:4px; flex:none; }
+.exp-actions button{
+  width:30px; height:30px; border-radius:8px; border:1px solid var(--line); background:var(--bg-elev-2);
+  color:var(--ink-dim); cursor:pointer; font-size:13px;
+}
+
+.empty{ text-align:center; padding:38px 16px; color:var(--ink-faint); }
+.empty .ic{ font-size:30px; display:block; margin-bottom:8px; }
+
+/* filters bar */
+.filters{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+.filters select, .filters input{ width:auto; flex:1; min-width:120px; }
+.filters .search{ flex:2 1 200px; }
+
+/* budget bars */
+.budget-item{ margin-bottom:14px; }
+.budget-top{ display:flex; justify-content:space-between; font-size:13px; margin-bottom:6px; }
+.budget-top .cat{ font-weight:600; }
+.budget-top .amt{ color:var(--ink-faint); }
+.bar-track{ height:8px; border-radius:999px; background:var(--bg-elev-2); overflow:hidden; }
+.bar-fill{ height:100%; border-radius:999px; transition:width .3s ease; }
+
+/* recurring due */
+.due-item{
+  display:flex; justify-content:space-between; align-items:center; gap:10px;
+  padding:10px 0; border-bottom:1px solid var(--line-soft);
+}
+.due-item:last-child{ border-bottom:none; }
+
+/* converter */
+.convert-grid{ display:grid; grid-template-columns:1fr auto 1fr; gap:8px; align-items:end; }
+.swap-btn{
+  width:38px; height:38px; border-radius:50%; border:1px solid var(--line); background:var(--bg-elev-2);
+  cursor:pointer; font-size:16px; margin-bottom:2px;
+}
+.convert-result{
+  margin-top:14px; text-align:center; font-size:26px; font-weight:700; font-family:'IBM Plex Mono',monospace;
+}
+.convert-result .small{ display:block; font-size:12px; font-weight:500; color:var(--ink-faint); font-family:'Inter',sans-serif; margin-top:4px; }
+
+/* charts */
+.chart-box{ position:relative; height:260px; }
+.chart-wrap{ margin-bottom:24px; }
+
+/* toast */
+#toast{
+  position:fixed; bottom:88px; left:50%; transform:translateX(-50%) translateY(20px);
+  background:var(--ink); color:var(--bg); padding:10px 18px; border-radius:999px; font-size:13px;
+  font-weight:600; opacity:0; pointer-events:none; transition:opacity .25s ease, transform .25s ease; z-index:80;
+  box-shadow:0 10px 30px rgba(0,0,0,.3);
+}
+#toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+@media(min-width:720px){ #toast{ bottom:28px; } }
+
+/* misc */
+.divider{ height:1px; background:var(--line); margin:18px 0; }
+.two-col{ display:grid; grid-template-columns:1fr; gap:16px; }
+@media(min-width:760px){ .two-col{ grid-template-columns:1fr 1fr; } }
+.helptext{ font-size:12px; color:var(--ink-faint); margin-top:4px; }
+.badge-count{ background:var(--accent); color:var(--accent-ink); font-size:10px; font-weight:700; border-radius:999px; padding:1px 6px; }
+table.rep{ width:100%; border-collapse:collapse; font-size:13px; }
+table.rep th,table.rep td{ text-align:left; padding:8px 10px; border-bottom:1px solid var(--line-soft); white-space:nowrap; }
+table.rep th{ color:var(--ink-faint); font-size:11px; text-transform:uppercase; letter-spacing:.05em; }
+.table-scroll{ overflow-x:auto; }
+.list-scroll{ max-height:520px; overflow-y:auto; }
+
+/* searchable currency picker */
+.ccy-picker{ position:relative; }
+.ccy-trigger{
+  width:100%; text-align:left; background:var(--bg-elev-2); border:1px solid var(--line); color:var(--ink);
+  border-radius:10px; padding:10px 12px; font-size:15px; cursor:pointer; font-family:inherit;
+  display:flex; justify-content:space-between; align-items:center; gap:8px;
+}
+.ccy-trigger:hover{ background:var(--bg-elev-3); }
+.ccy-trigger .arrow{ color:var(--ink-faint); font-size:11px; flex:none; }
+.ccy-panel{
+  display:none; position:absolute; top:calc(100% + 6px); left:0; right:0; z-index:50;
+  background:var(--bg-elev-2); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow);
+  padding:8px;
+}
+.ccy-picker.open .ccy-panel{ display:block; }
+.ccy-search{ margin-bottom:6px; }
+.ccy-list{ max-height:230px; overflow-y:auto; }
+.ccy-item{
+  display:flex; align-items:center; gap:8px; padding:8px 8px; border-radius:8px; cursor:pointer; font-size:13.5px;
+}
+.ccy-item:hover, .ccy-item.hi{ background:var(--bg-elev-3); }
+.ccy-code{ font-weight:700; font-family:'IBM Plex Mono',monospace; width:42px; flex:none; }
+.ccy-name{ flex:1; color:var(--ink-dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.ccy-sym{ color:var(--ink-faint); font-size:12px; flex:none; }
+.ccy-empty{ padding:10px; color:var(--ink-faint); font-size:13px; text-align:center; }
+</style>
 </head>
-<body class="bg-gradient-to-br from-teal-50 to-cyan-50 min-h-screen font-sans">
-    <div class="container mx-auto px-3 md:px-4 py-4 md:py-8 max-w-4xl">
-        <!-- Header -->
-        <div class="text-center mb-6 md:mb-8">
-            <h1 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2">💰 Expense Tracker</h1>
-            <p class="text-sm md:text-base text-gray-600 px-4">Keep track of your spending with live exchange rates - syncs across all devices</p>
-        </div>
+<body>
 
-        <!-- Sync Status & Exchange Rate Setting -->
-        <div class="bg-white rounded-xl shadow-lg p-4 mb-6">
-            <!-- Sync Status -->
-            <div class="flex items-center justify-center mb-4 pb-4 border-b border-gray-200">
-                <div id="syncStatus" class="flex items-center space-x-2">
-                    <div id="syncIndicator" class="w-3 h-3 rounded-full bg-gray-400"></div>
-                    <span id="syncText" class="text-sm text-gray-600">Connecting to cloud...</span>
-                    <div id="syncSpinner" class="hidden">
-                        <svg class="animate-spin h-4 w-4 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Exchange Rate -->
-            <div class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4">
-                <div class="text-sm text-gray-600">Exchange Rate:</div>
-                <div class="flex items-center space-x-2">
-                    <span class="text-sm">1 USD =</span>
-                    <input type="number" id="exchangeRateInput" value="282" step="0.01" min="1" 
-                           class="w-20 px-2 py-1 border border-gray-300 rounded text-center focus:ring-2 focus:ring-purple-500">
-                    <span class="text-sm">PKR</span>
-                    <button id="updateRateBtn" class="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 whitespace-nowrap">
-                        Update
-                    </button>
-                </div>
-            </div>
-        </div>
+<header class="top">
+  <div class="brand-row">
+    <div class="brand">
+      <span class="mark">💱</span>
+      <h1>Ledger</h1>
+      <span class="tag">— spend in any currency, see it in one</span>
+    </div>
+    <div class="head-actions">
+      <button class="icon-btn" id="themeToggle" title="Toggle theme">🌙</button>
+      <button class="icon-btn" id="addBtn" title="Add expense">➕</button>
+    </div>
+  </div>
+  <div class="ticker" id="tickerBar">
+    <div class="ticker-inner" id="tickerInner"></div>
+  </div>
+  <nav class="tabs" id="tabs">
+    <button data-tab="dashboard" class="active"><span class="ic">🏛️</span>Dashboard</button>
+    <button data-tab="expenses"><span class="ic">📒</span>Expenses</button>
+    <button data-tab="analytics"><span class="ic">📈</span>Analytics</button>
+    <button data-tab="settings"><span class="ic">⚙️</span>Settings</button>
+  </nav>
+</header>
 
-        <!-- Summary Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
-            <div class="bg-white rounded-xl shadow-lg p-4 md:p-6 text-center">
-                <div class="text-2xl md:text-3xl mb-2">📊</div>
-                <h3 class="text-base md:text-lg font-semibold text-gray-700 mb-1">Total Expenses</h3>
-                <p id="totalAmount" class="text-lg md:text-2xl font-bold text-red-500">$0.00</p>
-            </div>
-            <div class="bg-white rounded-xl shadow-lg p-4 md:p-6 text-center">
-                <div class="text-2xl md:text-3xl mb-2">📝</div>
-                <h3 class="text-base md:text-lg font-semibold text-gray-700 mb-1">Monthly Entries</h3>
-                <div id="monthlyEntries" class="space-y-1">
-                    <p class="text-lg md:text-2xl font-bold text-blue-500">0</p>
-                    <p class="text-xs text-gray-500">This month</p>
-                </div>
-            </div>
-            <div class="bg-white rounded-xl shadow-lg p-4 md:p-6 text-center sm:col-span-2 lg:col-span-1">
-                <div class="text-2xl md:text-3xl mb-2">📅</div>
-                <h3 class="text-base md:text-lg font-semibold text-gray-700 mb-1">This Month</h3>
-                <p id="monthlyAmount" class="text-lg md:text-2xl font-bold text-teal-500">$0.00</p>
-            </div>
-        </div>
+<main class="wrap">
 
-        <!-- Add Expense Form -->
-        <div class="bg-white rounded-xl shadow-lg p-6 mb-8 form-section">
-            <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-6">Add New Expense</h2>
-            <form id="expenseForm" class="space-y-6">
-                <!-- First Row: Description and Amount -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                        <input type="text" id="description" placeholder="e.g., Lunch at cafe" 
-                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-base" required>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Amount</label>
-                        <div class="flex">
-                            <input type="number" id="amount" placeholder="0.00" step="0.01" min="0"
-                                   class="flex-1 px-4 py-3 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-base" required>
-                            <select id="currency" class="w-24 px-3 py-3 border border-l-0 border-gray-300 rounded-r-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-gray-50 text-base">
-                                <option value="USD">USD</option>
-                                <option value="PKR">PKR</option>
-                            </select>
-                        </div>
-                        <div id="conversionSection" class="mt-3 hidden">
-                            <div class="flex flex-wrap items-center gap-2 p-3 bg-blue-50 rounded-lg">
-                                <span class="text-sm text-gray-600">Converts to:</span>
-                                <input type="number" id="convertedAmount" placeholder="0.00" step="0.01" min="0"
-                                       class="w-24 px-2 py-1 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-teal-500">
-                                <span id="convertedCurrency" class="text-sm text-gray-600">PKR</span>
-                                <button type="button" id="useConvertedBtn" class="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 whitespace-nowrap">
-                                    Use This
-                                </button>
-                            </div>
-                        </div>
-                        <div id="conversionHint" class="conversion-hint mt-1"></div>
-                    </div>
-                </div>
-                
-                <!-- Second Row: Date and Category -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
-                        <input type="date" id="expenseDate" 
-                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-base" required>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
-                        <select id="category" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-base" required>
-                            <option value="">Select category</option>
-                            <option value="food">🍔 Food & Dining</option>
-                            <option value="groceries">🛒 Groceries</option>
-                            <option value="rent">🏠 Rent</option>
-                            <option value="transport">🚗 Transportation</option>
-                            <option value="entertainment">🎬 Entertainment</option>
-                            <option value="shopping">🛍️ Shopping</option>
-                            <option value="bills">💡 Bills & Utilities</option>
-                            <option value="exchange">💱 Exchange Money</option>
-                            <option value="other">📦 Other</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <!-- Submit Button -->
-                <div class="flex justify-center pt-2">
-                    <button type="submit" class="bg-teal-600 text-white font-semibold py-3 px-8 rounded-lg hover:bg-teal-700 transition duration-200 rainbow-hover text-base min-w-[200px]">
-                        Add Expense
-                    </button>
-                </div>
-            </form>
-        </div>
-
-        <!-- View Toggle and Controls -->
-        <div class="bg-white rounded-xl shadow-lg p-4 md:p-6 mb-6 md:mb-8">
-            <div class="flex flex-col space-y-4">
-                <!-- View Toggle -->
-                <div class="flex flex-col sm:flex-row justify-center gap-2 sm:gap-4">
-                    <button id="listViewBtn" class="px-4 md:px-6 py-2 bg-teal-600 text-white rounded-lg font-medium rainbow-hover text-sm md:text-base">
-                        📋 <span class="hidden sm:inline">List View</span><span class="sm:hidden">List</span>
-                    </button>
-                    <button id="spreadsheetViewBtn" class="px-4 md:px-6 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium rainbow-hover text-sm md:text-base">
-                        📊 <span class="hidden sm:inline">Monthly Spreadsheet</span><span class="sm:hidden">Spreadsheet</span>
-                    </button>
-                    <button id="analyticsViewBtn" class="px-4 md:px-6 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium rainbow-hover text-sm md:text-base">
-                        📈 <span class="hidden sm:inline">Analytics</span><span class="sm:hidden">Analytics</span>
-                    </button>
-                </div>
-                
-                <!-- Search and Filter Controls -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-                    <div class="sm:col-span-2 lg:col-span-1">
-                        <input type="text" id="searchInput" placeholder="Search expenses..." 
-                               class="w-full px-3 md:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 text-sm md:text-base">
-                    </div>
-                    <div>
-                        <select id="categoryFilter" class="w-full px-3 md:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 text-sm md:text-base">
-                            <option value="">All Categories</option>
-                            <option value="food">🍔 Food & Dining</option>
-                            <option value="groceries">🛒 Groceries</option>
-                            <option value="rent">🏠 Rent</option>
-                            <option value="transport">🚗 Transportation</option>
-                            <option value="entertainment">🎬 Entertainment</option>
-                            <option value="shopping">🛍️ Shopping</option>
-                            <option value="bills">💡 Bills & Utilities</option>
-                            <option value="exchange">💱 Exchange Money</option>
-                            <option value="other">📦 Other</option>
-                        </select>
-                    </div>
-                    <div>
-                        <select id="currencyFilter" class="w-full px-3 md:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 text-sm md:text-base">
-                            <option value="">All Currencies</option>
-                            <option value="USD">USD ($)</option>
-                            <option value="PKR">PKR (₨)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <button id="exportBtn" class="w-full px-3 md:px-4 py-2 bg-green-600 text-white rounded-lg font-medium rainbow-hover text-sm md:text-base">
-                            📥 <span class="hidden sm:inline">Export CSV</span><span class="sm:hidden">Export</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- List View -->
-        <div id="listView" class="bg-white rounded-xl shadow-lg p-4 md:p-6">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 md:mb-6 gap-2">
-                <h2 class="text-xl md:text-2xl font-bold text-gray-800">Recent Expenses</h2>
-                <button id="clearAll" class="text-red-500 hover:text-red-700 font-medium transition duration-200 text-sm md:text-base">
-                    Clear All
-                </button>
-            </div>
-            <div id="expenseList" class="space-y-3">
-                <div class="text-center py-6 md:py-8 text-gray-500">
-                    <div class="text-3xl md:text-4xl mb-2">📋</div>
-                    <p class="text-sm md:text-base px-4">No expenses yet. Add your first expense above!</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Spreadsheet View -->
-        <div id="spreadsheetView" class="bg-white rounded-xl shadow-lg p-4 md:p-6 hidden">
-            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-4 md:mb-6 gap-4">
-                <h2 id="spreadsheetTitle" class="text-xl md:text-2xl font-bold text-gray-800">Monthly Expense Report</h2>
-                <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full lg:w-auto">
-                    <select id="monthFilter" class="px-3 md:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 text-sm md:text-base">
-                        <option value="">Select Month</option>
-                    </select>
-                    <select id="yearFilter" class="px-3 md:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 text-sm md:text-base">
-                        <option value="">Select Year</option>
-                    </select>
-                    <select id="dayFilter" class="px-3 md:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 text-sm md:text-base">
-                        <option value="">All Days (Monthly View)</option>
-                    </select>
-                </div>
-            </div>
-            <div class="overflow-x-auto -mx-4 md:mx-0">
-                <div class="min-w-full inline-block align-middle">
-                    <table id="expenseTable" class="w-full border-collapse min-w-[600px]">
-                        <thead>
-                            <tr class="bg-gray-50">
-                                <th class="border border-gray-300 px-2 md:px-4 py-2 text-left font-semibold text-xs md:text-sm">Date</th>
-                                <th class="border border-gray-300 px-2 md:px-4 py-2 text-left font-semibold text-xs md:text-sm">Description</th>
-                                <th class="border border-gray-300 px-2 md:px-4 py-2 text-left font-semibold text-xs md:text-sm">Category</th>
-                                <th class="border border-gray-300 px-2 md:px-4 py-2 text-right font-semibold text-xs md:text-sm">Amount (USD)</th>
-                                <th class="border border-gray-300 px-2 md:px-4 py-2 text-right font-semibold text-xs md:text-sm">Amount (PKR)</th>
-                                <th class="border border-gray-300 px-2 md:px-4 py-2 text-center font-semibold text-xs md:text-sm">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="expenseTableBody">
-                            <tr>
-                                <td colspan="6" class="border border-gray-300 px-2 md:px-4 py-6 md:py-8 text-center text-gray-500 text-sm md:text-base">
-                                    No expenses to display
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tfoot id="expenseTableFooter" class="bg-teal-50 font-bold">
-                            <tr>
-                                <td colspan="3" class="border border-gray-300 px-2 md:px-4 py-2 text-right text-teal-800 text-xs md:text-sm">Total:</td>
-                                <td id="totalUSD" class="border border-gray-300 px-2 md:px-4 py-2 text-right text-teal-800 text-xs md:text-sm">$0.00</td>
-                                <td id="totalPKR" class="border border-gray-300 px-2 md:px-4 py-2 text-right text-teal-800 text-xs md:text-sm">₨0.00</td>
-                                <td class="border border-gray-300 px-2 md:px-4 py-2"></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Analytics View -->
-        <div id="analyticsView" class="bg-white rounded-xl shadow-lg p-4 md:p-6 hidden">
-            <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 md:mb-6">Expense Analytics</h2>
-            
-            <!-- Analytics Summary Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-8">
-                <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg p-3 md:p-4">
-                    <div class="text-xs md:text-sm opacity-90">Average Daily</div>
-                    <div id="avgDaily" class="text-lg md:text-xl font-bold">$0.00</div>
-                </div>
-                <div class="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg p-3 md:p-4">
-                    <div class="text-xs md:text-sm opacity-90">Highest Category</div>
-                    <div id="highestCategory" class="text-lg md:text-xl font-bold">-</div>
-                </div>
-                <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg p-3 md:p-4">
-                    <div class="text-xs md:text-sm opacity-90">Most Frequent</div>
-                    <div id="mostFrequent" class="text-lg md:text-xl font-bold">-</div>
-                </div>
-                <div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg p-3 md:p-4">
-                    <div class="text-xs md:text-sm opacity-90">Days Active</div>
-                    <div id="daysActive" class="text-lg md:text-xl font-bold">0</div>
-                </div>
-            </div>
-
-            <!-- Category Breakdown -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
-                <div>
-                    <h3 class="text-base md:text-lg font-semibold text-gray-800 mb-3 md:mb-4">Spending by Category</h3>
-                    <div id="categoryChart" class="space-y-2 md:space-y-3">
-                        <!-- Category bars will be generated here -->
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-base md:text-lg font-semibold text-gray-800 mb-3 md:mb-4">Monthly Trend</h3>
-                    <div id="monthlyTrend" class="space-y-2">
-                        <!-- Monthly trend will be generated here -->
-                    </div>
-                </div>
-            </div>
-        </div>
+  <!-- ================= DASHBOARD ================= -->
+  <section class="view active" id="view-dashboard">
+    <div class="stat-grid">
+      <div class="stat accentline"><div class="lbl">Total spent</div><div class="val mono" id="statTotal">—</div></div>
+      <div class="stat"><div class="lbl" id="statMonthLbl">This month</div><div class="val mono" id="statMonth">—</div></div>
+      <div class="stat"><div class="lbl">Avg / day (mo.)</div><div class="val mono" id="statAvg">—</div></div>
+      <div class="stat"><div class="lbl">Entries</div><div class="val mono" id="statCount">0</div></div>
     </div>
 
-    <script>
-        // Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyBqJNDqVqJNDqVqJNDqVqJNDqVqJNDqVqJ",
-            authDomain: "expense-tracker-demo.firebaseapp.com",
-            projectId: "expense-tracker-demo",
-            storageBucket: "expense-tracker-demo.appspot.com",
-            messagingSenderId: "123456789012",
-            appId: "1:123456789012:web:abcdef123456789012345678"
-        };
+    <div class="section-title"><h2>Quick convert</h2><span class="hint">live rates</span></div>
+    <div class="card">
+      <div class="convert-grid">
+        <div class="field" style="margin-bottom:0;">
+          <label>Amount / from</label>
+          <input type="number" id="cvAmount" value="100" min="0" step="any">
+        </div>
+        <button class="swap-btn" id="cvSwap" title="Swap">⇄</button>
+        <div class="field" style="margin-bottom:0;">
+          <label>To</label>
+          <div id="cvTo"></div>
+        </div>
+      </div>
+      <div class="field" style="margin-top:10px;">
+        <div id="cvFrom"></div>
+      </div>
+      <div class="convert-result" id="cvResult">—
+        <span class="small" id="cvSub">Waiting for rates…</span>
+      </div>
+    </div>
 
-        // Initialize Firebase
-        let db = null;
-        let isOnline = navigator.onLine;
-        let syncQueue = [];
-        let deviceId = localStorage.getItem('deviceId') || generateDeviceId();
-        
-        function generateDeviceId() {
-            const id = 'device_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
-            localStorage.setItem('deviceId', id);
-            return id;
-        }
+    <div class="section-title"><h2>Recurring due</h2><span class="hint" id="dueCountHint"></span></div>
+    <div class="card" id="dueCard"></div>
 
-        // Initialize Firebase with error handling
-        try {
-            firebase.initializeApp(firebaseConfig);
-            db = firebase.firestore();
-            
-            // Enable offline persistence
-            db.enablePersistence({ synchronizeTabs: true })
-                .then(() => {
-                    console.log('Offline persistence enabled');
-                    updateSyncStatus('online', 'Connected to cloud');
-                })
-                .catch((err) => {
-                    console.log('Persistence failed:', err);
-                    updateSyncStatus('offline', 'Working offline');
-                });
-                
-        } catch (error) {
-            console.log('Firebase initialization failed:', error);
-            updateSyncStatus('error', 'Cloud sync unavailable');
-        }
+    <div class="section-title"><h2>Budgets this month</h2><span class="hint">set targets in Settings</span></div>
+    <div class="card" id="budgetCard"></div>
+  </section>
 
-        // Sync status management
-        function updateSyncStatus(status, message) {
-            const indicator = document.getElementById('syncIndicator');
-            const text = document.getElementById('syncText');
-            const spinner = document.getElementById('syncSpinner');
-            
-            // Remove all status classes
-            indicator.className = 'w-3 h-3 rounded-full';
-            spinner.classList.add('hidden');
-            
-            switch (status) {
-                case 'online':
-                    indicator.classList.add('sync-online');
-                    text.textContent = '☁️ ' + message;
-                    break;
-                case 'offline':
-                    indicator.classList.add('sync-offline');
-                    text.textContent = '📱 ' + message;
-                    break;
-                case 'syncing':
-                    indicator.classList.add('sync-syncing');
-                    text.textContent = '🔄 ' + message;
-                    spinner.classList.remove('hidden');
-                    break;
-                case 'error':
-                    indicator.classList.add('sync-error');
-                    text.textContent = '⚠️ ' + message;
-                    break;
-            }
-        }
+  <!-- ================= EXPENSES ================= -->
+  <section class="view" id="view-expenses">
+    <div class="section-title" style="margin-top:0;"><h2>Your expenses</h2>
+      <button class="btn primary sm" id="addBtn2">➕ Add expense</button>
+    </div>
 
-        // Network status monitoring
-        window.addEventListener('online', () => {
-            isOnline = true;
-            if (db) {
-                updateSyncStatus('syncing', 'Syncing data...');
-                syncPendingChanges();
-            }
-        });
+    <div class="filters">
+      <input type="search" class="search" id="fSearch" placeholder="Search description or notes…">
+      <select id="fCategory"><option value="">All categories</option></select>
+      <select id="fCurrency"><option value="">All currencies</option></select>
+      <select id="fMonth"><option value="">All time</option></select>
+      <select id="fSort">
+        <option value="date-desc">Newest first</option>
+        <option value="date-asc">Oldest first</option>
+        <option value="amount-desc">Amount: high → low</option>
+        <option value="amount-asc">Amount: low → high</option>
+      </select>
+    </div>
 
-        window.addEventListener('offline', () => {
-            isOnline = false;
-            updateSyncStatus('offline', 'Working offline');
-        });
+    <div class="card">
+      <div id="expList" class="list-scroll"></div>
+    </div>
 
-        // Cloud sync functions
-        async function syncExpenseToCloud(expense, operation = 'add') {
-            if (!db || !isOnline) {
-                // Queue for later sync
-                syncQueue.push({ expense, operation, timestamp: Date.now() });
-                localStorage.setItem('syncQueue', JSON.stringify(syncQueue));
-                return;
-            }
+    <div class="section-title"><h2>Export</h2></div>
+    <div class="card" style="display:flex; gap:10px; flex-wrap:wrap;">
+      <button class="btn" id="exportCsv">📥 Export CSV</button>
+      <button class="btn" id="exportJson">📦 Backup JSON</button>
+      <label class="btn" style="cursor:pointer;">📤 Restore JSON<input type="file" id="importJson" accept="application/json" style="display:none;"></label>
+    </div>
+  </section>
 
-            try {
-                updateSyncStatus('syncing', 'Syncing...');
-                
-                const expenseData = {
-                    ...expense,
-                    deviceId: deviceId,
-                    lastModified: firebase.firestore.FieldValue.serverTimestamp(),
-                    operation: operation
-                };
+  <!-- ================= ANALYTICS ================= -->
+  <section class="view" id="view-analytics">
+    <div class="stat-grid">
+      <div class="stat"><div class="lbl">Avg daily (mo.)</div><div class="val mono" id="anAvg">—</div></div>
+      <div class="stat"><div class="lbl">Top category</div><div class="val" id="anTopCat">—</div></div>
+      <div class="stat"><div class="lbl">Most frequent</div><div class="val" id="anFreqCat">—</div></div>
+      <div class="stat"><div class="lbl">Active days (mo.)</div><div class="val mono" id="anDays">0</div></div>
+    </div>
 
-                if (operation === 'delete') {
-                    await db.collection('expenses').doc(expense.id.toString()).delete();
-                } else {
-                    await db.collection('expenses').doc(expense.id.toString()).set(expenseData, { merge: true });
-                }
-                
-                updateSyncStatus('online', 'Synced to cloud');
-                
-                // Remove from sync queue if it was there
-                syncQueue = syncQueue.filter(item => item.expense.id !== expense.id);
-                localStorage.setItem('syncQueue', JSON.stringify(syncQueue));
-                
-            } catch (error) {
-                console.log('Sync failed:', error);
-                // Add to queue for retry
-                syncQueue.push({ expense, operation, timestamp: Date.now() });
-                localStorage.setItem('syncQueue', JSON.stringify(syncQueue));
-                updateSyncStatus('offline', 'Will sync when online');
-            }
-        }
+    <div class="two-col">
+      <div class="chart-wrap">
+        <div class="section-title"><h2>Spending by category</h2></div>
+        <div class="card chart-box"><canvas id="chartCategory"></canvas></div>
+      </div>
+      <div class="chart-wrap">
+        <div class="section-title"><h2>Last 6 months</h2></div>
+        <div class="card chart-box"><canvas id="chartTrend"></canvas></div>
+      </div>
+    </div>
 
-        async function syncPendingChanges() {
-            if (!db || !isOnline || syncQueue.length === 0) return;
+    <div class="section-title"><h2>Monthly report</h2></div>
+    <div class="card">
+      <div class="filters">
+        <select id="repMonth"></select>
+      </div>
+      <div class="table-scroll">
+        <table class="rep">
+          <thead><tr><th>Date</th><th>Description</th><th>Category</th><th>Amount</th><th id="repBaseHead">Base</th></tr></thead>
+          <tbody id="repBody"></tbody>
+          <tfoot><tr><td colspan="3"><strong>Total</strong></td><td colspan="2"><strong id="repTotal">—</strong></td></tr></tfoot>
+        </table>
+      </div>
+    </div>
+  </section>
 
-            updateSyncStatus('syncing', `Syncing ${syncQueue.length} changes...`);
-            
-            const pendingQueue = [...syncQueue];
-            syncQueue = [];
-            
-            for (const item of pendingQueue) {
-                try {
-                    await syncExpenseToCloud(item.expense, item.operation);
-                } catch (error) {
-                    // Re-add failed items to queue
-                    syncQueue.push(item);
-                }
-            }
-            
-            localStorage.setItem('syncQueue', JSON.stringify(syncQueue));
-            
-            if (syncQueue.length === 0) {
-                updateSyncStatus('online', 'All changes synced');
-            } else {
-                updateSyncStatus('offline', `${syncQueue.length} changes pending`);
-            }
-        }
+  <!-- ================= SETTINGS ================= -->
+  <section class="view" id="view-settings">
+    <div class="section-title" style="margin-top:0;"><h2>Base currency</h2></div>
+    <div class="card">
+      <div class="field" style="margin-bottom:6px;">
+        <label>Show totals &amp; convert everything into</label>
+        <div id="baseCurrencySelect"></div>
+      </div>
+      <div class="helptext" id="rateStatus">—</div>
+    </div>
 
-        // Conflict resolution system
-        function setupConflictResolution() {
-            // Set up periodic conflict detection
-            setInterval(async () => {
-                if (db && isOnline) {
-                    await detectAndResolveConflicts();
-                }
-            }, 30000); // Check every 30 seconds
-            
-            console.log('⚡ Conflict resolution system enabled');
-        }
+    <div class="section-title"><h2>Recurring expenses</h2></div>
+    <div class="card">
+      <div id="recurringList"></div>
+      <div class="divider"></div>
+      <div class="field-row3">
+        <div class="field"><label>Description</label><input id="recDesc" placeholder="e.g. Rent"></div>
+        <div class="field"><label>Amount</label><input id="recAmount" type="number" min="0" step="any"></div>
+        <div class="field"><label>Currency</label><div id="recCurrency"></div></div>
+      </div>
+      <div class="field-row3">
+        <div class="field"><label>Category</label><select id="recCategory"></select></div>
+        <div class="field"><label>Day of month</label><input id="recDay" type="number" min="1" max="28" value="1"></div>
+        <div class="field" style="display:flex; align-items:flex-end;"><button class="btn primary block" id="recAdd">Add template</button></div>
+      </div>
+    </div>
 
-        async function detectAndResolveConflicts() {
-            if (!db || !isOnline) return;
-            
-            try {
-                // Get recent changes from cloud that aren't from this device
-                const recentChanges = await db.collection('expenses')
-                    .where('deviceId', '!=', deviceId)
-                    .where('lastModified', '>', new Date(parseInt(lastSyncTime)))
-                    .get();
-                
-                if (recentChanges.empty) return;
-                
-                const conflicts = [];
-                
-                recentChanges.forEach(doc => {
-                    const cloudExpense = doc.data();
-                    const localExpense = expenses.find(e => e.id === parseInt(doc.id));
-                    
-                    if (localExpense) {
-                        // Check for conflicts
-                        const hasConflict = (
-                            localExpense.description !== cloudExpense.description ||
-                            localExpense.amount !== cloudExpense.amount ||
-                            localExpense.category !== cloudExpense.category ||
-                            localExpense.currency !== cloudExpense.currency ||
-                            localExpense.date !== cloudExpense.date
-                        );
-                        
-                        if (hasConflict) {
-                            conflicts.push({
-                                id: parseInt(doc.id),
-                                local: localExpense,
-                                cloud: cloudExpense
-                            });
-                        }
-                    }
-                });
-                
-                if (conflicts.length > 0) {
-                    await resolveConflicts(conflicts);
-                }
-                
-            } catch (error) {
-                console.log('⚠️ Conflict detection failed:', error);
-            }
-        }
+    <div class="section-title"><h2>Monthly budgets</h2></div>
+    <div class="card" id="budgetSettingsCard"></div>
 
-        async function resolveConflicts(conflicts) {
-            updateSyncStatus('conflict', `Resolving ${conflicts.length} conflicts...`);
-            
-            for (const conflict of conflicts) {
-                try {
-                    // Automatic resolution strategy: most recent modification wins
-                    const cloudModified = conflict.cloud.lastModified ? 
-                        conflict.cloud.lastModified.toDate().getTime() : 0;
-                    const localModified = conflict.local.lastModified || 0;
-                    
-                    if (cloudModified > localModified) {
-                        // Cloud version is newer, update local
-                        const index = expenses.findIndex(e => e.id === conflict.id);
-                        if (index >= 0) {
-                            expenses[index] = {
-                                id: conflict.id,
-                                description: conflict.cloud.description,
-                                amount: conflict.cloud.amount,
-                                category: conflict.cloud.category,
-                                currency: conflict.cloud.currency,
-                                date: conflict.cloud.date,
-                                convertedAmount: conflict.cloud.convertedAmount,
-                                convertedCurrency: conflict.cloud.convertedCurrency,
-                                version: (conflict.cloud.version || 1) + 1,
-                                lastModified: Date.now()
-                            };
-                            
-                            console.log(`✅ Resolved conflict for expense ${conflict.id}: used cloud version`);
-                        }
-                    } else {
-                        // Local version is newer or same age, push to cloud
-                        const updatedExpense = {
-                            ...conflict.local,
-                            version: (conflict.local.version || 1) + 1,
-                            lastModified: Date.now()
-                        };
-                        
-                        expenses[expenses.findIndex(e => e.id === conflict.id)] = updatedExpense;
-                        await syncExpenseToCloud(updatedExpense, 'update');
-                        
-                        console.log(`✅ Resolved conflict for expense ${conflict.id}: used local version`);
-                    }
-                    
-                } catch (error) {
-                    console.log(`❌ Failed to resolve conflict for expense ${conflict.id}:`, error);
-                }
-            }
-            
-            // Update local storage and UI
-            localStorage.setItem('expenses', JSON.stringify(expenses));
-            renderExpenses();
-            updateSummary();
-            
-            if (currentView === 'spreadsheet') {
-                renderSpreadsheet();
-            } else if (currentView === 'analytics') {
-                renderAnalytics();
-            }
-            
-            updateSyncStatus('online', 'Conflicts resolved');
-        }
+    <div class="section-title"><h2>Appearance</h2></div>
+    <div class="card" style="display:flex; align-items:center; justify-content:space-between;">
+      <div>Theme</div>
+      <div style="display:flex; gap:8px;">
+        <button class="btn sm" id="themeDarkBtn">🌙 Dark</button>
+        <button class="btn sm" id="themeLightBtn">☀️ Light</button>
+      </div>
+    </div>
 
-        // Enhanced cloud data loading with conflict handling
-        async function loadExpensesFromCloud() {
-            if (!db) return;
+    <div class="section-title"><h2>Data</h2></div>
+    <div class="card" style="display:flex; gap:10px; flex-wrap:wrap;">
+      <button class="btn" id="exportJson2">📦 Backup JSON</button>
+      <label class="btn" style="cursor:pointer;">📤 Restore JSON<input type="file" id="importJson2" accept="application/json" style="display:none;"></label>
+      <button class="btn danger" id="clearAllBtn">🗑️ Clear all data</button>
+    </div>
+    <p class="helptext">Everything is stored only in this browser (localStorage). Nothing is uploaded — no bank connections, no accounts. Back up regularly if you clear your browser data.</p>
+  </section>
 
-            try {
-                updateSyncStatus('syncing', 'Loading from cloud...');
-                
-                const snapshot = await db.collection('expenses')
-                    .orderBy('lastModified', 'desc')
-                    .get();
-                
-                const cloudExpenses = [];
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    if (data.operation !== 'delete') {
-                        cloudExpenses.push({
-                            id: parseInt(doc.id),
-                            description: data.description,
-                            amount: data.amount,
-                            category: data.category,
-                            currency: data.currency,
-                            date: data.date,
-                            convertedAmount: data.convertedAmount,
-                            convertedCurrency: data.convertedCurrency,
-                            version: data.version || 1,
-                            lastModified: data.lastModified ? data.lastModified.toDate().getTime() : 0
-                        });
-                    }
-                });
-                
-                // Intelligent merge with conflict detection
-                const mergedExpenses = await mergeExpensesWithConflictDetection(expenses, cloudExpenses);
-                
-                expenses = mergedExpenses;
-                localStorage.setItem('expenses', JSON.stringify(expenses));
-                
-                // Update UI
-                renderExpenses();
-                updateSummary();
-                populateFilters();
-                
-                // Update last sync time
-                lastSyncTime = Date.now().toString();
-                localStorage.setItem('lastSyncTime', lastSyncTime);
-                
-                updateSyncStatus('online', 'Synced with cloud');
-                
-            } catch (error) {
-                console.log('❌ Failed to load from cloud:', error);
-                updateSyncStatus('offline', 'Using local data');
-            }
-        }
+</main>
 
-        async function mergeExpensesWithConflictDetection(localExpenses, cloudExpenses) {
-            const merged = new Map();
-            const conflicts = [];
-            
-            // Add local expenses first
-            localExpenses.forEach(expense => {
-                merged.set(expense.id, { ...expense, source: 'local' });
-            });
-            
-            // Process cloud expenses and detect conflicts
-            cloudExpenses.forEach(cloudExpense => {
-                const existingLocal = merged.get(cloudExpense.id);
-                
-                if (existingLocal && existingLocal.source === 'local') {
-                    // Check for conflicts
-                    const hasConflict = (
-                        existingLocal.description !== cloudExpense.description ||
-                        existingLocal.amount !== cloudExpense.amount ||
-                        existingLocal.category !== cloudExpense.category ||
-                        existingLocal.currency !== cloudExpense.currency ||
-                        existingLocal.date !== cloudExpense.date
-                    );
-                    
-                    if (hasConflict) {
-                        // Resolve based on modification time
-                        const cloudTime = cloudExpense.lastModified || 0;
-                        const localTime = existingLocal.lastModified || 0;
-                        
-                        if (cloudTime > localTime) {
-                            merged.set(cloudExpense.id, { ...cloudExpense, source: 'cloud' });
-                            console.log(`🔄 Conflict resolved: using cloud version for expense ${cloudExpense.id}`);
-                        } else {
-                            console.log(`🔄 Conflict resolved: keeping local version for expense ${cloudExpense.id}`);
-                        }
-                    } else {
-                        // No conflict, use cloud version to get latest metadata
-                        merged.set(cloudExpense.id, { ...cloudExpense, source: 'cloud' });
-                    }
-                } else {
-                    // New expense from cloud
-                    merged.set(cloudExpense.id, { ...cloudExpense, source: 'cloud' });
-                }
-            });
-            
-            // Remove source metadata and return sorted array
-            return Array.from(merged.values())
-                .map(expense => {
-                    const { source, ...cleanExpense } = expense;
-                    return cleanExpense;
-                })
-                .sort((a, b) => new Date(b.date) - new Date(a.date));
-        }
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="modalTitle">Add expense</h3>
+      <button class="icon-btn" id="modalClose">✕</button>
+    </div>
+    <form id="expForm">
+      <input type="hidden" id="expId">
+      <div class="field">
+        <label>Description</label>
+        <input id="expDesc" required placeholder="e.g. Dinner with friends">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Amount</label>
+          <input id="expAmount" type="number" min="0" step="any" required placeholder="0.00">
+        </div>
+        <div class="field">
+          <label>Currency</label>
+          <div id="expCurrency"></div>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Date</label>
+          <input id="expDate" type="date" required>
+        </div>
+        <div class="field">
+          <label>Category</label>
+          <select id="expCategory" required></select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Notes (optional)</label>
+        <input id="expNotes" placeholder="Any extra detail">
+      </div>
+      <div class="field" id="convertPreviewWrap" style="display:none;">
+        <div class="helptext" id="convertPreview"></div>
+      </div>
+      <button type="submit" class="btn primary block">Save expense</button>
+    </form>
+  </div>
+</div>
 
-        // Enhanced real-time sync with better error handling
-        function setupRealtimeSync() {
-            if (!db) return;
+<div id="toast"></div>
 
-            // Clean up existing listener
-            if (realtimeListener) {
-                realtimeListener();
-                realtimeListener = null;
-            }
+<script>
+(function(){
+"use strict";
 
-            try {
-                realtimeListener = db.collection('expenses')
-                    .where('deviceId', '!=', deviceId)
-                    .onSnapshot((snapshot) => {
-                        let hasChanges = false;
-                        let changesCount = 0;
-                        
-                        snapshot.docChanges().forEach((change) => {
-                            const data = change.doc.data();
-                            const expenseId = parseInt(change.doc.id);
-                            
-                            if (change.type === 'added' || change.type === 'modified') {
-                                if (data.operation !== 'delete') {
-                                    const expense = {
-                                        id: expenseId,
-                                        description: data.description,
-                                        amount: data.amount,
-                                        category: data.category,
-                                        currency: data.currency,
-                                        date: data.date,
-                                        convertedAmount: data.convertedAmount,
-                                        convertedCurrency: data.convertedCurrency,
-                                        version: data.version || 1,
-                                        lastModified: data.lastModified ? data.lastModified.toDate().getTime() : Date.now()
-                                    };
-                                    
-                                    // Update local expenses
-                                    const existingIndex = expenses.findIndex(e => e.id === expenseId);
-                                    if (existingIndex >= 0) {
-                                        expenses[existingIndex] = expense;
-                                    } else {
-                                        expenses.push(expense);
-                                    }
-                                    hasChanges = true;
-                                    changesCount++;
-                                }
-                            } else if (change.type === 'removed' || data.operation === 'delete') {
-                                expenses = expenses.filter(e => e.id !== expenseId);
-                                hasChanges = true;
-                                changesCount++;
-                            }
-                        });
-                        
-                        if (hasChanges) {
-                            expenses.sort((a, b) => new Date(b.date) - new Date(a.date));
-                            localStorage.setItem('expenses', JSON.stringify(expenses));
-                            
-                            // Update UI
-                            renderExpenses();
-                            updateSummary();
-                            populateFilters();
-                            
-                            // Refresh current view
-                            if (currentView === 'spreadsheet') {
-                                renderSpreadsheet();
-                            } else if (currentView === 'analytics') {
-                                renderAnalytics();
-                            }
-                            
-                            // Show brief sync notification
-                            updateSyncStatus('online', `Updated ${changesCount} item${changesCount !== 1 ? 's' : ''} from other device`);
-                            setTimeout(() => {
-                                updateSyncStatus('online', 'Synced with cloud');
-                            }, 3000);
-                            
-                            console.log(`📱 Real-time update: ${changesCount} changes from other devices`);
-                        }
-                    }, (error) => {
-                        console.log('❌ Real-time sync error:', error);
-                        
-                        if (error.code === 'permission-denied') {
-                            updateSyncStatus('error', 'Permission denied');
-                        } else if (error.code === 'unavailable') {
-                            updateSyncStatus('offline', 'Cloud temporarily unavailable');
-                        } else {
-                            updateSyncStatus('error', 'Real-time sync failed');
-                        }
-                        
-                        // Try to reconnect after a delay
-                        setTimeout(() => {
-                            if (isOnline && db) {
-                                console.log('🔄 Attempting to reconnect real-time sync...');
-                                setupRealtimeSync();
-                            }
-                        }, 10000);
-                    });
-                    
-                console.log('📡 Real-time sync listener established');
-                
-            } catch (error) {
-                console.log('❌ Failed to set up real-time sync:', error);
-                updateSyncStatus('error', 'Real-time sync unavailable');
-            }
-        }
+/* ============ DATA ============ */
+var CURRENCIES = [
+  {code:'AED',name:'UAE Dirham',symbol:'د.إ'},{code:'AFN',name:'Afghan Afghani',symbol:'؋'},
+  {code:'ALL',name:'Albanian Lek',symbol:'L'},{code:'AMD',name:'Armenian Dram',symbol:'֏'},
+  {code:'ANG',name:'Netherlands Antillean Guilder',symbol:'ƒ'},{code:'AOA',name:'Angolan Kwanza',symbol:'Kz'},
+  {code:'ARS',name:'Argentine Peso',symbol:'$'},{code:'AUD',name:'Australian Dollar',symbol:'$'},
+  {code:'AWG',name:'Aruban Florin',symbol:'ƒ'},{code:'AZN',name:'Azerbaijani Manat',symbol:'₼'},
+  {code:'BAM',name:'Bosnia-Herzegovina Convertible Mark',symbol:'KM'},{code:'BBD',name:'Barbadian Dollar',symbol:'$'},
+  {code:'BDT',name:'Bangladeshi Taka',symbol:'৳'},{code:'BGN',name:'Bulgarian Lev',symbol:'лв'},
+  {code:'BHD',name:'Bahraini Dinar',symbol:'.د.ب'},{code:'BIF',name:'Burundian Franc',symbol:'FBu'},
+  {code:'BMD',name:'Bermudan Dollar',symbol:'$'},{code:'BND',name:'Brunei Dollar',symbol:'$'},
+  {code:'BOB',name:'Bolivian Boliviano',symbol:'Bs.'},{code:'BRL',name:'Brazilian Real',symbol:'R$'},
+  {code:'BSD',name:'Bahamian Dollar',symbol:'$'},{code:'BTN',name:'Bhutanese Ngultrum',symbol:'Nu.'},
+  {code:'BWP',name:'Botswanan Pula',symbol:'P'},{code:'BYN',name:'Belarusian Ruble',symbol:'Br'},
+  {code:'BZD',name:'Belize Dollar',symbol:'BZ$'},{code:'CAD',name:'Canadian Dollar',symbol:'$'},
+  {code:'CDF',name:'Congolese Franc',symbol:'FC'},{code:'CHF',name:'Swiss Franc',symbol:'Fr'},
+  {code:'CLP',name:'Chilean Peso',symbol:'$'},{code:'CNY',name:'Chinese Yuan',symbol:'¥'},
+  {code:'COP',name:'Colombian Peso',symbol:'$'},{code:'CRC',name:'Costa Rican Colón',symbol:'₡'},
+  {code:'CUP',name:'Cuban Peso',symbol:'$'},{code:'CVE',name:'Cape Verdean Escudo',symbol:'$'},
+  {code:'CZK',name:'Czech Koruna',symbol:'Kč'},{code:'DJF',name:'Djiboutian Franc',symbol:'Fdj'},
+  {code:'DKK',name:'Danish Krone',symbol:'kr'},{code:'DOP',name:'Dominican Peso',symbol:'RD$'},
+  {code:'DZD',name:'Algerian Dinar',symbol:'د.ج'},{code:'EGP',name:'Egyptian Pound',symbol:'£'},
+  {code:'ERN',name:'Eritrean Nakfa',symbol:'Nfk'},{code:'ETB',name:'Ethiopian Birr',symbol:'Br'},
+  {code:'EUR',name:'Euro',symbol:'€'},{code:'FJD',name:'Fijian Dollar',symbol:'$'},
+  {code:'FKP',name:'Falkland Islands Pound',symbol:'£'},{code:'GBP',name:'British Pound',symbol:'£'},
+  {code:'GEL',name:'Georgian Lari',symbol:'₾'},{code:'GHS',name:'Ghanaian Cedi',symbol:'₵'},
+  {code:'GIP',name:'Gibraltar Pound',symbol:'£'},{code:'GMD',name:'Gambian Dalasi',symbol:'D'},
+  {code:'GNF',name:'Guinean Franc',symbol:'FG'},{code:'GTQ',name:'Guatemalan Quetzal',symbol:'Q'},
+  {code:'GYD',name:'Guyanaese Dollar',symbol:'$'},{code:'HKD',name:'Hong Kong Dollar',symbol:'$'},
+  {code:'HNL',name:'Honduran Lempira',symbol:'L'},{code:'HTG',name:'Haitian Gourde',symbol:'G'},
+  {code:'HUF',name:'Hungarian Forint',symbol:'Ft'},{code:'IDR',name:'Indonesian Rupiah',symbol:'Rp'},
+  {code:'ILS',name:'Israeli Shekel',symbol:'₪'},{code:'INR',name:'Indian Rupee',symbol:'₹'},
+  {code:'IQD',name:'Iraqi Dinar',symbol:'ع.د'},{code:'IRR',name:'Iranian Rial',symbol:'﷼'},
+  {code:'ISK',name:'Icelandic Króna',symbol:'kr'},{code:'JMD',name:'Jamaican Dollar',symbol:'$'},
+  {code:'JOD',name:'Jordanian Dinar',symbol:'د.ا'},{code:'JPY',name:'Japanese Yen',symbol:'¥'},
+  {code:'KES',name:'Kenyan Shilling',symbol:'KSh'},{code:'KGS',name:'Kyrgystani Som',symbol:'с'},
+  {code:'KHR',name:'Cambodian Riel',symbol:'៛'},{code:'KMF',name:'Comorian Franc',symbol:'CF'},
+  {code:'KRW',name:'South Korean Won',symbol:'₩'},{code:'KWD',name:'Kuwaiti Dinar',symbol:'د.ك'},
+  {code:'KYD',name:'Cayman Islands Dollar',symbol:'$'},{code:'KZT',name:'Kazakhstani Tenge',symbol:'₸'},
+  {code:'LAK',name:'Laotian Kip',symbol:'₭'},{code:'LBP',name:'Lebanese Pound',symbol:'ل.ل'},
+  {code:'LKR',name:'Sri Lankan Rupee',symbol:'₨'},{code:'LRD',name:'Liberian Dollar',symbol:'$'},
+  {code:'LSL',name:'Lesotho Loti',symbol:'L'},{code:'LYD',name:'Libyan Dinar',symbol:'ل.د'},
+  {code:'MAD',name:'Moroccan Dirham',symbol:'د.م.'},{code:'MDL',name:'Moldovan Leu',symbol:'L'},
+  {code:'MGA',name:'Malagasy Ariary',symbol:'Ar'},{code:'MKD',name:'Macedonian Denar',symbol:'ден'},
+  {code:'MMK',name:'Myanmar Kyat',symbol:'K'},{code:'MNT',name:'Mongolian Tugrik',symbol:'₮'},
+  {code:'MOP',name:'Macanese Pataca',symbol:'MOP$'},{code:'MRU',name:'Mauritanian Ouguiya',symbol:'UM'},
+  {code:'MUR',name:'Mauritian Rupee',symbol:'₨'},{code:'MVR',name:'Maldivian Rufiyaa',symbol:'Rf'},
+  {code:'MWK',name:'Malawian Kwacha',symbol:'MK'},{code:'MXN',name:'Mexican Peso',symbol:'$'},
+  {code:'MYR',name:'Malaysian Ringgit',symbol:'RM'},{code:'MZN',name:'Mozambican Metical',symbol:'MT'},
+  {code:'NAD',name:'Namibian Dollar',symbol:'$'},{code:'NGN',name:'Nigerian Naira',symbol:'₦'},
+  {code:'NIO',name:'Nicaraguan Córdoba',symbol:'C$'},{code:'NOK',name:'Norwegian Krone',symbol:'kr'},
+  {code:'NPR',name:'Nepalese Rupee',symbol:'₨'},{code:'NZD',name:'New Zealand Dollar',symbol:'$'},
+  {code:'OMR',name:'Omani Rial',symbol:'﷼'},{code:'PAB',name:'Panamanian Balboa',symbol:'B/.'},
+  {code:'PEN',name:'Peruvian Sol',symbol:'S/'},{code:'PGK',name:'Papua New Guinean Kina',symbol:'K'},
+  {code:'PHP',name:'Philippine Peso',symbol:'₱'},{code:'PKR',name:'Pakistani Rupee',symbol:'₨'},
+  {code:'PLN',name:'Polish Zloty',symbol:'zł'},{code:'PYG',name:'Paraguayan Guarani',symbol:'₲'},
+  {code:'QAR',name:'Qatari Riyal',symbol:'﷼'},{code:'RON',name:'Romanian Leu',symbol:'lei'},
+  {code:'RSD',name:'Serbian Dinar',symbol:'дин.'},{code:'RUB',name:'Russian Ruble',symbol:'₽'},
+  {code:'RWF',name:'Rwandan Franc',symbol:'FRw'},{code:'SAR',name:'Saudi Riyal',symbol:'﷼'},
+  {code:'SBD',name:'Solomon Islands Dollar',symbol:'$'},{code:'SCR',name:'Seychellois Rupee',symbol:'₨'},
+  {code:'SDG',name:'Sudanese Pound',symbol:'ج.س.'},{code:'SEK',name:'Swedish Krona',symbol:'kr'},
+  {code:'SGD',name:'Singapore Dollar',symbol:'$'},{code:'SHP',name:'Saint Helena Pound',symbol:'£'},
+  {code:'SLE',name:'Sierra Leonean Leone',symbol:'Le'},{code:'SOS',name:'Somali Shilling',symbol:'S'},
+  {code:'SRD',name:'Surinamese Dollar',symbol:'$'},{code:'SSP',name:'South Sudanese Pound',symbol:'£'},
+  {code:'STN',name:'São Tomé & Príncipe Dobra',symbol:'Db'},{code:'SYP',name:'Syrian Pound',symbol:'£'},
+  {code:'SZL',name:'Swazi Lilangeni',symbol:'L'},{code:'THB',name:'Thai Baht',symbol:'฿'},
+  {code:'TJS',name:'Tajikistani Somoni',symbol:'ЅМ'},{code:'TMT',name:'Turkmenistani Manat',symbol:'m'},
+  {code:'TND',name:'Tunisian Dinar',symbol:'د.ت'},{code:'TOP',name:'Tongan Paʻanga',symbol:'T$'},
+  {code:'TRY',name:'Turkish Lira',symbol:'₺'},{code:'TTD',name:'Trinidad & Tobago Dollar',symbol:'$'},
+  {code:'TWD',name:'New Taiwan Dollar',symbol:'NT$'},{code:'TZS',name:'Tanzanian Shilling',symbol:'TSh'},
+  {code:'UAH',name:'Ukrainian Hryvnia',symbol:'₴'},{code:'UGX',name:'Ugandan Shilling',symbol:'USh'},
+  {code:'USD',name:'US Dollar',symbol:'$'},{code:'UYU',name:'Uruguayan Peso',symbol:'$'},
+  {code:'UZS',name:'Uzbekistani Som',symbol:'so\u02bcm'},{code:'VES',name:'Venezuelan Bolívar',symbol:'Bs.'},
+  {code:'VND',name:'Vietnamese Dong',symbol:'₫'},{code:'VUV',name:'Vanuatu Vatu',symbol:'VT'},
+  {code:'WST',name:'Samoan Tala',symbol:'T'},{code:'XAF',name:'Central African CFA Franc',symbol:'FCFA'},
+  {code:'XCD',name:'East Caribbean Dollar',symbol:'$'},{code:'XOF',name:'West African CFA Franc',symbol:'CFA'},
+  {code:'XPF',name:'CFP Franc',symbol:'₣'},{code:'YER',name:'Yemeni Rial',symbol:'﷼'},
+  {code:'ZAR',name:'South African Rand',symbol:'R'},{code:'ZMW',name:'Zambian Kwacha',symbol:'ZK'},
+  {code:'ZWL',name:'Zimbabwean Dollar',symbol:'$'}
+];
+var CATEGORIES = [
+  {id:'food',label:'Food & Dining',icon:'🍔'},{id:'groceries',label:'Groceries',icon:'🛒'},
+  {id:'rent',label:'Rent & Housing',icon:'🏠'},{id:'transport',label:'Transportation',icon:'🚗'},
+  {id:'entertainment',label:'Entertainment',icon:'🎬'},{id:'shopping',label:'Shopping',icon:'🛍️'},
+  {id:'bills',label:'Bills & Utilities',icon:'💡'},{id:'health',label:'Health & Fitness',icon:'💊'},
+  {id:'travel',label:'Travel',icon:'✈️'},{id:'exchange',label:'Currency Exchange',icon:'💱'},
+  {id:'other',label:'Other',icon:'📦'}
+];
+var RATE_TTL = 6*60*60*1000; // 6 hours
+var STORAGE_KEY = 'ledgerExpenseTrackerV1';
 
-        // Add backup controls to the UI
-        function addBackupControls() {
-            const syncStatusDiv = document.getElementById('syncStatus').parentElement;
-            
-            // Add backup controls after sync status
-            const backupControls = document.createElement('div');
-            backupControls.className = 'flex items-center justify-center space-x-2 mt-2 pt-2 border-t border-gray-200';
-            backupControls.innerHTML = `
-                <button id="createBackupBtn" class="px-3 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600 transition duration-200">
-                    💾 Backup Now
-                </button>
-                <button id="restoreBackupBtn" class="px-3 py-1 bg-green-500 text-white text-xs rounded hover:bg-green-600 transition duration-200">
-                    📥 Restore
-                </button>
-                <button id="syncNowBtn" class="px-3 py-1 bg-purple-500 text-white text-xs rounded hover:bg-purple-600 transition duration-200">
-                    🔄 Sync Now
-                </button>
-            `;
-            
-            syncStatusDiv.appendChild(backupControls);
-            
-            // Add event listeners
-            document.getElementById('createBackupBtn').addEventListener('click', async () => {
-                if (db && isOnline) {
-                    await createBackup();
-                    alert('Backup created successfully!');
-                } else {
-                    alert('Cloud connection required for backup');
-                }
-            });
-            
-            document.getElementById('restoreBackupBtn').addEventListener('click', restoreFromBackup);
-            
-            document.getElementById('syncNowBtn').addEventListener('click', async () => {
-                if (db && isOnline) {
-                    updateSyncStatus('syncing', 'Manual sync in progress...');
-                    await processSyncQueue();
-                    await loadExpensesFromCloud();
-                } else {
-                    alert('Cloud connection required for sync');
-                }
-            });
-        }
+function catInfo(id){ return CATEGORIES.find(function(c){return c.id===id;}) || CATEGORIES[CATEGORIES.length-1]; }
+function curInfo(code){ return CURRENCIES.find(function(c){return c.code===code;}) || {code:code,name:code,symbol:code}; }
 
-        // Initialize everything when page loads
-        document.addEventListener('DOMContentLoaded', async () => {
-            console.log('🚀 Initializing Expense Tracker with Cloud Sync...');
-            
-            // Add backup controls to UI
-            addBackupControls();
-            
-            // Initialize Firebase and cloud sync
-            const firebaseInitialized = await initializeFirebase();
-            
-            if (!firebaseInitialized) {
-                console.log('⚠️ Running in offline-only mode');
-                updateSyncStatus('offline', 'Offline mode - data saved locally');
-            }
-            
-            // Set today's date as default
-            document.getElementById('expenseDate').value = new Date().toISOString().split('T')[0];
-            
-            // Initialize exchange rate input
-            exchangeRateInput.value = exchangeRate;
-            
-            // Load and render existing expenses
-            renderExpenses();
-            updateSummary();
-            populateFilters();
-            
-            console.log('✅ Expense Tracker fully initialized');
-        });
+/* ============ STATE ============ */
+var defaultState = function(){
+  return {
+    settings:{ baseCurrency:'USD', theme:'dark', budgets:{}, pinned:['EUR','GBP','AED','PKR','AFN','INR'] },
+    expenses:[],
+    recurring:[],
+    ratesCache:null
+  };
+};
+var state = loadState();
 
-        // Rest of the existing code remains the same...
-        let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
-        let currentView = 'list';
-        let exchangeRate = parseFloat(localStorage.getItem('exchangeRate')) || 282;
-        let lastConvertedAmount = null;
-        let lastConvertedCurrency = null;
-        let filteredExpenses = [];
-        let isLoadingRate = false;
+function loadState(){
+  try{
+    var raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return defaultState();
+    var parsed = JSON.parse(raw);
+    var d = defaultState();
+    return {
+      settings:Object.assign({}, d.settings, parsed.settings||{}),
+      expenses: Array.isArray(parsed.expenses) ? parsed.expenses : [],
+      recurring: Array.isArray(parsed.recurring) ? parsed.recurring : [],
+      ratesCache: parsed.ratesCache || null
+    };
+  }catch(e){ console.warn('Could not load saved data, starting fresh.', e); return defaultState(); }
+}
+function saveState(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+  catch(e){ console.warn('Could not save data', e); showToast('⚠️ Could not save — storage may be full'); }
+}
 
-        const expenseForm = document.getElementById('expenseForm');
-        const expenseList = document.getElementById('expenseList');
-        const totalAmount = document.getElementById('totalAmount');
-        const totalEntries = document.getElementById('totalEntries');
-        const monthlyAmount = document.getElementById('monthlyAmount');
-        const clearAllBtn = document.getElementById('clearAll');
-        const amountInput = document.getElementById('amount');
-        const currencySelect = document.getElementById('currency');
-        const conversionHint = document.getElementById('conversionHint');
-        const exchangeRateInput = document.getElementById('exchangeRateInput');
-        const updateRateBtn = document.getElementById('updateRateBtn');
-        const conversionSection = document.getElementById('conversionSection');
-        const convertedAmount = document.getElementById('convertedAmount');
-        const convertedCurrency = document.getElementById('convertedCurrency');
-        const useConvertedBtn = document.getElementById('useConvertedBtn');
-        
-        // View toggle elements
-        const listViewBtn = document.getElementById('listViewBtn');
-        const spreadsheetViewBtn = document.getElementById('spreadsheetViewBtn');
-        const analyticsViewBtn = document.getElementById('analyticsViewBtn');
-        const listView = document.getElementById('listView');
-        const spreadsheetView = document.getElementById('spreadsheetView');
-        const analyticsView = document.getElementById('analyticsView');
-        
-        // Search and filter elements
-        const searchInput = document.getElementById('searchInput');
-        const categoryFilter = document.getElementById('categoryFilter');
-        const currencyFilter = document.getElementById('currencyFilter');
-        const exportBtn = document.getElementById('exportBtn');
-        
-        // Spreadsheet elements
-        const monthFilter = document.getElementById('monthFilter');
-        const yearFilter = document.getElementById('yearFilter');
-        const dayFilter = document.getElementById('dayFilter');
-        const expenseTableBody = document.getElementById('expenseTableBody');
-        const totalUSD = document.getElementById('totalUSD');
-        const totalPKR = document.getElementById('totalPKR');
+function uid(){
+  if(window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return 'id-'+Date.now()+'-'+Math.random().toString(16).slice(2);
+}
 
-        const categoryEmojis = {
-            food: '🍔',
-            groceries: '🛒',
-            rent: '🏠',
-            transport: '🚗',
-            entertainment: '🎬',
-            shopping: '🛍️',
-            bills: '💡',
-            exchange: '💱',
-            other: '📦'
-        };
+/* ============ DATES ============ */
+function todayStr(){ return new Date().toISOString().slice(0,10); }
+function monthKey(dateStr){ return (dateStr||'').slice(0,7); }
+function currentMonthKey(){ return todayStr().slice(0,7); }
+function monthLabel(key){
+  if(!key) return '';
+  var parts = key.split('-'); var d = new Date(parseInt(parts[0],10), parseInt(parts[1],10)-1, 1);
+  return d.toLocaleDateString(undefined,{month:'long', year:'numeric'});
+}
+function lastNMonthKeys(n){
+  var out=[]; var d=new Date();
+  for(var i=n-1;i>=0;i--){
+    var dt = new Date(d.getFullYear(), d.getMonth()-i, 1);
+    out.push(dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0'));
+  }
+  return out;
+}
 
-        const categoryNames = {
-            food: 'Food & Dining',
-            groceries: 'Groceries',
-            rent: 'Rent',
-            transport: 'Transportation',
-            entertainment: 'Entertainment',
-            shopping: 'Shopping',
-            bills: 'Bills & Utilities',
-            exchange: 'Exchange Money',
-            other: 'Other'
-        };
+/* ============ MONEY / RATES ============ */
+function formatMoney(amount, code){
+  if(amount==null || isNaN(amount)) return '—';
+  try{
+    return new Intl.NumberFormat(undefined,{style:'currency', currency:code, maximumFractionDigits:2}).format(amount);
+  }catch(e){
+    var c = curInfo(code);
+    return c.symbol + amount.toFixed(2);
+  }
+}
+function ratesValid(){
+  return state.ratesCache && state.ratesCache.base===state.settings.baseCurrency &&
+    (Date.now() - state.ratesCache.fetchedAt) < RATE_TTL*4; // keep stale cache usable offline, just flagged
+}
+function ratesFresh(){
+  return state.ratesCache && state.ratesCache.base===state.settings.baseCurrency &&
+    (Date.now() - state.ratesCache.fetchedAt) < RATE_TTL;
+}
+function rateOf(code){
+  if(!state.ratesCache) return null;
+  if(code===state.ratesCache.base) return 1;
+  var r = state.ratesCache.rates[code];
+  return (typeof r==='number') ? r : null;
+}
+function convert(amount, from, to){
+  if(from===to) return amount;
+  var rf = rateOf(from), rt = rateOf(to);
+  if(rf==null || rt==null) return null;
+  var inBase = amount / rf;
+  return inBase * rt;
+}
+function toBase(amount, from){ return convert(amount, from, state.settings.baseCurrency); }
 
-        function updateExchangeRate() {
-            const newRate = parseFloat(exchangeRateInput.value);
-            if (newRate && newRate > 0) {
-                exchangeRate = newRate;
-                localStorage.setItem('exchangeRate', exchangeRate.toString());
-                
-                // Update any existing conversion hints
-                if (amountInput.value && currencySelect.value) {
-                    handleAmountChange();
-                }
-                
-                // Show success feedback
-                updateRateBtn.textContent = 'Updated!';
-                updateRateBtn.classList.add('bg-green-600');
-                updateRateBtn.classList.remove('bg-blue-500');
-                
-                setTimeout(() => {
-                    updateRateBtn.textContent = 'Update';
-                    updateRateBtn.classList.remove('bg-green-600');
-                    updateRateBtn.classList.add('bg-blue-500');
-                }, 1500);
-            }
-        }
+async function fetchRates(base){
+  try{
+    var res = await fetch('https://open.er-api.com/v6/latest/'+encodeURIComponent(base));
+    var data = await res.json();
+    if(data && data.result==='success' && data.rates){
+      state.ratesCache = { base:base, rates:data.rates, fetchedAt:Date.now() };
+      saveState();
+      return true;
+    }
+  }catch(e){ console.warn('Exchange rate fetch failed', e); }
+  return false;
+}
+async function ensureRates(force){
+  if(!force && ratesFresh()) { renderRateStatus(); return; }
+  renderRateStatus(true);
+  var ok = await fetchRates(state.settings.baseCurrency);
+  if(!ok && !state.ratesCache){
+    showToast('⚠️ Could not reach exchange rate service — check your connection');
+  } else if(!ok){
+    showToast('⚠️ Using last known rates (offline)');
+  } else {
+    showToast('✅ Exchange rates updated');
+  }
+  renderAll();
+}
 
-        function convertCurrency(amount, fromCurrency, toCurrency) {
-            if (fromCurrency === toCurrency) return amount;
-            
-            if (fromCurrency === 'USD' && toCurrency === 'PKR') {
-                return Math.round(amount * exchangeRate * 100) / 100;
-            } else if (fromCurrency === 'PKR' && toCurrency === 'USD') {
-                return Math.round((amount / exchangeRate) * 100) / 100;
-            }
-            
-            return amount;
-        }
+/* ============ TOAST ============ */
+var toastTimer=null;
+function showToast(msg){
+  var el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ el.classList.remove('show'); }, 2600);
+}
 
-        function handleCurrencyChange() {
-            const currentAmount = parseFloat(amountInput.value);
-            const currentCurrency = currencySelect.value;
-            
-            if (currentAmount && currentAmount > 0 && currentCurrency) {
-                const otherCurrency = currentCurrency === 'USD' ? 'PKR' : 'USD';
-                const equivalent = convertCurrency(currentAmount, currentCurrency, otherCurrency);
-                
-                // Show conversion section
-                conversionSection.classList.remove('hidden');
-                convertedCurrency.textContent = otherCurrency;
-                convertedAmount.value = equivalent.toFixed(2);
-                
-                const equivalentSymbol = otherCurrency === 'USD' ? '$' : '₨';
-                conversionHint.textContent = `Auto-calculated: ${equivalentSymbol}${equivalent.toFixed(2)} (you can edit this)`;
-                conversionHint.style.color = '#6b7280';
-            } else {
-                conversionSection.classList.add('hidden');
-                conversionHint.textContent = '';
-            }
-        }
+/* ============ POPULATE STATIC SELECTS ============ */
+function fillCurrencySelect(sel, selected){
+  sel.innerHTML='';
+  CURRENCIES.forEach(function(c){
+    var o=document.createElement('option');
+    o.value=c.code; o.textContent = c.code+' — '+c.name+' ('+c.symbol+')';
+    if(c.code===selected) o.selected=true;
+    sel.appendChild(o);
+  });
+}
+function fillCategorySelect(sel, selected, withAll){
+  sel.innerHTML='';
+  if(withAll){ var a=document.createElement('option'); a.value=''; a.textContent='All categories'; sel.appendChild(a); }
+  CATEGORIES.forEach(function(c){
+    var o=document.createElement('option');
+    o.value=c.id; o.textContent=c.icon+' '+c.label;
+    if(c.id===selected) o.selected=true;
+    sel.appendChild(o);
+  });
+}
+var pickers = {};
+function buildCurrencyPicker(wrapperId, opts){
+  opts = opts || {};
+  var wrapper = document.getElementById(wrapperId);
+  wrapper.classList.add('ccy-picker');
+  wrapper.dataset.value = opts.value || 'USD';
+  wrapper.innerHTML =
+    '<button type="button" class="ccy-trigger"><span class="lbl"></span><span class="arrow">▾</span></button>'+
+    '<div class="ccy-panel">'+
+      '<input type="text" class="ccy-search" placeholder="Search code or country…" autocomplete="off" inputmode="search">'+
+      '<div class="ccy-list" role="listbox"></div>'+
+    '</div>';
+  var trigger = wrapper.querySelector('.ccy-trigger');
+  var triggerLbl = wrapper.querySelector('.ccy-trigger .lbl');
+  var search = wrapper.querySelector('.ccy-search');
+  var list = wrapper.querySelector('.ccy-list');
 
-        function handleAmountChange() {
-            const currentAmount = parseFloat(amountInput.value);
-            const currentCurrency = currencySelect.value;
-            
-            if (currentAmount && currentAmount > 0 && currentCurrency) {
-                const otherCurrency = currentCurrency === 'USD' ? 'PKR' : 'USD';
-                const equivalent = convertCurrency(currentAmount, currentCurrency, otherCurrency);
-                
-                // Show conversion section
-                conversionSection.classList.remove('hidden');
-                convertedCurrency.textContent = otherCurrency;
-                convertedAmount.value = equivalent.toFixed(2);
-                
-                const equivalentSymbol = otherCurrency === 'USD' ? '$' : '₨';
-                conversionHint.textContent = `Auto-calculated: ${equivalentSymbol}${equivalent.toFixed(2)} (you can edit this)`;
-                conversionHint.style.color = '#6b7280';
-            } else {
-                conversionSection.classList.add('hidden');
-                conversionHint.textContent = '';
-            }
-        }
+  function renderTrigger(){
+    var c = curInfo(wrapper.dataset.value);
+    triggerLbl.textContent = c.code+' — '+c.name+' ('+c.symbol+')';
+  }
+  function renderList(filter){
+    var q=(filter||'').trim().toLowerCase();
+    var items = !q ? CURRENCIES : CURRENCIES.filter(function(c){
+      return c.code.toLowerCase().indexOf(q)>-1 || c.name.toLowerCase().indexOf(q)>-1;
+    });
+    if(items.length===0){ list.innerHTML='<div class="ccy-empty">No matching currency</div>'; return; }
+    list.innerHTML = items.map(function(c){
+      return '<div class="ccy-item" data-code="'+c.code+'"><span class="ccy-code">'+c.code+'</span>'+
+        '<span class="ccy-name">'+c.name+'</span><span class="ccy-sym">'+c.symbol+'</span></div>';
+    }).join('');
+  }
+  function openPanel(){
+    document.querySelectorAll('.ccy-picker.open').forEach(function(p){ if(p!==wrapper) p.classList.remove('open'); });
+    wrapper.classList.add('open');
+    search.value=''; renderList('');
+    setTimeout(function(){ search.focus(); }, 30);
+  }
+  function closePanel(){ wrapper.classList.remove('open'); }
+  trigger.addEventListener('click', function(e){
+    e.stopPropagation();
+    wrapper.classList.contains('open') ? closePanel() : openPanel();
+  });
+  search.addEventListener('input', function(){ renderList(search.value); });
+  search.addEventListener('keydown', function(e){
+    if(e.key==='Escape'){ closePanel(); trigger.focus(); }
+    if(e.key==='Enter'){ e.preventDefault(); var first=list.querySelector('.ccy-item'); if(first) first.click(); }
+  });
+  list.addEventListener('click', function(e){
+    var item = e.target.closest('.ccy-item');
+    if(!item) return;
+    wrapper.dataset.value = item.dataset.code;
+    renderTrigger(); closePanel();
+    if(opts.onChange) opts.onChange(item.dataset.code);
+  });
+  renderTrigger();
+  return {
+    get:function(){ return wrapper.dataset.value; },
+    set:function(code){ wrapper.dataset.value=code; renderTrigger(); }
+  };
+}
+document.addEventListener('click', function(e){
+  document.querySelectorAll('.ccy-picker.open').forEach(function(p){
+    if(!p.contains(e.target)) p.classList.remove('open');
+  });
+});
+function fillCurrencyFilter(sel){
+  sel.innerHTML='<option value="">All currencies</option>';
+  var used = Array.from(new Set(state.expenses.map(function(e){return e.currency;})));
+  used.sort();
+  used.forEach(function(code){
+    var o=document.createElement('option'); o.value=code; o.textContent=code; sel.appendChild(o);
+  });
+}
+function fillMonthFilter(sel, includeAllOpt){
+  var cur = sel.value;
+  var months = Array.from(new Set(state.expenses.map(function(e){return monthKey(e.date);}))).sort().reverse();
+  sel.innerHTML='';
+  if(includeAllOpt){ var a=document.createElement('option'); a.value=''; a.textContent='All time'; sel.appendChild(a); }
+  months.forEach(function(m){
+    var o=document.createElement('option'); o.value=m; o.textContent=monthLabel(m); sel.appendChild(o);
+  });
+  if(!includeAllOpt && !months.includes(cur)){ cur = months[0] || currentMonthKey(); }
+  if(Array.from(sel.options).some(function(o){return o.value===cur;})) sel.value = cur;
+  else if(!includeAllOpt && sel.options.length===0){
+    var o=document.createElement('option'); o.value=currentMonthKey(); o.textContent=monthLabel(currentMonthKey()); sel.appendChild(o);
+  }
+}
 
-        function useConvertedAmount() {
-            const convertedValue = parseFloat(convertedAmount.value);
-            const targetCurrency = convertedCurrency.textContent;
-            
-            if (convertedValue && convertedValue > 0) {
-                amountInput.value = convertedValue.toFixed(2);
-                currencySelect.value = targetCurrency;
-                conversionSection.classList.add('hidden');
-                conversionHint.textContent = '';
-                
-                // Show success feedback
-                useConvertedBtn.textContent = 'Used!';
-                useConvertedBtn.classList.add('bg-green-600');
-                useConvertedBtn.classList.remove('bg-blue-500');
-                
-                setTimeout(() => {
-                    useConvertedBtn.textContent = 'Use This';
-                    useConvertedBtn.classList.remove('bg-green-600');
-                    useConvertedBtn.classList.add('bg-blue-500');
-                }, 1000);
-            }
-        }
+/* ============ TICKER ============ */
+function renderTicker(){
+  var inner = document.getElementById('tickerInner');
+  var base = state.settings.baseCurrency;
+  var pinned = state.settings.pinned.filter(function(c){ return c!==base; });
+  var html = '';
+  pinned.forEach(function(code){
+    var r = rateOf(code);
+    html += '<div class="tflap"><span class="code">'+base+' → '+code+'</span><span class="rate mono">'+(r!=null? r.toFixed(4) : '—')+'</span></div>';
+  });
+  var meta = '<span class="ticker-meta">';
+  if(state.ratesCache && state.ratesCache.base===base){
+    var mins = Math.round((Date.now()-state.ratesCache.fetchedAt)/60000);
+    meta += (ratesFresh() ? 'updated '+ (mins<1?'just now':mins+'m ago') : 'stale ('+mins+'m ago)');
+  } else { meta += 'fetching rates…'; }
+  meta += ' <button id="tickerRefresh">refresh</button></span>';
+  inner.innerHTML = html + meta;
+  var btn = document.getElementById('tickerRefresh');
+  if(btn) btn.addEventListener('click', function(){ ensureRates(true); });
+}
 
-        function filterExpenses() {
-            const searchTerm = searchInput.value.toLowerCase();
-            const categoryFilterValue = categoryFilter.value;
-            const currencyFilterValue = currencyFilter.value;
-            
-            // Only apply search/category/currency filters in list view
-            if (currentView === 'list') {
-                filteredExpenses = expenses.filter(expense => {
-                    const matchesSearch = expense.description.toLowerCase().includes(searchTerm) ||
-                                        categoryNames[expense.category].toLowerCase().includes(searchTerm);
-                    const matchesCategory = !categoryFilterValue || expense.category === categoryFilterValue;
-                    const matchesCurrency = !currencyFilterValue || expense.currency === currencyFilterValue;
-                    
-                    return matchesSearch && matchesCategory && matchesCurrency;
-                });
-                renderExpenses();
-            } else {
-                // For spreadsheet and analytics, don't use filtered expenses
-                filteredExpenses = [];
-                if (currentView === 'spreadsheet') {
-                    renderSpreadsheet();
-                } else if (currentView === 'analytics') {
-                    renderAnalytics();
-                }
-            }
-        }
+/* ============ DASHBOARD ============ */
+function renderDashboard(){
+  var base = state.settings.baseCurrency;
+  var total=0, totalOk=true, monthTotal=0, monthOk=true;
+  var mk = currentMonthKey();
+  var monthDays = new Set();
+  state.expenses.forEach(function(e){
+    var c = toBase(e.amount, e.currency);
+    if(c==null) totalOk=false; else total += c;
+    if(monthKey(e.date)===mk){
+      if(c==null) monthOk=false; else monthTotal += c;
+      monthDays.add(e.date);
+    }
+  });
+  document.getElementById('statTotal').textContent = (ratesValid()||state.expenses.length===0) ? formatMoney(total, base) + (totalOk?'':' *') : 'Fetching rates…';
+  document.getElementById('statMonthLbl').textContent = monthLabel(mk);
+  document.getElementById('statMonth').textContent = (ratesValid()||state.expenses.length===0) ? formatMoney(monthTotal, base) : '—';
+  var dayOfMonth = new Date().getDate();
+  document.getElementById('statAvg').textContent = ratesValid() ? formatMoney(monthTotal/dayOfMonth, base) : '—';
+  document.getElementById('statCount').textContent = state.expenses.length;
 
-        function exportToCSV() {
-            let expensesToExport = [];
-            let exportDescription = '';
-            let periodDescription = '';
-            
-            // Determine what to export based on current view and filters
-            if (currentView === 'list') {
-                // In list view, export filtered expenses or all if no filters
-                expensesToExport = filteredExpenses.length > 0 ? filteredExpenses : expenses;
-                exportDescription = filteredExpenses.length > 0 ? 'filtered' : 'all';
-                periodDescription = filteredExpenses.length > 0 ? 'Filtered Expenses' : 'All Expenses';
-            } else if (currentView === 'spreadsheet') {
-                // In spreadsheet view, export based on month/year/day filters
-                const selectedMonth = monthFilter.value;
-                const selectedYear = yearFilter.value;
-                const selectedDay = dayFilter.value;
-                
-                if (selectedMonth !== '' && selectedYear !== '') {
-                    // Filter by selected month/year/day
-                    expensesToExport = expenses.filter(expense => {
-                        let date;
-                        if (expense.date.includes('T')) {
-                            date = new Date(expense.date);
-                        } else {
-                            const [year, month, day] = expense.date.split('-');
-                            date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-                        }
-                        
-                        const monthMatch = date.getMonth() == selectedMonth;
-                        const yearMatch = date.getFullYear() == selectedYear;
-                        const dayMatch = selectedDay === '' || date.getDate() == selectedDay;
-                        return monthMatch && yearMatch && dayMatch;
-                    });
-                    
-                    // Create description for filename and period
-                    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
-                                      'July', 'August', 'September', 'October', 'November', 'December'];
-                    if (selectedDay !== '') {
-                        exportDescription = `${selectedYear}-${String(parseInt(selectedMonth) + 1).padStart(2, '0')}-${String(selectedDay).padStart(2, '0')}`;
-                        const dayName = new Date(selectedYear, selectedMonth, selectedDay).toLocaleDateString('en-US', { weekday: 'long' });
-                        periodDescription = `${dayName}, ${monthNames[selectedMonth]} ${selectedDay}, ${selectedYear}`;
-                    } else {
-                        exportDescription = `${monthNames[selectedMonth]}_${selectedYear}`;
-                        periodDescription = `${monthNames[selectedMonth]} ${selectedYear}`;
-                    }
-                } else {
-                    // No filters selected, export all
-                    expensesToExport = expenses;
-                    exportDescription = 'all';
-                    periodDescription = 'All Expenses';
-                }
-            } else {
-                // Analytics view - export all expenses
-                expensesToExport = expenses;
-                exportDescription = 'all';
-                periodDescription = 'All Expenses (Analytics Export)';
-            }
-            
-            if (expensesToExport.length === 0) {
-                alert('No expenses to export for the selected period!');
-                return;
-            }
-            
-            try {
-                // Calculate totals for the exported expenses
-                let totalUSD = 0;
-                let totalPKR = 0;
-                let totalExpenses = expensesToExport.length;
-                
-                expensesToExport.forEach(expense => {
-                    if (expense.currency === 'USD') {
-                        totalUSD += expense.amount;
-                        // Add converted PKR amount if available
-                        if (expense.convertedAmount && expense.convertedCurrency === 'PKR') {
-                            totalPKR += expense.convertedAmount;
-                        }
-                    } else if (expense.currency === 'PKR') {
-                        totalPKR += expense.amount;
-                        // Add converted USD amount if available
-                        if (expense.convertedAmount && expense.convertedCurrency === 'USD') {
-                            totalUSD += expense.convertedAmount;
-                        }
-                    }
-                });
-                
-                // Create CSV content with headers
-                const headers = ['Date', 'Description', 'Category', 'Amount', 'Currency', 'Converted Amount', 'Converted Currency'];
-                
-                // Add title and summary at the top
-                const csvLines = [
-                    `"Expense Tracker Export"`,
-                    `"Period: ${periodDescription}"`,
-                    `"Export Date: ${new Date().toLocaleDateString('en-US', { 
-                        year: 'numeric', 
-                        month: 'long', 
-                        day: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                    })}"`,
-                    `"Exchange Rate Used: 1 USD = ${exchangeRate} PKR"`,
-                    `""`, // Empty line
-                    `"SUMMARY"`,
-                    `"Total Expenses: ${totalExpenses}"`,
-                    `"Total USD: $${totalUSD.toFixed(2)}"`,
-                    `"Total PKR: ₨${totalPKR.toFixed(2)}"`,
-                    `""`, // Empty line
-                    `"EXPENSE DETAILS"`,
-                    headers.join(','), // Column headers
-                    
-                    // Add all expense rows
-                    ...expensesToExport.map(expense => [
-                        formatDateForTable(new Date(expense.date)),
-                        `"${expense.description.replace(/"/g, '""')}"`, // Escape quotes properly
-                        `"${categoryNames[expense.category]}"`,
-                        expense.amount,
-                        expense.currency,
-                        expense.convertedAmount || '',
-                        expense.convertedCurrency || ''
-                    ].join(',')),
-                    
-                    `""`, // Empty line
-                    `"TOTALS"`,
-                    `"","","Total USD:","${totalUSD.toFixed(2)}","USD","",""`,
-                    `"","","Total PKR:","${totalPKR.toFixed(2)}","PKR","",""`,
-                    `"","","Total Expenses:","${totalExpenses}","entries","",""`
-                ];
-                
-                const csvContent = csvLines.join('\n');
-                
-                // Create blob with BOM for better Excel compatibility
-                const BOM = '\uFEFF';
-                const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
-                
-                // Create filename based on what's being exported
-                const filename = `expenses_${exportDescription}_${new Date().toISOString().split('T')[0]}.csv`;
-                
-                // Try multiple download methods for better browser compatibility
-                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                    // For IE/Edge
-                    window.navigator.msSaveOrOpenBlob(blob, filename);
-                } else {
-                    // For modern browsers
-                    const url = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = filename;
-                    a.style.display = 'none';
-                    
-                    // Add to DOM, click, then remove
-                    document.body.appendChild(a);
-                    
-                    // Force click with timeout to ensure it works
-                    setTimeout(() => {
-                        a.click();
-                        
-                        // Clean up after a delay
-                        setTimeout(() => {
-                            document.body.removeChild(a);
-                            window.URL.revokeObjectURL(url);
-                        }, 100);
-                    }, 10);
-                }
-                
-                // Show success feedback with summary
-                exportBtn.textContent = `Downloaded! (${totalExpenses} expenses) ✓`;
-                exportBtn.classList.add('bg-green-700');
-                exportBtn.classList.remove('bg-green-600');
-                
-                setTimeout(() => {
-                    exportBtn.textContent = '📥 Export CSV';
-                    exportBtn.classList.remove('bg-green-700');
-                    exportBtn.classList.add('bg-green-600');
-                }, 3000);
-                
-                console.log('CSV export completed successfully:', {
-                    period: periodDescription,
-                    totalExpenses,
-                    totalUSD: totalUSD.toFixed(2),
-                    totalPKR: totalPKR.toFixed(2)
-                });
-                
-            } catch (error) {
-                console.error('CSV export failed:', error);
-                alert('Export failed. Please try again.');
-                
-                // Reset button on error
-                exportBtn.textContent = '📥 Export CSV';
-                exportBtn.classList.remove('bg-green-700');
-                exportBtn.classList.add('bg-green-600');
-            }
-        }
+  renderConverter();
+  renderDue();
+  renderBudgets(document.getElementById('budgetCard'), false);
+}
 
-        function formatCurrency(amount, currency = 'USD') {
-            if (currency === 'PKR') {
-                return new Intl.NumberFormat('en-PK', {
-                    style: 'currency',
-                    currency: 'PKR'
-                }).format(amount);
-            } else {
-                return new Intl.NumberFormat('en-US', {
-                    style: 'currency',
-                    currency: 'USD'
-                }).format(amount);
-            }
-        }
+/* ============ CONVERTER ============ */
+function renderConverter(){
+  var amt = parseFloat(document.getElementById('cvAmount').value)||0;
+  var from = pickers.cvFrom.get();
+  var to = pickers.cvTo.get();
+  var res = convert(amt, from, to);
+  var out = document.getElementById('cvResult');
+  var sub = document.getElementById('cvSub');
+  if(res==null){
+    out.childNodes[0].nodeValue = '—';
+    sub.textContent = ratesFresh()===false && !state.ratesCache ? 'Waiting for rates…' : 'Rate unavailable for this pair';
+  } else {
+    out.childNodes[0].nodeValue = formatMoney(res, to) + ' ';
+    sub.textContent = '1 '+from+' = '+ (convert(1,from,to)!=null? convert(1,from,to).toFixed(4):'—') +' '+to + (ratesFresh()? '' : '  (cached rate)');
+  }
+}
 
-        function formatMixedCurrencies(expenses) {
-            const usdTotal = expenses.filter(e => e.currency === 'USD').reduce((sum, e) => sum + e.amount, 0);
-            const pkrTotal = expenses.filter(e => e.currency === 'PKR').reduce((sum, e) => sum + e.amount, 0);
-            
-            if (usdTotal > 0 && pkrTotal > 0) {
-                return `${formatCurrency(usdTotal, 'USD')} + ${formatCurrency(pkrTotal, 'PKR')}`;
-            } else if (pkrTotal > 0) {
-                return formatCurrency(pkrTotal, 'PKR');
-            } else {
-                return formatCurrency(usdTotal, 'USD');
-            }
-        }
+/* ============ RECURRING ============ */
+function renderDue(){
+  var mk = currentMonthKey();
+  var card = document.getElementById('dueCard');
+  var active = state.recurring;
+  var due = active.filter(function(t){
+    return !state.expenses.some(function(e){ return e.recurringId===t.id && monthKey(e.date)===mk; });
+  });
+  document.getElementById('dueCountHint').textContent = due.length ? due.length+' due' : 'all caught up';
+  if(active.length===0){
+    card.innerHTML = '<div class="empty"><span class="ic">🔁</span>No recurring expenses set up yet. Add one in Settings — like rent or a subscription.</div>';
+    return;
+  }
+  if(due.length===0){
+    card.innerHTML = '<div class="empty"><span class="ic">✅</span>Nothing due this month.</div>';
+    return;
+  }
+  card.innerHTML='';
+  due.forEach(function(t){
+    var row = document.createElement('div');
+    row.className='due-item';
+    var ci = catInfo(t.category);
+    row.innerHTML = '<div><strong>'+ci.icon+' '+escapeHtml(t.description)+'</strong><div class="helptext">'+formatMoney(t.amount,t.currency)+' · day '+t.dayOfMonth+' of month</div></div>';
+    var btn = document.createElement('button');
+    btn.className='btn sm primary'; btn.textContent='Log it';
+    btn.addEventListener('click', function(){ logRecurring(t); });
+    row.appendChild(btn);
+    card.appendChild(row);
+  });
+}
+function logRecurring(t){
+  var d = new Date();
+  var day = Math.min(t.dayOfMonth, new Date(d.getFullYear(), d.getMonth()+1, 0).getDate());
+  var dateStr = d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
+  state.expenses.push({
+    id:uid(), description:t.description, amount:t.amount, currency:t.currency,
+    category:t.category, date:dateStr, notes:'Recurring', recurringId:t.id, createdAt:Date.now()
+  });
+  saveState(); renderAll(); showToast('✅ Logged '+t.description);
+}
 
-        function formatDate(date) {
-            return new Intl.DateTimeFormat('en-US', {
-                month: 'short',
-                day: 'numeric',
-                year: 'numeric'
-            }).format(date);
-        }
+/* ============ BUDGETS ============ */
+function spentInCategoryThisMonth(catId){
+  var mk = currentMonthKey(); var sum=0; var ok=true;
+  state.expenses.forEach(function(e){
+    if(e.category===catId && monthKey(e.date)===mk){
+      var c = toBase(e.amount, e.currency);
+      if(c==null) ok=false; else sum+=c;
+    }
+  });
+  return ok ? sum : null;
+}
+function renderBudgets(container, isSettings){
+  var budgets = state.settings.budgets || {};
+  var keys = Object.keys(budgets).filter(function(k){ return budgets[k] > 0; });
+  if(!isSettings){
+    if(keys.length===0){
+      container.innerHTML = '<div class="empty"><span class="ic">🎯</span>No budgets set. Add monthly targets per category in Settings to track progress here.</div>';
+      return;
+    }
+    container.innerHTML='';
+    keys.forEach(function(catId){
+      var ci = catInfo(catId);
+      var spent = spentInCategoryThisMonth(catId);
+      var budget = budgets[catId];
+      var pct = spent==null ? 0 : Math.min(100, (spent/budget)*100);
+      var color = spent==null ? 'var(--ink-faint)' : (spent>budget ? 'var(--rose)' : (pct>80 ? 'var(--accent)' : 'var(--teal)'));
+      var div = document.createElement('div'); div.className='budget-item';
+      div.innerHTML = '<div class="budget-top"><span class="cat">'+ci.icon+' '+ci.label+'</span><span class="amt mono">'+(spent==null?'—':formatMoney(spent, state.settings.baseCurrency))+' / '+formatMoney(budget, state.settings.baseCurrency)+'</span></div>'+
+        '<div class="bar-track"><div class="bar-fill" style="width:'+pct+'%; background:'+color+';"></div></div>';
+      container.appendChild(div);
+    });
+  } else {
+    container.innerHTML='';
+    CATEGORIES.forEach(function(c){
+      var row = document.createElement('div'); row.className='field-row'; row.style.alignItems='end'; row.style.marginBottom='10px';
+      row.innerHTML = '<div class="field" style="margin-bottom:0;"><label>'+c.icon+' '+c.label+'</label></div>'+
+        '<div class="field" style="margin-bottom:0;"><input type="number" min="0" step="any" data-cat="'+c.id+'" class="budgetInput" placeholder="No budget" value="'+(budgets[c.id]||'')+'"></div>';
+      container.appendChild(row);
+    });
+    container.querySelectorAll('.budgetInput').forEach(function(inp){
+      inp.addEventListener('change', function(){
+        var v = parseFloat(inp.value);
+        if(!v || v<=0) delete state.settings.budgets[inp.dataset.cat];
+        else state.settings.budgets[inp.dataset.cat] = v;
+        saveState(); renderDashboard();
+      });
+    });
+  }
+}
 
-        function formatDateForTable(date) {
-            return new Intl.DateTimeFormat('en-US', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit'
-            }).format(date);
-        }
+/* ============ EXPENSE LIST ============ */
+function escapeHtml(s){
+  return String(s||'').replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+function getFilteredExpenses(){
+  var q = document.getElementById('fSearch').value.trim().toLowerCase();
+  var cat = document.getElementById('fCategory').value;
+  var cur = document.getElementById('fCurrency').value;
+  var mo = document.getElementById('fMonth').value;
+  var sort = document.getElementById('fSort').value;
+  var list = state.expenses.filter(function(e){
+    if(q && !((e.description||'').toLowerCase().includes(q) || (e.notes||'').toLowerCase().includes(q))) return false;
+    if(cat && e.category!==cat) return false;
+    if(cur && e.currency!==cur) return false;
+    if(mo && monthKey(e.date)!==mo) return false;
+    return true;
+  });
+  list.sort(function(a,b){
+    if(sort==='date-desc') return b.date.localeCompare(a.date) || (b.createdAt||0)-(a.createdAt||0);
+    if(sort==='date-asc') return a.date.localeCompare(b.date) || (a.createdAt||0)-(b.createdAt||0);
+    if(sort==='amount-desc') return (toBase(b.amount,b.currency)||0) - (toBase(a.amount,a.currency)||0);
+    if(sort==='amount-asc') return (toBase(a.amount,a.currency)||0) - (toBase(b.amount,b.currency)||0);
+    return 0;
+  });
+  return list;
+}
+function renderExpenseList(){
+  fillCurrencyFilter(document.getElementById('fCurrency'));
+  fillMonthFilter(document.getElementById('fMonth'), true);
+  var list = getFilteredExpenses();
+  var container = document.getElementById('expList');
+  if(list.length===0){
+    container.innerHTML = '<div class="empty"><span class="ic">📭</span>'+(state.expenses.length===0 ? 'No expenses yet — add your first one.' : 'No expenses match these filters.')+'</div>';
+    return;
+  }
+  container.innerHTML='';
+  list.forEach(function(e){
+    var ci = catInfo(e.category);
+    var row = document.createElement('div'); row.className='exp-row';
+    var conv = e.currency!==state.settings.baseCurrency ? toBase(e.amount, e.currency) : null;
+    row.innerHTML =
+      '<div class="exp-ic">'+ci.icon+'</div>'+
+      '<div class="exp-mid"><div class="exp-desc">'+escapeHtml(e.description)+'</div>'+
+      '<div class="exp-meta">'+e.date+' · <span class="stamp" style="transform:none;padding:1px 8px;font-size:10px;">'+ci.label+'</span>'+(e.notes?(' · '+escapeHtml(e.notes)):'')+'</div></div>'+
+      '<div class="exp-amt"><div class="orig mono">'+formatMoney(e.amount, e.currency)+'</div>'+
+      (conv!=null? '<div class="conv mono">≈ '+formatMoney(conv, state.settings.baseCurrency)+'</div>' : '')+'</div>'+
+      '<div class="exp-actions"><button class="editB" title="Edit">✏️</button><button class="delB" title="Delete">🗑️</button></div>';
+    row.querySelector('.editB').addEventListener('click', function(){ openExpenseModal(e); });
+    row.querySelector('.delB').addEventListener('click', function(){ deleteExpense(e.id); });
+    container.appendChild(row);
+  });
+}
+function deleteExpense(id){
+  if(!confirm('Delete this expense?')) return;
+  state.expenses = state.expenses.filter(function(e){ return e.id!==id; });
+  saveState(); renderAll(); showToast('Deleted');
+}
 
-        function switchToListView() {
-            currentView = 'list';
-            listView.classList.remove('hidden');
-            spreadsheetView.classList.add('hidden');
-            analyticsView.classList.add('hidden');
-            
-            // Update button styles
-            listViewBtn.classList.add('bg-teal-600', 'text-white');
-            listViewBtn.classList.remove('bg-gray-200', 'text-gray-700');
-            spreadsheetViewBtn.classList.add('bg-gray-200', 'text-gray-700');
-            spreadsheetViewBtn.classList.remove('bg-teal-600', 'text-white');
-            analyticsViewBtn.classList.add('bg-gray-200', 'text-gray-700');
-            analyticsViewBtn.classList.remove('bg-teal-600', 'text-white');
-            
-            // Clear spreadsheet filters when switching to list view
-            monthFilter.value = '';
-            yearFilter.value = '';
-            dayFilter.value = '';
-            
-            filterExpenses();
-        }
+/* ============ MODAL / ADD-EDIT ============ */
+var modal = null, expForm = null;
+function initModalRefs(){ modal = document.getElementById('modalOverlay'); expForm = document.getElementById('expForm'); }
+function openExpenseModal(existing){
+  document.getElementById('modalTitle').textContent = existing ? 'Edit expense' : 'Add expense';
+  document.getElementById('expId').value = existing ? existing.id : '';
+  document.getElementById('expDesc').value = existing ? existing.description : '';
+  document.getElementById('expAmount').value = existing ? existing.amount : '';
+  pickers.expCurrency.set(existing ? existing.currency : state.settings.baseCurrency);
+  document.getElementById('expDate').value = existing ? existing.date : todayStr();
+  fillCategorySelect(document.getElementById('expCategory'), existing ? existing.category : 'other', false);
+  document.getElementById('expNotes').value = existing ? (existing.notes||'') : '';
+  updateConvertPreview();
+  modal.classList.add('open');
+  document.getElementById('expDesc').focus();
+}
+function closeModal(){ modal.classList.remove('open'); }
+function updateConvertPreview(){
+  var amt = parseFloat(document.getElementById('expAmount').value);
+  var cur = pickers.expCurrency.get();
+  var wrap = document.getElementById('convertPreviewWrap');
+  var pre = document.getElementById('convertPreview');
+  if(!amt || cur===state.settings.baseCurrency){ wrap.style.display='none'; return; }
+  var c = convert(amt, cur, state.settings.baseCurrency);
+  wrap.style.display='block';
+  pre.textContent = c!=null ? ('≈ '+formatMoney(c, state.settings.baseCurrency)+' at today\'s rate') : 'Exchange rate not available yet for this currency';
+}
 
-        function switchToSpreadsheetView() {
-            currentView = 'spreadsheet';
-            listView.classList.add('hidden');
-            spreadsheetView.classList.remove('hidden');
-            analyticsView.classList.add('hidden');
-            
-            // Update button styles
-            spreadsheetViewBtn.classList.add('bg-teal-600', 'text-white');
-            spreadsheetViewBtn.classList.remove('bg-gray-200', 'text-gray-700');
-            listViewBtn.classList.add('bg-gray-200', 'text-gray-700');
-            listViewBtn.classList.remove('bg-teal-600', 'text-white');
-            analyticsViewBtn.classList.add('bg-gray-200', 'text-gray-700');
-            analyticsViewBtn.classList.remove('bg-teal-600', 'text-white');
-            
-            // Clear search filters when switching to spreadsheet view
-            searchInput.value = '';
-            categoryFilter.value = '';
-            currencyFilter.value = '';
-            
-            renderSpreadsheet();
-        }
+/* ============ ANALYTICS ============ */
+var chartCategory=null, chartTrend=null;
+function renderAnalytics(){
+  var mk = currentMonthKey();
+  var monthExpenses = state.expenses.filter(function(e){ return monthKey(e.date)===mk; });
+  var sum=0, ok=true, byCat={}, byDay={};
+  monthExpenses.forEach(function(e){
+    var c = toBase(e.amount, e.currency);
+    if(c==null){ ok=false; return; }
+    sum+=c;
+    byCat[e.category] = (byCat[e.category]||0) + c;
+    byDay[e.date] = (byDay[e.date]||0) + 1;
+  });
+  var dayOfMonth = new Date().getDate();
+  document.getElementById('anAvg').textContent = ok ? formatMoney(sum/dayOfMonth, state.settings.baseCurrency) : '—';
+  var topCat = Object.keys(byCat).sort(function(a,b){return byCat[b]-byCat[a];})[0];
+  document.getElementById('anTopCat').textContent = topCat ? (catInfo(topCat).icon+' '+catInfo(topCat).label) : '—';
+  var freq={};
+  monthExpenses.forEach(function(e){ freq[e.category]=(freq[e.category]||0)+1; });
+  var freqCat = Object.keys(freq).sort(function(a,b){return freq[b]-freq[a];})[0];
+  document.getElementById('anFreqCat').textContent = freqCat ? (catInfo(freqCat).icon+' '+catInfo(freqCat).label) : '—';
+  document.getElementById('anDays').textContent = Object.keys(byDay).length;
 
-        function switchToAnalyticsView() {
-            currentView = 'analytics';
-            listView.classList.add('hidden');
-            spreadsheetView.classList.add('hidden');
-            analyticsView.classList.remove('hidden');
-            
-            // Update button styles
-            analyticsViewBtn.classList.add('bg-teal-600', 'text-white');
-            analyticsViewBtn.classList.remove('bg-gray-200', 'text-gray-700');
-            listViewBtn.classList.add('bg-gray-200', 'text-gray-700');
-            listViewBtn.classList.remove('bg-teal-600', 'text-white');
-            spreadsheetViewBtn.classList.add('bg-gray-200', 'text-gray-700');
-            spreadsheetViewBtn.classList.remove('bg-teal-600', 'text-white');
-            
-            // Clear search filters when switching to analytics view
-            searchInput.value = '';
-            categoryFilter.value = '';
-            currencyFilter.value = '';
-            
-            renderAnalytics();
-        }
+  renderCategoryChart(byCat, ok);
+  renderTrendChart();
+  renderMonthlyReport();
+}
+function renderCategoryChart(byCat, ok){
+  var ctx = document.getElementById('chartCategory').getContext('2d');
+  var labels = Object.keys(byCat).map(function(k){ return catInfo(k).icon+' '+catInfo(k).label; });
+  var values = Object.keys(byCat).map(function(k){ return byCat[k]; });
+  if(chartCategory) chartCategory.destroy();
+  if(typeof Chart==='undefined') return;
+  if(labels.length===0){
+    return;
+  }
+  var colors = ['#e8b04b','#4fb0a5','#e2685f','#6f9ceb','#c792ea','#f0a868','#7fd1c4','#e78a9a','#a3c25f','#d1a3e0','#8fb8de'];
+  chartCategory = new Chart(ctx,{
+    type:'doughnut',
+    data:{ labels:labels, datasets:[{ data:values, backgroundColor:colors, borderWidth:0 }] },
+    options:{ maintainAspectRatio:false, plugins:{ legend:{ position:'bottom', labels:{ color:getComputedStyle(document.body).getPropertyValue('--ink'), boxWidth:12, font:{size:11} } } } }
+  });
+}
+function renderTrendChart(){
+  var months = lastNMonthKeys(6);
+  var totals = months.map(function(mk){
+    var sum=0, ok=true;
+    state.expenses.forEach(function(e){
+      if(monthKey(e.date)===mk){
+        var c = toBase(e.amount, e.currency);
+        if(c==null) ok=false; else sum+=c;
+      }
+    });
+    return ok ? sum : 0;
+  });
+  var ctx = document.getElementById('chartTrend').getContext('2d');
+  if(chartTrend) chartTrend.destroy();
+  if(typeof Chart==='undefined') return;
+  var ink = getComputedStyle(document.body).getPropertyValue('--ink-dim');
+  chartTrend = new Chart(ctx,{
+    type:'bar',
+    data:{ labels:months.map(function(m){return monthLabel(m).split(' ')[0].slice(0,3);}), datasets:[{ data:totals, backgroundColor:'#e8b04b', borderRadius:6, maxBarThickness:38 }] },
+    options:{ maintainAspectRatio:false, plugins:{ legend:{display:false} },
+      scales:{ x:{ ticks:{color:ink}, grid:{display:false} }, y:{ ticks:{color:ink}, grid:{color:'rgba(255,255,255,.06)'} } } }
+  });
+}
+function renderMonthlyReport(){
+  var sel = document.getElementById('repMonth');
+  fillMonthFilter(sel, false);
+  document.getElementById('repBaseHead').textContent = 'Amount ('+state.settings.baseCurrency+')';
+  var mk = sel.value || currentMonthKey();
+  var rows = state.expenses.filter(function(e){ return monthKey(e.date)===mk; }).sort(function(a,b){return a.date.localeCompare(b.date);});
+  var body = document.getElementById('repBody');
+  var total=0, ok=true;
+  if(rows.length===0){
+    body.innerHTML = '<tr><td colspan="5" style="color:var(--ink-faint);">No expenses for this month.</td></tr>';
+  } else {
+    body.innerHTML = rows.map(function(e){
+      var c = toBase(e.amount, e.currency);
+      if(c==null) ok=false; else total+=c;
+      var ci = catInfo(e.category);
+      return '<tr><td>'+e.date+'</td><td>'+escapeHtml(e.description)+'</td><td>'+ci.icon+' '+ci.label+'</td><td class="mono">'+formatMoney(e.amount,e.currency)+'</td><td class="mono">'+(c!=null?formatMoney(c,state.settings.baseCurrency):'—')+'</td></tr>';
+    }).join('');
+  }
+  document.getElementById('repTotal').textContent = ok ? formatMoney(total, state.settings.baseCurrency) : '—';
+}
 
-        function populateFilters() {
-            const months = ['January', 'February', 'March', 'April', 'May', 'June', 
-                          'July', 'August', 'September', 'October', 'November', 'December'];
-            
-            const uniqueMonths = new Set();
-            const uniqueYears = new Set();
-            
-            console.log('Populating filters with expenses:', expenses.length);
-            
-            // Only populate if we have expenses
-            if (expenses.length > 0) {
-                expenses.forEach(expense => {
-                    // Handle both date string formats (YYYY-MM-DD and ISO)
-                    let date;
-                    if (expense.date.includes('T')) {
-                        date = new Date(expense.date);
-                    } else {
-                        // For YYYY-MM-DD format, create date without timezone issues
-                        const [year, month, day] = expense.date.split('-');
-                        date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-                    }
-                    
-                    const month = date.getMonth();
-                    const year = date.getFullYear();
-                    uniqueMonths.add(month);
-                    uniqueYears.add(year);
-                    console.log('Expense date:', expense.date, 'Month:', month, 'Year:', year);
-                });
-            }
-            
-            console.log('Unique months:', Array.from(uniqueMonths));
-            console.log('Unique years:', Array.from(uniqueYears));
-            
-            // Store current selections
-            const currentMonth = monthFilter.value;
-            const currentYear = yearFilter.value;
-            const currentDay = dayFilter.value;
-            
-            // Clear and populate month filter
-            monthFilter.innerHTML = '<option value="">Select Month</option>';
-            if (uniqueMonths.size > 0) {
-                Array.from(uniqueMonths).sort((a, b) => a - b).forEach(month => {
-                    const selected = currentMonth == month ? 'selected' : '';
-                    monthFilter.innerHTML += `<option value="${month}" ${selected}>${months[month]}</option>`;
-                });
-            }
-            
-            // Clear and populate year filter
-            yearFilter.innerHTML = '<option value="">Select Year</option>';
-            if (uniqueYears.size > 0) {
-                Array.from(uniqueYears).sort((a, b) => b - a).forEach(year => {
-                    const selected = currentYear == year ? 'selected' : '';
-                    yearFilter.innerHTML += `<option value="${year}" ${selected}>${year}</option>`;
-                });
-            }
-            
-            // Populate day filter based on selected month and year
-            populateDayFilter();
-        }
+/* ============ SETTINGS ============ */
+function renderRecurringList(){
+  var container = document.getElementById('recurringList');
+  if(state.recurring.length===0){
+    container.innerHTML = '<div class="helptext">No recurring templates yet.</div>';
+    return;
+  }
+  container.innerHTML='';
+  state.recurring.forEach(function(t){
+    var ci = catInfo(t.category);
+    var row = document.createElement('div'); row.className='due-item';
+    row.innerHTML = '<div><strong>'+ci.icon+' '+escapeHtml(t.description)+'</strong><div class="helptext">'+formatMoney(t.amount,t.currency)+' · day '+t.dayOfMonth+'</div></div>';
+    var btn = document.createElement('button'); btn.className='btn sm danger'; btn.textContent='Remove';
+    btn.addEventListener('click', function(){
+      if(!confirm('Remove this recurring template? Past logged expenses stay.')) return;
+      state.recurring = state.recurring.filter(function(x){return x.id!==t.id;});
+      saveState(); renderAll();
+    });
+    row.appendChild(btn);
+    container.appendChild(row);
+  });
+}
+function renderRateStatus(){
+  var el = document.getElementById('rateStatus');
+  if(!state.ratesCache || state.ratesCache.base!==state.settings.baseCurrency){
+    el.textContent = 'Fetching current exchange rates…';
+  } else {
+    var mins = Math.round((Date.now()-state.ratesCache.fetchedAt)/60000);
+    el.textContent = 'Rates last updated '+(mins<1?'just now':mins+' minutes ago')+(ratesFresh()?'':' (may be stale — reconnect to refresh)');
+  }
+}
+function renderSettings(){
+  if(pickers.baseCurrency) pickers.baseCurrency.set(state.settings.baseCurrency);
+  renderRecurringList();
+  renderBudgets(document.getElementById('budgetSettingsCard'), true);
+  renderRateStatus();
+  document.getElementById('themeDarkBtn').classList.toggle('primary', state.settings.theme==='dark');
+  document.getElementById('themeLightBtn').classList.toggle('primary', state.settings.theme==='light');
+}
 
-        function populateDayFilter() {
-            const selectedMonth = monthFilter.value;
-            const selectedYear = yearFilter.value;
-            const currentDay = dayFilter.value;
-            
-            // Clear day filter
-            dayFilter.innerHTML = '<option value="">All Days (Monthly View)</option>';
-            
-            if (selectedMonth !== '' && selectedYear !== '') {
-                const uniqueDaysForMonth = new Set();
-                
-                expenses.forEach(expense => {
-                    const date = new Date(expense.date);
-                    if (date.getMonth() == selectedMonth && date.getFullYear() == selectedYear) {
-                        const day = date.getDate();
-                        uniqueDaysForMonth.add(day);
-                    }
-                });
-                
-                if (uniqueDaysForMonth.size > 0) {
-                    Array.from(uniqueDaysForMonth).sort((a, b) => a - b).forEach(day => {
-                        const selected = currentDay == day ? 'selected' : '';
-                        const dayName = new Date(selectedYear, selectedMonth, day).toLocaleDateString('en-US', { weekday: 'short' });
-                        dayFilter.innerHTML += `<option value="${day}" ${selected}>${day} (${dayName})</option>`;
-                    });
-                }
-            }
-        }
+/* ============ TABS ============ */
+function switchTab(name){
+  document.querySelectorAll('#tabs button').forEach(function(b){ b.classList.toggle('active', b.dataset.tab===name); });
+  document.querySelectorAll('section.view').forEach(function(s){ s.classList.toggle('active', s.id==='view-'+name); });
+  if(name==='analytics') renderAnalytics();
+}
 
-        function renderSpreadsheet() {
-            console.log('Rendering spreadsheet, expenses count:', expenses.length);
-            populateFilters();
-            
-            const selectedMonth = monthFilter.value;
-            const selectedYear = yearFilter.value;
-            const selectedDay = dayFilter.value;
-            console.log('Selected month:', selectedMonth, 'Selected year:', selectedYear, 'Selected day:', selectedDay);
-            
-            // Show message if no expenses exist
-            if (expenses.length === 0) {
-                expenseTableBody.innerHTML = `
-                    <tr>
-                        <td colspan="6" class="border border-gray-300 px-4 py-8 text-center text-gray-500">
-                            No expenses found. Add some expenses first!
-                        </td>
-                    </tr>
-                `;
-                totalUSD.textContent = '$0.00';
-                totalPKR.textContent = '₨0.00';
-                return;
-            }
-            
-            // If no month/year selected, show all expenses
-            if (selectedMonth === '' && selectedYear === '') {
-                // Show all expenses grouped by month
-                const sortedExpenses = [...expenses].sort((a, b) => new Date(b.date) - new Date(a.date));
-                
-                expenseTableBody.innerHTML = sortedExpenses.map(expense => {
-                    let usdAmount = '-';
-                    let pkrAmount = '-';
-                    
-                    if (expense.currency === 'USD') {
-                        usdAmount = formatCurrency(expense.amount, 'USD');
-                        if (expense.convertedAmount && expense.convertedCurrency === 'PKR') {
-                            pkrAmount = formatCurrency(expense.convertedAmount, 'PKR');
-                        }
-                    } else if (expense.currency === 'PKR') {
-                        pkrAmount = formatCurrency(expense.amount, 'PKR');
-                        if (expense.convertedAmount && expense.convertedCurrency === 'USD') {
-                            usdAmount = formatCurrency(expense.convertedAmount, 'USD');
-                        }
-                    }
-                    
-                    return `
-                        <tr class="hover:bg-gray-50">
-                            <td class="border border-gray-300 px-2 md:px-4 py-2 text-xs md:text-sm">${(() => {
-                                let date;
-                                if (expense.date.includes('T')) {
-                                    date = new Date(expense.date);
-                                } else {
-                                    const [year, month, day] = expense.date.split('-');
-                                    date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-                                }
-                                return formatDateForTable(date);
-                            })()}</td>
-                            <td class="border border-gray-300 px-2 md:px-4 py-2 text-xs md:text-sm">
-                                <div class="truncate max-w-[120px] md:max-w-none" title="${expense.description}">${expense.description}</div>
-                            </td>
-                            <td class="border border-gray-300 px-2 md:px-4 py-2 text-xs md:text-sm">
-                                <span class="inline-flex items-center">
-                                    <span class="mr-1">${categoryEmojis[expense.category]}</span>
-                                    <span class="hidden sm:inline">${categoryNames[expense.category]}</span>
-                                </span>
-                            </td>
-                            <td class="border border-gray-300 px-2 md:px-4 py-2 text-right text-xs md:text-sm">${usdAmount}</td>
-                            <td class="border border-gray-300 px-2 md:px-4 py-2 text-right text-xs md:text-sm">${pkrAmount}</td>
-                            <td class="border border-gray-300 px-2 md:px-4 py-2 text-center">
-                                <button onclick="deleteExpenseFromTable(${expense.id})" class="text-red-500 hover:text-red-700 transition duration-200 p-1 rounded hover:bg-red-50" title="Delete expense">
-                                    <svg class="w-3 md:w-4 h-3 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                    </svg>
-                                </button>
-                            </td>
-                        </tr>
-                    `;
-                }).join('');
-                
-                // Calculate totals for all expenses
-                let usdTotal = 0;
-                let pkrTotal = 0;
-                
-                expenses.forEach(expense => {
-                    if (expense.currency === 'USD') {
-                        usdTotal += expense.amount;
-                        if (expense.convertedAmount && expense.convertedCurrency === 'PKR') {
-                            pkrTotal += expense.convertedAmount;
-                        }
-                    } else if (expense.currency === 'PKR') {
-                        pkrTotal += expense.amount;
-                        if (expense.convertedAmount && expense.convertedCurrency === 'USD') {
-                            usdTotal += expense.convertedAmount;
-                        }
-                    }
-                });
-                
-                totalUSD.textContent = formatCurrency(usdTotal, 'USD');
-                totalPKR.textContent = formatCurrency(pkrTotal, 'PKR');
-                document.getElementById('spreadsheetTitle').textContent = 'All Expenses';
-                return;
-            }
-            
-            // Require both month and year to be selected for filtered view
-            if (selectedMonth === '' || selectedYear === '') {
-                expenseTableBody.innerHTML = `
-                    <tr>
-                        <td colspan="6" class="border border-gray-300 px-4 py-8 text-center text-gray-500">
-                            Please select both month and year to view filtered expenses, or leave both empty to see all
-                        </td>
-                    </tr>
-                `;
-                totalUSD.textContent = '$0.00';
-                totalPKR.textContent = '₨0.00';
-                return;
-            }
-            
-            let displayExpenses = expenses.filter(expense => {
-                // Handle both date string formats (YYYY-MM-DD and ISO)
-                let date;
-                if (expense.date.includes('T')) {
-                    date = new Date(expense.date);
-                } else {
-                    // For YYYY-MM-DD format, create date without timezone issues
-                    const [year, month, day] = expense.date.split('-');
-                    date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-                }
-                
-                const monthMatch = date.getMonth() == selectedMonth;
-                const yearMatch = date.getFullYear() == selectedYear;
-                const dayMatch = selectedDay === '' || date.getDate() == selectedDay;
-                return monthMatch && yearMatch && dayMatch;
-            });
-            
-            // Create appropriate message based on selection
-            let periodDescription = '';
-            let titleText = '';
-            if (selectedDay !== '') {
-                const dayName = new Date(selectedYear, selectedMonth, selectedDay).toLocaleDateString('en-US', { weekday: 'long' });
-                periodDescription = `${dayName}, ${new Date(selectedYear, selectedMonth, selectedDay).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
-                titleText = 'Daily Expense Report';
-            } else {
-                periodDescription = new Date(selectedYear, selectedMonth).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-                titleText = 'Monthly Expense Report';
-            }
-            
-            // Update the spreadsheet title
-            document.getElementById('spreadsheetTitle').textContent = titleText;
-            
-            if (displayExpenses.length === 0) {
-                expenseTableBody.innerHTML = `
-                    <tr>
-                        <td colspan="6" class="border border-gray-300 px-4 py-8 text-center text-gray-500">
-                            No expenses found for ${periodDescription}
-                        </td>
-                    </tr>
-                `;
-                totalUSD.textContent = '$0.00';
-                totalPKR.textContent = '₨0.00';
-                return;
-            }
-            
-            const sortedExpenses = [...displayExpenses].sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            expenseTableBody.innerHTML = sortedExpenses.map(expense => {
-                let usdAmount = '-';
-                let pkrAmount = '-';
-                
-                if (expense.currency === 'USD') {
-                    usdAmount = formatCurrency(expense.amount, 'USD');
-                    // If there's a converted PKR amount, use it
-                    if (expense.convertedAmount && expense.convertedCurrency === 'PKR') {
-                        pkrAmount = formatCurrency(expense.convertedAmount, 'PKR');
-                    }
-                } else if (expense.currency === 'PKR') {
-                    pkrAmount = formatCurrency(expense.amount, 'PKR');
-                    // If there's a converted USD amount, use it
-                    if (expense.convertedAmount && expense.convertedCurrency === 'USD') {
-                        usdAmount = formatCurrency(expense.convertedAmount, 'USD');
-                    }
-                }
-                
-                return `
-                    <tr class="hover:bg-gray-50">
-                        <td class="border border-gray-300 px-2 md:px-4 py-2 text-xs md:text-sm">${(() => {
-                            // Handle both date string formats (YYYY-MM-DD and ISO)
-                            let date;
-                            if (expense.date.includes('T')) {
-                                date = new Date(expense.date);
-                            } else {
-                                const [year, month, day] = expense.date.split('-');
-                                date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-                            }
-                            return formatDateForTable(date);
-                        })()}</td>
-                        <td class="border border-gray-300 px-2 md:px-4 py-2 text-xs md:text-sm">
-                            <div class="truncate max-w-[120px] md:max-w-none" title="${expense.description}">${expense.description}</div>
-                        </td>
-                        <td class="border border-gray-300 px-2 md:px-4 py-2 text-xs md:text-sm">
-                            <span class="inline-flex items-center">
-                                <span class="mr-1">${categoryEmojis[expense.category]}</span>
-                                <span class="hidden sm:inline">${categoryNames[expense.category]}</span>
-                            </span>
-                        </td>
-                        <td class="border border-gray-300 px-2 md:px-4 py-2 text-right text-xs md:text-sm">${usdAmount}</td>
-                        <td class="border border-gray-300 px-2 md:px-4 py-2 text-right text-xs md:text-sm">${pkrAmount}</td>
-                        <td class="border border-gray-300 px-2 md:px-4 py-2 text-center">
-                            <button onclick="deleteExpenseFromTable(${expense.id})" class="text-red-500 hover:text-red-700 transition duration-200 p-1 rounded hover:bg-red-50" title="Delete expense">
-                                <svg class="w-3 md:w-4 h-3 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                </svg>
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-            
-            let usdTotal = 0;
-            let pkrTotal = 0;
-            
-            displayExpenses.forEach(expense => {
-                if (expense.currency === 'USD') {
-                    usdTotal += expense.amount;
-                    // Add converted PKR amount if available
-                    if (expense.convertedAmount && expense.convertedCurrency === 'PKR') {
-                        pkrTotal += expense.convertedAmount;
-                    }
-                } else if (expense.currency === 'PKR') {
-                    pkrTotal += expense.amount;
-                    // Add converted USD amount if available
-                    if (expense.convertedAmount && expense.convertedCurrency === 'USD') {
-                        usdTotal += expense.convertedAmount;
-                    }
-                }
-            });
-            
-            totalUSD.textContent = formatCurrency(usdTotal, 'USD');
-            totalPKR.textContent = formatCurrency(pkrTotal, 'PKR');
-        }
+/* ============ EXPORT / IMPORT ============ */
+function downloadBlob(content, filename, type){
+  var blob = new Blob([content], {type:type});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a'); a.href=url; a.download=filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+}
+function exportCsv(){
+  var base = state.settings.baseCurrency;
+  var rows = [['Date','Description','Category','Amount','Currency','Amount ('+base+')','Notes']];
+  state.expenses.slice().sort(function(a,b){return a.date.localeCompare(b.date);}).forEach(function(e){
+    var c = toBase(e.amount, e.currency);
+    rows.push([e.date, e.description, catInfo(e.category).label, e.amount, e.currency, c!=null?c.toFixed(2):'', e.notes||'']);
+  });
+  var csv = rows.map(function(r){
+    return r.map(function(v){
+      var s = String(v==null?'':v);
+      return /[",\n]/.test(s) ? '"'+s.replace(/"/g,'""')+'"' : s;
+    }).join(',');
+  }).join('\n');
+  downloadBlob(csv, 'expenses-'+todayStr()+'.csv', 'text/csv');
+  showToast('📥 CSV exported');
+}
+function exportJson(){
+  downloadBlob(JSON.stringify(state, null, 2), 'ledger-backup-'+todayStr()+'.json', 'application/json');
+  showToast('📦 Backup downloaded');
+}
+function importJsonFile(file){
+  var reader = new FileReader();
+  reader.onload = function(){
+    try{
+      var parsed = JSON.parse(reader.result);
+      if(!parsed || !Array.isArray(parsed.expenses)) throw new Error('bad shape');
+      if(!confirm('This will replace all current data with the backup file. Continue?')) return;
+      var d = defaultState();
+      state = {
+        settings: Object.assign({}, d.settings, parsed.settings||{}),
+        expenses: parsed.expenses,
+        recurring: Array.isArray(parsed.recurring) ? parsed.recurring : [],
+        ratesCache: parsed.ratesCache || null
+      };
+      saveState();
+      syncPickersToState();
+      renderAll();
+      ensureRates(false);
+      showToast('✅ Backup restored');
+    }catch(e){ alert('Could not read this file — is it a Ledger backup JSON?'); }
+  };
+  reader.readAsText(file);
+}
+function syncPickersToState(){
+  var base = state.settings.baseCurrency;
+  if(pickers.baseCurrency) pickers.baseCurrency.set(base);
+  if(pickers.expCurrency) pickers.expCurrency.set(base);
+  if(pickers.cvFrom) pickers.cvFrom.set(base);
+  if(pickers.recCurrency) pickers.recCurrency.set(base);
+}
 
-        function renderAnalytics() {
-            if (expenses.length === 0) {
-                document.getElementById('avgDaily').textContent = '$0.00';
-                document.getElementById('highestCategory').textContent = '-';
-                document.getElementById('mostFrequent').textContent = '-';
-                document.getElementById('daysActive').textContent = '0';
-                document.getElementById('categoryChart').innerHTML = '<p class="text-gray-500">No data to display</p>';
-                document.getElementById('monthlyTrend').innerHTML = '<p class="text-gray-500">No data to display</p>';
-                return;
-            }
+/* ============ RENDER ALL ============ */
+function renderAll(){
+  renderTicker();
+  renderDashboard();
+  renderExpenseList();
+  if(document.getElementById('view-analytics').classList.contains('active')) renderAnalytics();
+  renderSettings();
+}
 
-            // Calculate analytics - separate by currency
-            const totalDays = Math.ceil((new Date() - new Date(Math.min(...expenses.map(e => new Date(e.date))))) / (1000 * 60 * 60 * 24)) || 1;
-            
-            // Calculate totals by currency
-            const usdTotal = expenses.filter(e => e.currency === 'USD').reduce((sum, e) => sum + e.amount, 0);
-            const pkrTotal = expenses.filter(e => e.currency === 'PKR').reduce((sum, e) => sum + e.amount, 0);
-            
-            // Show average daily in mixed format if both currencies exist
-            let avgDailyText;
-            if (usdTotal > 0 && pkrTotal > 0) {
-                const avgUSD = usdTotal / totalDays;
-                const avgPKR = pkrTotal / totalDays;
-                avgDailyText = `${formatCurrency(avgUSD, 'USD')} + ${formatCurrency(avgPKR, 'PKR')}`;
-            } else if (pkrTotal > 0) {
-                avgDailyText = formatCurrency(pkrTotal / totalDays, 'PKR');
-            } else {
-                avgDailyText = formatCurrency(usdTotal / totalDays, 'USD');
-            }
+/* ============ INIT ============ */
+function applyTheme(){
+  document.documentElement.setAttribute('data-theme', state.settings.theme);
+  document.getElementById('themeToggle').textContent = state.settings.theme==='dark' ? '🌙' : '☀️';
+}
 
-            // Category analysis - separate by currency
-            const categoryTotalsUSD = {};
-            const categoryTotalsPKR = {};
-            const categoryCounts = {};
-            
-            expenses.forEach(expense => {
-                if (expense.currency === 'USD') {
-                    categoryTotalsUSD[expense.category] = (categoryTotalsUSD[expense.category] || 0) + expense.amount;
-                } else if (expense.currency === 'PKR') {
-                    categoryTotalsPKR[expense.category] = (categoryTotalsPKR[expense.category] || 0) + expense.amount;
-                }
-                categoryCounts[expense.category] = (categoryCounts[expense.category] || 0) + 1;
-            });
+function wireEvents(){
+  document.querySelectorAll('#tabs button').forEach(function(b){
+    b.addEventListener('click', function(){ switchTab(b.dataset.tab); });
+  });
+  document.getElementById('themeToggle').addEventListener('click', function(){
+    state.settings.theme = state.settings.theme==='dark' ? 'light' : 'dark';
+    applyTheme(); saveState(); renderAnalytics();
+  });
+  document.getElementById('themeDarkBtn').addEventListener('click', function(){ state.settings.theme='dark'; applyTheme(); saveState(); renderSettings(); renderAnalytics(); });
+  document.getElementById('themeLightBtn').addEventListener('click', function(){ state.settings.theme='light'; applyTheme(); saveState(); renderSettings(); renderAnalytics(); });
 
-            // Find highest category by converting to USD for comparison only
-            const categoryTotalsForComparison = {};
-            Object.keys(categoryTotalsUSD).forEach(cat => {
-                categoryTotalsForComparison[cat] = (categoryTotalsForComparison[cat] || 0) + categoryTotalsUSD[cat];
-            });
-            Object.keys(categoryTotalsPKR).forEach(cat => {
-                categoryTotalsForComparison[cat] = (categoryTotalsForComparison[cat] || 0) + (categoryTotalsPKR[cat] / exchangeRate);
-            });
+  document.getElementById('addBtn').addEventListener('click', function(){ openExpenseModal(null); });
+  document.getElementById('addBtn2').addEventListener('click', function(){ openExpenseModal(null); });
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  modal.addEventListener('click', function(ev){ if(ev.target===modal) closeModal(); });
 
-            const highestCategory = Object.keys(categoryTotalsForComparison).reduce((a, b) => 
-                categoryTotalsForComparison[a] > categoryTotalsForComparison[b] ? a : b, Object.keys(categoryTotalsForComparison)[0]);
-            const mostFrequent = Object.keys(categoryCounts).reduce((a, b) => 
-                categoryCounts[a] > categoryCounts[b] ? a : b, Object.keys(categoryCounts)[0]);
+  document.getElementById('expAmount').addEventListener('input', updateConvertPreview);
 
-            const uniqueDays = new Set(expenses.map(e => new Date(e.date).toDateString())).size;
+  expForm.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    var id = document.getElementById('expId').value;
+    var payload = {
+      description: document.getElementById('expDesc').value.trim(),
+      amount: parseFloat(document.getElementById('expAmount').value),
+      currency: pickers.expCurrency.get(),
+      date: document.getElementById('expDate').value,
+      category: document.getElementById('expCategory').value,
+      notes: document.getElementById('expNotes').value.trim()
+    };
+    if(!payload.description || !payload.amount || payload.amount<=0 || !payload.date){
+      showToast('⚠️ Please fill in description, amount and date'); return;
+    }
+    if(id){
+      var existing = state.expenses.find(function(e){return e.id===id;});
+      Object.assign(existing, payload);
+    } else {
+      payload.id = uid(); payload.recurringId=null; payload.createdAt=Date.now();
+      state.expenses.push(payload);
+    }
+    saveState(); closeModal(); renderAll(); showToast(id?'✅ Expense updated':'✅ Expense added');
+  });
 
-            // Update analytics cards
-            document.getElementById('avgDaily').innerHTML = `<div class="text-xl font-bold">${avgDailyText}</div>`;
-            document.getElementById('highestCategory').textContent = categoryEmojis[highestCategory] + ' ' + categoryNames[highestCategory];
-            document.getElementById('mostFrequent').textContent = categoryEmojis[mostFrequent] + ' ' + categoryNames[mostFrequent];
-            document.getElementById('daysActive').textContent = uniqueDays;
+  ['fSearch','fCategory','fCurrency','fMonth','fSort'].forEach(function(id){
+    document.getElementById(id).addEventListener('input', renderExpenseList);
+    document.getElementById(id).addEventListener('change', renderExpenseList);
+  });
 
-            // Render category chart with mixed currencies
-            const allCategories = new Set([...Object.keys(categoryTotalsUSD), ...Object.keys(categoryTotalsPKR)]);
-            const maxAmountUSD = Math.max(...Object.values(categoryTotalsForComparison), 1);
-            
-            const categoryChart = document.getElementById('categoryChart');
-            categoryChart.innerHTML = Array.from(allCategories)
-                .map(category => {
-                    const usdAmount = categoryTotalsUSD[category] || 0;
-                    const pkrAmount = categoryTotalsPKR[category] || 0;
-                    const comparisonAmount = categoryTotalsForComparison[category] || 0;
-                    const percentage = (comparisonAmount / maxAmountUSD) * 100;
-                    
-                    let amountDisplay = '';
-                    if (usdAmount > 0 && pkrAmount > 0) {
-                        amountDisplay = `${formatCurrency(usdAmount, 'USD')} + ${formatCurrency(pkrAmount, 'PKR')}`;
-                    } else if (pkrAmount > 0) {
-                        amountDisplay = formatCurrency(pkrAmount, 'PKR');
-                    } else {
-                        amountDisplay = formatCurrency(usdAmount, 'USD');
-                    }
-                    
-                    return {
-                        category,
-                        amount: comparisonAmount,
-                        display: amountDisplay,
-                        percentage
-                    };
-                })
-                .sort((a, b) => b.amount - a.amount)
-                .map(({category, display, percentage}) => `
-                    <div class="flex items-center justify-between mb-2">
-                        <div class="flex items-center space-x-2 flex-1">
-                            <span>${categoryEmojis[category]}</span>
-                            <span class="text-sm">${categoryNames[category]}</span>
-                        </div>
-                        <div class="flex items-center space-x-2 flex-1">
-                            <div class="bg-gray-200 rounded-full h-2 flex-1">
-                                <div class="bg-teal-600 h-2 rounded-full" style="width: ${percentage}%"></div>
-                            </div>
-                            <span class="text-sm font-medium text-right" style="min-width: 120px;">${display}</span>
-                        </div>
-                    </div>
-                `).join('');
+  document.getElementById('exportCsv').addEventListener('click', exportCsv);
+  document.getElementById('exportJson').addEventListener('click', exportJson);
+  document.getElementById('exportJson2').addEventListener('click', exportJson);
+  document.getElementById('importJson').addEventListener('change', function(ev){ if(ev.target.files[0]) importJsonFile(ev.target.files[0]); ev.target.value=''; });
+  document.getElementById('importJson2').addEventListener('change', function(ev){ if(ev.target.files[0]) importJsonFile(ev.target.files[0]); ev.target.value=''; });
 
-            // Render monthly trend with mixed currencies
-            const monthlyTotalsUSD = {};
-            const monthlyTotalsPKR = {};
-            const monthlyTotalsForComparison = {};
-            
-            expenses.forEach(expense => {
-                // Handle both date string formats (YYYY-MM-DD and ISO)
-                let date;
-                if (expense.date.includes('T')) {
-                    date = new Date(expense.date);
-                } else {
-                    // For YYYY-MM-DD format, create date without timezone issues
-                    const [year, month, day] = expense.date.split('-');
-                    date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-                }
-                
-                const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
-                
-                if (expense.currency === 'USD') {
-                    monthlyTotalsUSD[monthKey] = (monthlyTotalsUSD[monthKey] || 0) + expense.amount;
-                    monthlyTotalsForComparison[monthKey] = (monthlyTotalsForComparison[monthKey] || 0) + expense.amount;
-                } else if (expense.currency === 'PKR') {
-                    monthlyTotalsPKR[monthKey] = (monthlyTotalsPKR[monthKey] || 0) + expense.amount;
-                    monthlyTotalsForComparison[monthKey] = (monthlyTotalsForComparison[monthKey] || 0) + (expense.amount / exchangeRate);
-                }
-            });
+  document.getElementById('clearAllBtn').addEventListener('click', function(){
+    if(!confirm('This will permanently delete all expenses, budgets and recurring templates from this browser. Continue?')) return;
+    if(!confirm('Are you absolutely sure? This cannot be undone.')) return;
+    state = defaultState();
+    saveState(); applyTheme(); syncPickersToState(); renderAll(); ensureRates(true);
+    showToast('All data cleared');
+  });
 
-            const monthlyTrend = document.getElementById('monthlyTrend');
-            const maxMonthly = Math.max(...Object.values(monthlyTotalsForComparison), 1);
-            
-            const allMonths = new Set([...Object.keys(monthlyTotalsUSD), ...Object.keys(monthlyTotalsPKR)]);
-            
-            monthlyTrend.innerHTML = Array.from(allMonths)
-                .sort((a, b) => a.localeCompare(b))
-                .slice(-6) // Show last 6 months
-                .map(month => {
-                    const usdAmount = monthlyTotalsUSD[month] || 0;
-                    const pkrAmount = monthlyTotalsPKR[month] || 0;
-                    const comparisonAmount = monthlyTotalsForComparison[month] || 0;
-                    const percentage = (comparisonAmount / maxMonthly) * 100;
-                    
-                    let amountDisplay = '';
-                    if (usdAmount > 0 && pkrAmount > 0) {
-                        amountDisplay = `${formatCurrency(usdAmount, 'USD')} + ${formatCurrency(pkrAmount, 'PKR')}`;
-                    } else if (pkrAmount > 0) {
-                        amountDisplay = formatCurrency(pkrAmount, 'PKR');
-                    } else {
-                        amountDisplay = formatCurrency(usdAmount, 'USD');
-                    }
-                    
-                    const [year, monthNum] = month.split('-');
-                    const monthName = new Date(year, monthNum - 1).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
-                    
-                    return `
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm w-20">${monthName}</span>
-                            <div class="flex items-center space-x-2 flex-1">
-                                <div class="bg-gray-200 rounded-full h-2 flex-1">
-                                    <div class="bg-teal-600 h-2 rounded-full" style="width: ${percentage}%"></div>
-                                </div>
-                                <span class="text-sm font-medium text-right" style="min-width: 120px;">${amountDisplay}</span>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-        }
+  document.getElementById('cvAmount').addEventListener('input', renderConverter);
+  document.getElementById('cvSwap').addEventListener('click', function(){
+    var f = pickers.cvFrom.get(), t = pickers.cvTo.get();
+    pickers.cvFrom.set(t); pickers.cvTo.set(f); renderConverter();
+  });
 
-        function updateSummary() {
-            const currentMonth = new Date().getMonth();
-            const currentYear = new Date().getFullYear();
-            const monthlyExpenses = expenses.filter(expense => {
-                // Handle both date string formats (YYYY-MM-DD and ISO)
-                let date;
-                if (expense.date.includes('T')) {
-                    date = new Date(expense.date);
-                } else {
-                    // For YYYY-MM-DD format, create date without timezone issues
-                    const [year, month, day] = expense.date.split('-');
-                    date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-                }
-                return date.getMonth() === currentMonth && date.getFullYear() === currentYear;
-            });
+  document.getElementById('recAdd').addEventListener('click', function(){
+    var desc = document.getElementById('recDesc').value.trim();
+    var amount = parseFloat(document.getElementById('recAmount').value);
+    var currency = pickers.recCurrency.get();
+    var category = document.getElementById('recCategory').value;
+    var day = parseInt(document.getElementById('recDay').value,10) || 1;
+    if(!desc || !amount || amount<=0){ showToast('⚠️ Enter a description and amount'); return; }
+    state.recurring.push({ id:uid(), description:desc, amount:amount, currency:currency, category:category, dayOfMonth:Math.min(Math.max(day,1),28) });
+    saveState();
+    document.getElementById('recDesc').value=''; document.getElementById('recAmount').value='';
+    renderAll(); showToast('✅ Recurring template added');
+  });
 
-            totalAmount.textContent = formatMixedCurrencies(expenses);
-            monthlyAmount.textContent = formatMixedCurrencies(monthlyExpenses);
-            
-            // Update monthly entries display - show current month count
-            const monthlyEntriesDiv = document.getElementById('monthlyEntries');
-            const currentMonthCount = monthlyExpenses.length;
-            const currentMonthName = new Date().toLocaleDateString('en-US', { month: 'long' });
-            
-            monthlyEntriesDiv.innerHTML = `
-                <p class="text-2xl font-bold text-blue-500">${currentMonthCount}</p>
-                <p class="text-xs text-gray-500">${currentMonthName}</p>
-            `;
-        }
+  document.getElementById('repMonth').addEventListener('change', renderMonthlyReport);
+}
 
-        function renderExpenses() {
-            const displayExpenses = filteredExpenses.length > 0 ? filteredExpenses : expenses;
-            
-            if (displayExpenses.length === 0) {
-                const message = filteredExpenses.length === 0 && expenses.length > 0 
-                    ? 'No expenses match your search criteria.' 
-                    : 'No expenses yet. Add your first expense above!';
-                    
-                expenseList.innerHTML = `
-                    <div class="text-center py-8 text-gray-500">
-                        <div class="text-4xl mb-2">📋</div>
-                        <p>${message}</p>
-                    </div>
-                `;
-                return;
-            }
+function init(){
+  initModalRefs();
+  applyTheme();
 
-            const sortedExpenses = [...displayExpenses].sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            // Group expenses by month and year
-            const groupedExpenses = {};
-            sortedExpenses.forEach(expense => {
-                // Handle both date string formats (YYYY-MM-DD and ISO)
-                let date;
-                if (expense.date.includes('T')) {
-                    date = new Date(expense.date);
-                } else {
-                    // For YYYY-MM-DD format, create date without timezone issues
-                    const [year, month, day] = expense.date.split('-');
-                    date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-                }
-                
-                const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
-                const monthLabel = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-                
-                if (!groupedExpenses[monthKey]) {
-                    groupedExpenses[monthKey] = {
-                        label: monthLabel,
-                        expenses: [],
-                        totalUSD: 0,
-                        totalPKR: 0
-                    };
-                }
-                
-                groupedExpenses[monthKey].expenses.push(expense);
-                
-                // Calculate monthly totals
-                if (expense.currency === 'USD') {
-                    groupedExpenses[monthKey].totalUSD += expense.amount;
-                } else if (expense.currency === 'PKR') {
-                    groupedExpenses[monthKey].totalPKR += expense.amount;
-                }
-            });
-            
-            // Sort months in descending order (newest first)
-            const sortedMonths = Object.keys(groupedExpenses).sort((a, b) => b.localeCompare(a));
-            
-            expenseList.innerHTML = sortedMonths.map(monthKey => {
-                const monthData = groupedExpenses[monthKey];
-                
-                // Format monthly total
-                let monthlyTotal = '';
-                if (monthData.totalUSD > 0 && monthData.totalPKR > 0) {
-                    monthlyTotal = `${formatCurrency(monthData.totalUSD, 'USD')} + ${formatCurrency(monthData.totalPKR, 'PKR')}`;
-                } else if (monthData.totalPKR > 0) {
-                    monthlyTotal = formatCurrency(monthData.totalPKR, 'PKR');
-                } else {
-                    monthlyTotal = formatCurrency(monthData.totalUSD, 'USD');
-                }
-                
-                const expensesHtml = monthData.expenses.map(expense => {
-                    let amountDisplay = formatCurrency(expense.amount, expense.currency || 'USD');
-                    
-                    // If there's a converted amount, show both currencies
-                    if (expense.convertedAmount && expense.convertedCurrency) {
-                        const convertedDisplay = formatCurrency(expense.convertedAmount, expense.convertedCurrency);
-                        amountDisplay = `
-                            <div class="text-right">
-                                <div class="text-lg font-bold text-gray-800">${formatCurrency(expense.amount, expense.currency)}</div>
-                                <div class="text-sm text-gray-600">(${convertedDisplay})</div>
-                            </div>
-                        `;
-                    } else {
-                        amountDisplay = `<span class="text-lg font-bold text-gray-800">${amountDisplay}</span>`;
-                    }
-                    
-                    return `
-                        <div class="expense-item category-${expense.category} rounded-lg p-3 md:p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 gap-2 sm:gap-0">
-                            <div class="flex items-center space-x-3 flex-1 min-w-0">
-                                <div class="text-xl md:text-2xl flex-shrink-0">${categoryEmojis[expense.category]}</div>
-                                <div class="min-w-0 flex-1">
-                                    <h3 class="font-semibold text-gray-800 text-sm md:text-base truncate">${expense.description}</h3>
-                                    <p class="text-xs md:text-sm text-gray-600">${categoryNames[expense.category]} • ${(() => {
-                                        // Handle both date string formats (YYYY-MM-DD and ISO)
-                                        let date;
-                                        if (expense.date.includes('T')) {
-                                            date = new Date(expense.date);
-                                        } else {
-                                            const [year, month, day] = expense.date.split('-');
-                                            date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-                                        }
-                                        return formatDate(date);
-                                    })()}</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-between sm:justify-end space-x-3 w-full sm:w-auto">
-                                <div class="flex-1 sm:flex-none">
-                                    ${amountDisplay}
-                                </div>
-                                <button onclick="deleteExpense(${expense.id})" class="text-red-500 hover:text-red-700 transition duration-200 flex-shrink-0 p-1">
-                                    <svg class="w-4 md:w-5 h-4 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-                
-                return `
-                    <div class="mb-6 md:mb-8">
-                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 md:mb-4 pb-2 border-b-2 border-teal-200 gap-2">
-                            <h3 class="text-lg md:text-xl font-bold text-gray-800 flex items-center">
-                                <span class="mr-2">📅</span>
-                                ${monthData.label}
-                            </h3>
-                            <div class="text-left sm:text-right">
-                                <div class="text-xs md:text-sm text-gray-600">Monthly Total</div>
-                                <div class="text-base md:text-lg font-bold text-teal-600">${monthlyTotal}</div>
-                                <div class="text-xs text-gray-500">${monthData.expenses.length} expense${monthData.expenses.length !== 1 ? 's' : ''}</div>
-                            </div>
-                        </div>
-                        <div class="space-y-0">
-                            ${expensesHtml}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
+  pickers.expCurrency = buildCurrencyPicker('expCurrency', { value: state.settings.baseCurrency, onChange: updateConvertPreview });
+  pickers.cvFrom = buildCurrencyPicker('cvFrom', { value: state.settings.baseCurrency, onChange: renderConverter });
+  pickers.cvTo = buildCurrencyPicker('cvTo', { value: state.settings.baseCurrency==='EUR' ? 'USD' : 'EUR', onChange: renderConverter });
+  pickers.recCurrency = buildCurrencyPicker('recCurrency', { value: state.settings.baseCurrency });
+  pickers.baseCurrency = buildCurrencyPicker('baseCurrencySelect', { value: state.settings.baseCurrency, onChange: function(code){
+    state.settings.baseCurrency = code;
+    saveState();
+    if(pickers.expCurrency) pickers.expCurrency.set(code);
+    if(pickers.cvFrom) pickers.cvFrom.set(code);
+    if(pickers.recCurrency) pickers.recCurrency.set(code);
+    ensureRates(true);
+  }});
+  fillCategorySelect(document.getElementById('expCategory'), 'other', false);
+  fillCategorySelect(document.getElementById('fCategory'), '', true);
+  fillCategorySelect(document.getElementById('recCategory'), 'other', false);
+  document.getElementById('expDate').value = todayStr();
 
-        function addExpense(description, amount, category, currency, date, convertedAmount = null, convertedCurrency = null) {
-            const expense = {
-                id: Date.now(),
-                description,
-                amount: parseFloat(amount),
-                category,
-                currency,
-                date: date || new Date().toISOString().split('T')[0],
-                convertedAmount: convertedAmount ? parseFloat(convertedAmount) : null,
-                convertedCurrency: convertedCurrency || null,
-                version: 1,
-                lastModified: Date.now()
-            };
-            
-            expenses.push(expense);
-            localStorage.setItem('expenses', JSON.stringify(expenses));
-            
-            // Sync to cloud
-            syncExpenseToCloud(expense, 'add');
-            
-            console.log('✅ Added expense:', expense);
-            console.log('📊 Total expenses now:', expenses.length);
-            
-            // Update all views
-            renderExpenses();
-            updateSummary();
-            populateFilters();
-            
-            // Refresh current view
-            if (currentView === 'spreadsheet') {
-                renderSpreadsheet();
-            } else if (currentView === 'analytics') {
-                renderAnalytics();
-            }
-        }
+  wireEvents();
+  renderAll();
+  ensureRates(false);
+}
 
-        function deleteExpense(id) {
-            const expenseToDelete = expenses.find(e => e.id === id);
-            if (expenseToDelete) {
-                expenses = expenses.filter(expense => expense.id !== id);
-                localStorage.setItem('expenses', JSON.stringify(expenses));
-                
-                // Sync deletion to cloud
-                syncExpenseToCloud(expenseToDelete, 'delete');
-                
-                console.log('🗑️ Deleted expense:', id);
-                
-                renderExpenses();
-                updateSummary();
-                
-                // Refresh current view
-                if (currentView === 'spreadsheet') {
-                    renderSpreadsheet();
-                } else if (currentView === 'analytics') {
-                    renderAnalytics();
-                }
-            }
-        }
+if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', init); }
+else { init(); }
 
-        function deleteExpenseFromTable(id) {
-            if (confirm('Are you sure you want to delete this expense?')) {
-                const expenseToDelete = expenses.find(e => e.id === id);
-                if (expenseToDelete) {
-                    expenses = expenses.filter(expense => expense.id !== id);
-                    localStorage.setItem('expenses', JSON.stringify(expenses));
-                    
-                    // Sync deletion to cloud
-                    syncExpenseToCloud(expenseToDelete, 'delete');
-                    
-                    console.log('🗑️ Deleted expense from table:', id);
-                    
-                    renderSpreadsheet();
-                    updateSummary();
-                    
-                    // Also update list view if user switches back
-                    renderExpenses();
-                    
-                    // Update analytics if in that view
-                    if (currentView === 'analytics') {
-                        renderAnalytics();
-                    }
-                }
-            }
-        }
-
-        function clearAllExpenses() {
-            if (expenses.length === 0) return;
-            
-            const expenseCount = expenses.length;
-            
-            if (confirm(`Are you sure you want to delete all ${expenseCount} expenses? This action cannot be undone.`)) {
-                updateSyncStatus('syncing', `Deleting ${expenseCount} expenses...`);
-                
-                // Sync all deletions to cloud
-                expenses.forEach(expense => {
-                    syncExpenseToCloud(expense, 'delete');
-                });
-                
-                expenses = [];
-                localStorage.setItem('expenses', JSON.stringify(expenses));
-                
-                console.log(`🗑️ Cleared all ${expenseCount} expenses`);
-                
-                renderExpenses();
-                updateSummary();
-                populateFilters();
-                
-                // Refresh current view
-                if (currentView === 'spreadsheet') {
-                    renderSpreadsheet();
-                } else if (currentView === 'analytics') {
-                    renderAnalytics();
-                }
-                
-                // Show completion message
-                setTimeout(() => {
-                    if (syncQueue.length === 0) {
-                        updateSyncStatus('online', 'All expenses deleted');
-                    } else {
-                        updateSyncStatus('offline', `${syncQueue.length} deletions queued`);
-                    }
-                }, 1000);
-            }
-        }
-
-        expenseForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const description = document.getElementById('description').value.trim();
-            const amount = document.getElementById('amount').value;
-            const category = document.getElementById('category').value;
-            const currency = document.getElementById('currency').value;
-            const expenseDate = document.getElementById('expenseDate').value;
-            
-            // Check if conversion section is visible and has values
-            let convertedAmountValue = null;
-            let convertedCurrencyValue = null;
-            
-            if (!conversionSection.classList.contains('hidden') && convertedAmount.value) {
-                convertedAmountValue = convertedAmount.value;
-                convertedCurrencyValue = convertedCurrency.textContent;
-            }
-            
-            if (description && amount && category && currency && expenseDate) {
-                // Use the date string directly to avoid timezone issues
-                console.log('Creating expense with date:', expenseDate);
-                addExpense(description, amount, category, currency, expenseDate, convertedAmountValue, convertedCurrencyValue);
-                expenseForm.reset();
-                
-                // Reset conversion tracking
-                lastConvertedAmount = null;
-                lastConvertedCurrency = null;
-                conversionHint.textContent = '';
-                conversionSection.classList.add('hidden');
-                
-                // Set today's date as default
-                document.getElementById('expenseDate').value = new Date().toISOString().split('T')[0];
-                
-                // Show success feedback
-                const submitBtn = expenseForm.querySelector('button[type="submit"]');
-                const originalText = submitBtn.textContent;
-                submitBtn.textContent = 'Added! ✓';
-                submitBtn.classList.add('bg-green-600');
-                submitBtn.classList.remove('bg-teal-600');
-                
-                setTimeout(() => {
-                    submitBtn.textContent = originalText;
-                    submitBtn.classList.remove('bg-green-600');
-                    submitBtn.classList.add('bg-teal-600');
-                }, 1500);
-            }
-        });
-
-        // Event listeners
-        clearAllBtn.addEventListener('click', clearAllExpenses);
-        listViewBtn.addEventListener('click', switchToListView);
-        spreadsheetViewBtn.addEventListener('click', switchToSpreadsheetView);
-        analyticsViewBtn.addEventListener('click', switchToAnalyticsView);
-        monthFilter.addEventListener('change', () => {
-            populateDayFilter();
-            renderSpreadsheet();
-        });
-        yearFilter.addEventListener('change', () => {
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9884603296ce0890',t:'MTc1OTQwOTk1NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+})();
+</script>
+</body>
+</html>
