@@ -39,7 +39,7 @@
 }
 *{box-sizing:border-box;}
 html{-webkit-text-size-adjust:100%;}
-html,body{ overflow-x:hidden; width:100%; }
+html,body{ width:100%; }
 body.modal-open{ overflow:hidden; height:100vh; }
 body{
   margin:0; background:var(--bg); color:var(--ink);
@@ -126,7 +126,7 @@ nav.tabs button.active{ color:var(--accent); border-bottom-color:var(--accent); 
   nav.tabs button{ flex:none; padding:12px 18px; }
 }
 
-main{ max-width:1080px; margin:0 auto; padding:18px 16px 40px; }
+main{ max-width:1080px; margin:0 auto; padding:18px 16px 40px; overflow-x:hidden; }
 section.view{ display:none; }
 section.view.active{ display:block; animation:fadeIn .25s ease; }
 @keyframes fadeIn{ from{ opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;} }
@@ -1518,6 +1518,14 @@ function init(){
 
 if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', init); }
 else { init(); }
+
+if('serviceWorker' in navigator){
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('./sw.js').catch(function(err){
+      console.warn('Service worker registration failed (app still works, just without guaranteed offline loading on a totally fresh visit):', err);
+    });
+  });
+}
 
 })();
 </script>
